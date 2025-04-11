@@ -5,6 +5,7 @@ import 'swiper/css';
 
 import translations from '@/translations/translations.json'
 const props = defineProps(['suggestions'])
+const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
 </script>
         
 
@@ -27,7 +28,7 @@ const props = defineProps(['suggestions'])
             >
             <div class="h-[480px] mt-10 flex justify-center">
                 <div class="h-[120px] w-[125%] absolute top-6 flex items-center justify-center">
-                    <img :src="`/images/${slide.imageUrl}`" :alt="slide.car" class="">
+                    <img :src="`${assetBaseUrl}/images/${slide.imageUrl}`" :alt="slide.car" class="">
                 </div>
                 <div class="bg-blue h-[410px] w-full rounded-3xl flex flex-col mt-10 pt-16">
                     <div>
