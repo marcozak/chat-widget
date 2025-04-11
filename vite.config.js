@@ -8,9 +8,7 @@ import copy from 'rollup-plugin-copy'
 export default defineConfig({
   base: './',
   define: {
-    'process.env': {
-      VITE_API_BASE_URL: JSON.stringify(process.env.VITE_API_BASE_URL)
-    }
+    'process.env': {}
   },  
   plugins: [
     vue(),
