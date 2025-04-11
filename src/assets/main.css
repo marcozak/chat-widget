@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'PeugeotNew';
+    src: url('@/assets/fonts/PeugeotNew-Regular.ttf') format('truetype')
+  }
+  @font-face {
+    font-family: 'PeugeotNewBold';
+    src: url('@/assets/fonts/PeugeotNew-Bold.ttf') format('truetype')
+  }
+  /* ... Include all the font weights and styles you need */
+}
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
+
+

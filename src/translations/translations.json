@@ -1,0 +1,380 @@
+{
+  "Menu": {
+    "label": "Menu",
+    "titleWhite": "bonjour,",
+    "titleBlue": "Comment puis-je vous aider ?",
+    "subTitle": "Je suis Electric Genius, votre assistant digital. Vous avez des questions concernant l’achat d’un véhicule électrique ? Je suis là pour y répondre.",
+    "legalNotice": "Electric Genius utilise un algorithme d'IA générative pour répondre à vos questions. Veuillez éviter de partager des données personnelles dans le chat pour protéger votre vie privée. Pour des informations générales,",
+    "legalLinkLabel": "consultez notre politique de confidentialité.",
+    "legalLinkUrl": "https://www.peugeot.fr/tools/vie-privee.html",
+    "blocks": {
+      "0": {
+        "icon": "ThumbIcon",
+        "label": "Avantages de l'électrique"
+      },
+      "1": {
+        "icon": "BatteryIcon",
+        "label": "Autonomie"
+      },
+      "2": {
+        "icon": "SparkIcon",
+        "label": "Recharge"
+      },
+      "3": {
+        "icon": "SavingsIcon",
+        "label": "Coûts & Economies"
+      },
+      "4": {
+        "icon": "ShieldIcon",
+        "label": "Garanties & Fiabilité"
+      },
+      "5": {
+        "icon": "LeafIcon",
+        "label": "Impact environnemental"
+      }
+    },
+    "menuCTA": {
+      "icon": "PlugIcon",
+      "label": "Découvrez nos modèles électriques"
+    },
+    "blockDetails": {
+      "0": {
+        "titleWhite": "les avantages",
+        "titleBlue": "de l'électrique",
+        "subTitle": "Retrouvez tous les sujets clés autour des avantages de l'électrique.",
+        "subBlocks":{
+          "0": {
+            "title": "Une large gamme de véhicules électriques adaptés à tous les besoins",
+            "icon": "SavingsIcon"
+          },
+          "1": {
+            "title": "Economiser grâce au passage à l’électrique",
+            "icon": "LeafIcon"
+          },
+          "2": {
+            "title": "Une conduite plus sereine, silencieuse et sans vibrations",
+            "icon": "SunIcon"
+          },
+          "3": {
+            "title":"Entretien simplifié, moins coûteux et jusqu’à 8 ans de Garantie Allure Care",
+            "icon": "PlugIcon"
+          },
+          "4": {
+            "title": "Des services connectés pour faciliter la conduite et le quotidien en électrique",
+            "icon": "PlugIcon"
+          },
+          "5": {
+            "title": "Une empreinte écologique réduite au roulage",
+            "icon": "PlugIcon"
+          }
+        }
+      },
+      "1": {
+        "titleWhite": "l'autonomie",
+        "titleBlue": "électrique",
+        "subTitle": "Retrouvez tous les sujets clés autour de l'autonomie de l'électrique.",
+        "subBlocks":{
+          "0": {
+            "title": "Jusqu’à 700 km d’autonomie électrique WLTP",
+            "icon": "SavingsIcon"
+          },
+          "1": {
+            "title": "Mode Eco pour optimiser l'autonomie",
+            "icon": "LeafIcon"
+          },
+          "2": {
+            "title": "Freinage régénératif pour récupérer de l'énergie",
+            "icon": "SunIcon"
+          },
+          "3": {
+            "title": "Affichage en temps réel de l'autonomie restante",
+            "icon": "PlugIcon"
+          },
+          "4": {
+            "title": "Planification d'itinéraires optimisés avec localisation des bornes sur le trajet",
+            "icon": "PlugIcon"
+          },
+          "5": {
+            "title": "Pré-conditionnement de la climatisation ou du chauffage pour préserver l’autonomie",
+            "icon": "PlugIcon"
+          }
+        }
+      },
+      "2": {
+        "titleWhite": "la Recharge",
+        "titleBlue": "électrique",
+        "subTitle": "Retrouvez tous les sujets clés autour de la recharge électrique.",
+        "subBlocks":{
+          "0": {
+            "title": "Wallbox offerte pour l’achat d’un véhicule électrique",
+            "icon": "SavingsIcon"
+          },
+          "1": {
+            "title": "On-The-Go Charging pass offert pour l’achat d’un véhicule électrique",
+            "icon": "LeafIcon"
+          },
+          "2": {
+            "title": "Accès à plus de 800 000 points de recharge en Europe",
+            "icon": "SunIcon"
+          },
+          "3": {
+            "title": "Des solutions de recharge adaptées à tous vos besoins",
+            "icon": "PlugIcon"
+          },
+          "4": {
+            "title": "Recharge rapide : jusqu’à 100km d’autonomie en 10 min > vérifier info ",
+            "icon": "PlugIcon"
+          }
+        }
+      },
+      "3": {
+        "titleWhite": "Coûts",
+        "titleBlue": "& économies",
+        "subTitle": "Retrouvez tous les sujets clés autour des coûts et des économies de l'électrique.",
+        "subBlocks":{
+          "0": {
+            "title": "Cout d’usage jusqu'à 3x moins cher qu’un véhicule thermique",
+            "icon": "SavingsIcon"
+          },
+          "1": {
+            "title": "Bonus écologique : jusqu'à 5000€ pour un véhicule électrique neuf",
+            "icon": "LeafIcon"
+          },
+          "2": {
+            "title": "Prime à la conversion : jusqu'à 2500€ pour le remplacement d'un ancien véhicule",
+            "icon": "SunIcon"
+          },
+          "3": {
+            "title": "Entretien jusqu'à 30% moins cher",
+            "icon": "PlugIcon"
+          },
+          "4": {
+            "title": "Stationnement gratuit dans certaines villes",
+            "icon": "PlugIcon"
+          },
+          "5": {
+            "title": "Avantages fiscaux ",
+            "icon": "PlugIcon"
+          }
+        }
+      },
+      "4": {
+        "titleWhite": "Garanties",
+        "titleBlue": "& Fiabilité",
+        "subTitle": "Retrouvez tous les sujets clés autour des garanties et de la fiabilité de l'électrique.",
+        "subBlocks":{
+          "0": {
+            "title": "Garantie Peugeot Allure Care",
+            "icon": "LeafIcon"
+          },
+          "1": {
+            "title": "Jusqu'à 8 ans d’extension de garantie inclus",
+            "icon": "SavingsIcon"
+          },
+          "2": {
+            "title": "Batterie garantie jusqu'à 8 ans inclus",
+            "icon": "SunIcon"
+          },
+          "3": {
+            "title": "Entretien complet et régulier du véhicule inclus",
+            "icon": "PlugIcon"
+          },
+          "4": {
+            "title": "Couverture étendue à l’Union Européenne, Suisse et Royaume Uni (sous conditions)",
+            "icon": "PlugIcon"
+          }
+        }
+      },
+      "5": {
+        "titleWhite": "Impact",
+        "titleBlue": "Environnemental",
+        "subTitle": "Retrouvez tous les sujets clés autour de l'impact environnemental de l'électrique.",
+        "subBlocks":{
+          "0": {
+            "title": "Objectif carbone zéro d'ici 2038",
+            "icon": "SavingsIcon"
+          },
+          "1": {
+            "title": "Economie circulaire et utilisation de matériaux recyclés",
+            "icon": "LeafIcon"
+          },
+          "2": {
+            "title": "0 gramme de CO2 rejeté au roulage",
+            "icon": "SunIcon"
+          },
+          "3": {
+            "title": "Seconde vie des batteries grace au recyclable à plus de 70%",
+            "icon": "PlugIcon"
+          },
+          "4": {
+            "title": "Réduction des émissions sonores en ville",
+            "icon": "PlugIcon"
+          }
+        }
+      }
+    }
+  },
+  "inputPlaceholder": "Posez moi une question",
+  "sessionInit": "Réinitialiser ma conversation",
+  "carousel": {
+    "title": "Nos modèles électriques",
+    "buttons": {
+      "showRoomLabel":"Découvrir le modèle",
+      "configureLabel":"Configurer et voir le prix",
+      "offersLabel":"Demander une offre",
+      "testDriveLabel":"Réserver un essai"
+    },
+    "slides": {
+      "0": {
+        "car": "208",
+        "keyMessage": "DESIGN IRRESISTIBLE ET CONDUITE PLAISIR",
+        "range": "Autonomie : Jusqu'à 410 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Hybride & Essence/Diesel",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouvelle-peugeot-208.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/nouvelle-208-5-portes",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_208.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "E208.png"
+      },
+      "1": {
+        "car": "2008",
+        "keyMessage": "LE SUV IMPERTINENT ET AGILE",
+        "range": "Autonomie : Jusqu'à 406 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Hybride & Diesel",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouveau-suv-peugeot-2008.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/2008-suv",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_Nouveau_2008.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "E2008.png"
+      },
+      "2": {
+        "car": "308",
+        "keyMessage": "UNIQUE, COMME VOUS",
+        "range": "Autonomie : Jusqu'à 416 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Hybride, Hybride rechargeable & Essence/Diesel",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouvelle-308.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/308-berline",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_Nouvelle_308.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "E308.png"
+      },
+      "3": {
+        "car": "308 SW",
+        "keyMessage": "LIBRE DE TOUTE INFLUENCE",
+        "range": "Autonomie : Jusqu'à 410 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Hybride, Hybride rechargeable & Essence/Diesel",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouvelle-308-sw.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/308-sw",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_308_sw.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "E308SW.png"
+      },
+      "4": {
+        "car": "3008",
+        "keyMessage": "LA NOUVELLE GÉNÉRATION DE SUV ÉLECTRIQUE FRANÇAIS",
+        "range": "Autonomie : Jusqu'à 700 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Hybride & Hybride rechargeable",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouveau-peugeot-3008/electrique.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/nouveau-3008-suv",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_nouveau_3008.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "E3008.png"
+      },
+      "5": {
+        "car": "408",
+        "keyMessage": "ATTRACTIVE SOUS TOUS LES ANGLES",
+        "range": "Autonomie : Jusqu'à 453 km (WLTP)",
+        "additionalEnergy": "Disponible en Hybride & Hybride rechargeable",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouvelle-408.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/408-berline",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_Nouvelle_408.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "E408.png"
+      },
+      "6": {
+        "car": "5008",
+        "keyMessage": "LE GRAND SUV ÉLECTRIQUE 7 PLACES NOUVELLE GÉNÉRATION",
+        "range": "Autonomie : Jusqu'à 668 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Hybride & Hybride rechargeable",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouveau-peugeot-5008/electrique.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/nouveau-5008-suv",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_nouveau_5008.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "E5008.png"
+      },
+      "7": {
+        "car": "Rifter",
+        "keyMessage": "LE COMBISPACE PARÉ POUR L'AVENTURE",
+        "range": "Autonomie : Jusqu'à 343 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Diesel",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouveau-e-rifter.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/nouveau-rifter-taille-m",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_nouveau_rifter.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "ERIFTER.png"
+      },
+      "8": {
+        "car": "Traveller",
+        "keyMessage": "DONNEZ UN STYLE AFFIRMÉ À VOTRE ACTIVITÉ",
+        "range": "Autonomie : Jusqu'à 348 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Diesel",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouveau-e-traveller.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/nouveau-traveller-m",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_nouveau_traveller.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "ETRAVELLER.png"
+      },
+      "9": {
+        "car": "Expert",
+        "keyMessage": "DONNEZ UN STYLE AFFIRMÉ À VOTRE ACTIVITÉ",
+        "range": "Autonomie : Jusqu'à 330 km (WLTP)",
+        "additionalEnergy": "",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouveau-e-expert.html",
+        "configureUrl": "",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_nouveau_expert.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "EEXPERT.png"
+      },
+      "10": {
+        "car": "Expert Combi",
+        "keyMessage": "EXIGEANT, COMME VOUS",
+        "range": "Autonomie : Jusqu'à 350 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Diesel",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/expert-combi.html",
+        "configureUrl": "https://store.peugeot.fr/trim/configurable/nouveau-expert-combi-m",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_Expert_Combi.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "EEXPERT_COMBI.png"
+      },
+      "11": {
+        "car": "Partner",
+        "keyMessage": "DONNEZ UN STYLE AFFIRMÉ À VOTRE ACTIVITÉ",
+        "range": "Autonomie : Jusqu'à 346 km (WLTP)",
+        "additionalEnergy": "",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouveau-e-partner.html",
+        "configureUrl": "",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_nouveau_partner.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "EPARTNER.png"
+      },
+      "12": {
+        "car": "Boxer",
+        "keyMessage": "DONNEZ UN STYLE AFFIRMÉ À VOTRE ACTIVITÉ",
+        "range": "Autonomie : Jusqu'à 420 km (WLTP)",
+        "additionalEnergy": "Aussi disponible en Diesel",
+        "showRoomUrl": "https://www.peugeot.fr/nos-vehicules/nouveau-e-boxer.html",
+        "configureUrl": "",
+        "offersFormUrl": "https://www.peugeot.fr/tools/lp/forms_demande_offre_nouveau_boxer.html",
+        "testDriveUrl": "https://essai.peugeot.fr/",
+        "imageUrl": "EBOXER.png"
+      }
+    }
+  },
+  "CTA": {
+    "label": "Découvrez nos modèles électriques",
+    "icon": "PlugIcon"
+  },
+  "clickHere": "cliquez ici.",
+  "pendingAiAnswer": "en train d'écrire ...",
+  "aiResponseError": "Désolé je n'ai pas pu répondre à votre question, car une erreur est survenue. Posez-moi une nouvelle question."
+}

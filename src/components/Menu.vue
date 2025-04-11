@@ -1,0 +1,64 @@
+<script setup>
+import GeniusIcon from '@/components/GeniusIcon.vue'
+import CTA from '@/components/CTA.vue'
+import LogoutButton from '@/components/LogoutButton.vue'
+
+import translations from '@/translations/translations.json'
+import { getIcon } from '@/utils'
+import { getUserInfo } from '@/utils/auth'
+
+// Get user info for display
+const userInfo = getUserInfo()
+</script>
+
+<template>
+    <div class="text-white h-full flex flex-col pt-4 tall:pt-12 px-5">
+        <div class="flex justify-between items-center mb-1 tall:mb-2" >
+            <GeniusIcon class="w-[50px] h-[50px]"/>
+            
+            <!-- User greeting if available -->
+            <p v-if="userInfo" class="text-white text-xs font-PeugeotNew">
+                {{ `Hello, ${userInfo.name || 'there'}` }}
+            </p>
+        </div>
+        <div class="flex flex-col font-PeugeotNewBold uppercase text-lg xxs:text-2xl sm:text-xl mb-1 tall:mb-2">
+            <p class="text-white leading-5 xxs:leading-7 sm:leading-6">
+                {{ translations.Menu.titleWhite }}
+            </p>
+            <p class="text-blue leading-5 xxs:leading-7 sm:leading-6">
+                {{ `${translations.Menu.titleBlue}` }}
+            </p>
+        </div>
+        <div class="text-white text-xs xxs:text-sm sm:text-xs font-PeugeotNew pr-2">
+            <p class="xxs:leading-5 sm:leading-4 mb-2">
+                {{ translations.Menu.subTitle }}
+            </p>
+            <p class="leading-3 xs:leading-4 sm:leading-3 text-gray opacity-80 italic text-[8px] xxs:text-[10px] xs:text-[12px] sm:text-[10px]">
+                {{ translations.Menu.legalNotice }} <a :href="translations.Menu.legalLinkUrl" target="_blank" rel="noopener noreferrer">{{ translations.Menu.legalLinkLabel }}</a>
+            </p>
+        </div>
+        <div class="flex h-full items-center mb-36">
+            <div class="grid grid-cols-2 gap-2 tall:gap-3">
+                <button 
+                v-for="(block, index) in translations.Menu.blocks"
+                :key="index"
+                class="flex flex-col justify-center px-4 rounded-3xl bg-blue-gray h-19 tall:h-24"
+                @click="$emit('blockCliked', Number(index))"
+                >
+                    <div class=" bg-blue rounded-full mt-1 mb-2 tall:mb-3 h-[40px] w-[40px] flex justify-center items-center">
+                      <component :is="getIcon(block.icon)"/>
+                    </div>
+                    <p class="font-PeugeotNewBold uppercase mb-1 h-6 tall:h-8 text-left text-[8px] xxs:text-[11px] sm:text-[10px]">{{ block.label }}</p>
+                </button>
+            </div>
+        </div>
+        <div class="absolute w-full pl-0 pr-10 bottom-24 tall:mb-1">
+            <CTA @cta-clicked="$emit('ctaClicked')"/>
+        </div>
+        
+        <!-- Add logout in menu as well -->
+        <div class="absolute w-full pl-5 pr-10 bottom-10 tall:mb-1 flex justify-end">
+            <LogoutButton />
+        </div>
+    </div>
+</template>
