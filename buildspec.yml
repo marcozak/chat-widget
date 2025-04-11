@@ -11,6 +11,7 @@ phases:
   build:
     commands:
       - echo Building the widget...
+      - echo "VITE_API_BASE_URL=$VITE_API_BASE_URL" >> .env
       - npm run build
 
   post_build:
