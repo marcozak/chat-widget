@@ -498,7 +498,7 @@ onUnmounted(() => {
         enter-from-class="opacity-0 translate-y-full"
         leave-to-class="opacity-0 translate-y-full"
     >
-        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-screen md:w-[375px] md:h-[640px]">
+        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-screen md:w-[375px] md:h-[812px]">
             <div class="flex justify-between w-full h-[90px] px-5 bg-black md:rounded-t-2xl">
                 <button 
                     @click="goToMenu()" 
@@ -536,10 +536,10 @@ onUnmounted(() => {
                                 <div v-if="!message.carousel" class="flex">
                                     <GeniusIcon 
                                         v-if="message.responseIa"
-                                        class="mb-2 mt-auto ml-5 w-[50px] h-[50px]"
+                                        class="mb-1 mt-auto ml-5 w-[50px] h-[50px]"
                                     />
                                     <div 
-                                        class="rounded-t-2xl p-3 mb-2 break-normal w-64 xs:w-72 sm:w-64 min-h-10"
+                                        class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10"
                                         :class="message.content ? 'bg-white rounded-bl-2xl mr-5 ml-auto' : 'bg-blue text-white rounded-br-2xl ml-3 mr-auto'"
                                     >
                                         <div v-if="message.url && message.responseWithoutUrl && !message.content">
@@ -559,7 +559,7 @@ onUnmounted(() => {
                                 </div>
                                 <p 
                                     v-if="!message.carousel"
-                                    class="font-PeugeotNew text-gray text-[8px] mb-2"
+                                    class="font-PeugeotNew text-gray text-[8px] mb-1"
                                     :class="message.content ? 'text-right pr-5' : 'text-left ml-16 pl-5'"
                                 > 
                                     {{ new Date(message.dateCreated).getHours() }}:{{ (new Date(message.dateCreated).getMinutes() < 10 ? '0' : '') + new Date(message.dateCreated).getMinutes()}}
@@ -575,10 +575,10 @@ onUnmounted(() => {
                             />
                             <div v-if="awaitingFullResponse" class="flex">
                                 <GeniusIcon 
-                                    class="mb-2 mt-auto ml-5 w-[50px] h-[50px]"
+                                    class="mb-1 mt-auto ml-5 w-[50px] h-[50px]"
                                 />
                                 <div 
-                                    class="rounded-t-2xl p-3 mb-2 break-normal w-64 xs:w-72 sm:w-64 min-h-10"
+                                    class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10"
                                     :class="'bg-blue text-white rounded-br-2xl ml-3 mr-auto'"
                                 >
                                     <div v-if="aiStreamingResponse" class="font-PeugeotNew text-xs markdown-content" v-html="formattedStreamingResponse"></div>
@@ -640,7 +640,7 @@ onUnmounted(() => {
                     </button>
                 </Transition>
             </div>
-            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen h-screen md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl">
+            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen h-screen md:w-[375px] md:h-[812px] bg-gray-dark md:rounded-2xl">
                 <Menu 
                     @block-cliked="handleBlockClicked"
                     @cta-clicked="handleCtaClicked"
