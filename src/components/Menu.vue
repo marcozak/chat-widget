@@ -58,13 +58,11 @@ const userInfo = getUserInfo()
 
 <div
   v-if="displayCTA"
-  class="z-50 absolute bottom-24 w-full tall:pb-1 pt-2 flex justify-center"
-  :class="displayMenu ? 'hidden': ''"
+  class="absolute bottom-24 w-full px-5 tall:pb-1 pt-2"
 >
-  <div class="w-[92%] max-w-[340px]">
-    <CTA @cta-clicked="$emit('ctaClicked')" />
-  </div>
+  <CTA @cta-clicked="$emit('ctaClicked')" />
 </div>
+
 
     </div>
 </template>
