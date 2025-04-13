@@ -498,7 +498,7 @@ onUnmounted(() => {
         enter-from-class="opacity-0 translate-y-full"
         leave-to-class="opacity-0 translate-y-full"
     >
-        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-screen md:w-[375px] md:h-[812px]">
+        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-screen md:w-[375px] md:h-[640px]">
             <div class="flex justify-between w-full h-[90px] px-5 bg-black md:rounded-t-2xl">
                 <button 
                     @click="goToMenu()" 
@@ -640,7 +640,7 @@ onUnmounted(() => {
                     </button>
                 </Transition>
             </div>
-            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen h-screen md:w-[375px] md:h-[812px] bg-gray-dark md:rounded-2xl">
+            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen h-screen md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl">
                 <Menu 
                     @block-cliked="handleBlockClicked"
                     @cta-clicked="handleCtaClicked"

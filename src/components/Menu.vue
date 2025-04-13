@@ -21,14 +21,14 @@ const userInfo = getUserInfo()
                 {{ `Hello, ${userInfo.name || 'there'}` }}
             </p>
         </div>
-        <div class="flex flex-col font-PeugeotNewBold uppercase text-lg xxs:text-2xl sm:text-xl mb-1 tall:mb-2">
-            <p class="text-white leading-5 xxs:leading-7 sm:leading-6">
-                {{ translations.Menu.titleWhite }}
-            </p>
-            <p class="text-blue leading-5 xxs:leading-7 sm:leading-6">
-                {{ `${translations.Menu.titleBlue}` }}
-            </p>
-        </div>
+        <div class="flex flex-col font-PeugeotNewBold uppercase text-[16px] leading-5 mb-1">
+    <p class="text-white leading-5">
+        {{ translations.Menu.titleWhite }}
+    </p>
+    <p class="text-blue leading-5">
+        {{ `${translations.Menu.titleBlue}` }}
+    </p>
+</div>
         <div class="text-white text-xs xxs:text-sm sm:text-xs font-PeugeotNew pr-2">
             <p class="xxs:leading-5 sm:leading-4 mb-2">
                 {{ translations.Menu.subTitle }}
