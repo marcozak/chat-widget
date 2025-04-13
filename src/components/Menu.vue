@@ -56,13 +56,9 @@ const userInfo = getUserInfo()
   </div>
 </div>
 
-<div
-  v-if="displayCTA"
-  class="absolute bottom-24 w-full px-5 tall:pb-1 pt-2"
->
-  <CTA @cta-clicked="$emit('ctaClicked')" />
+<div class="absolute bottom-24 tall:mb-1 w-full flex justify-center px-5">
+    <CTA @cta-clicked="$emit('ctaClicked')" />
 </div>
-
 
     </div>
 </template>
