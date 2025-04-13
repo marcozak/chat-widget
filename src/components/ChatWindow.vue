@@ -499,7 +499,7 @@ onUnmounted(() => {
         leave-to-class="opacity-0 translate-y-full"
     >
         <div v-if="open" class="flex flex-col h-screen w-screen fixed bottom-0 right-0 md:bottom-1 md:right-4 md:w-[375px] md:h-[812px]">
-            <div class="flex justify-between w-full h-[90px] px-5 bg-black md:rounded-t-2xl">
+            <div class="flex justify-between w-full h-[48px] px-4 bg-black md:rounded-t-2xl">
                 <button 
                     @click="goToMenu()" 
                     :disabled="awaitingFullResponse"
@@ -521,7 +521,7 @@ onUnmounted(() => {
                     <div v-if="!displayBlockDetails" class="flex flex-col items-center w-full grow overflow-y-auto scrollable-zone">
                         <div 
                             v-if="chatHistory.length"
-                            class="pt-5 h-full w-full flex flex-col"
+                            class="pt-3 h-full w-full flex flex-col space-y-2 overflow-hidden"
                             :class="displayCTA ? 'pb-14' : ''"
                         >
                             <div 
