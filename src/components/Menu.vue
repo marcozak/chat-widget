@@ -56,9 +56,10 @@ const userInfo = getUserInfo()
   </div>
 </div>
 
-        <div class="absolute w-full pl-0 pr-10 bottom-24 tall:mb-1">
-            <CTA @cta-clicked="$emit('ctaClicked')"/>
-        </div>
+<div class="absolute bottom-24 tall:mb-1 w-full flex justify-center px-5">
+    <CTA @cta-clicked="$emit('ctaClicked')" />
+</div>
+
         
         <!-- Add logout in menu as well -->
         <div class="absolute w-full pl-5 pr-10 bottom-10 tall:mb-1 flex justify-end">
