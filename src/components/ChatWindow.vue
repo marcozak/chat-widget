@@ -525,7 +525,7 @@ onUnmounted(() => {
                     >
                         <div 
                             v-if="chatHistory.length"
-                            class="pt-5 h-full w-full flex flex-col pb-40"
+                            class="pt-5 h-full w-full flex flex-col pb-40 relative z-20"
                             :class="displayCTA ? 'pb-14' : ''"
                         >
                             <div 
