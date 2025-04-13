@@ -498,8 +498,8 @@ onUnmounted(() => {
         enter-from-class="opacity-0 translate-y-full"
         leave-to-class="opacity-0 translate-y-full"
     >
-        <div v-if="open" class="flex flex-col h-screen w-screen fixed bottom-0 right-0 md:bottom-1 md:right-4 md:w-[375px] md:h-[812px]">
-            <div class="flex justify-between w-full h-[48px] px-4 bg-black md:rounded-t-2xl">
+        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-screen md:w-[375px] md:h-[640px]">
+            <div class="flex justify-between w-full h-[90px] px-5 bg-black md:rounded-t-2xl">
                 <button 
                     @click="goToMenu()" 
                     :disabled="awaitingFullResponse"
@@ -518,10 +518,14 @@ onUnmounted(() => {
                     id="chat"
                     class="w-full bg-gray-dark rounded-t-3xl h-full flex overflow-y-scroll no-scrollbar"
                 >
-                    <div v-if="!displayBlockDetails" class="flex flex-col items-center w-full grow overflow-y-auto scrollable-zone">
+                    <div 
+                        v-if="!displayBlockDetails"
+                        class="flex flex-col items-center w-48 grow"
+                        :class="chatHistory.length ? 'mt-auto' : 'justify-center'"
+                    >
                         <div 
                             v-if="chatHistory.length"
-                            class="pt-3 h-full w-full flex flex-col space-y-2 overflow-hidden"
+                            class="pt-5 h-full w-full flex flex-col"
                             :class="displayCTA ? 'pb-14' : ''"
                         >
                             <div 
@@ -589,7 +593,7 @@ onUnmounted(() => {
                             > 
                                 <div
                                     v-if="displayCTA"
-                                    class="z-30 fixed bottom-[100px] w-full px-5 pt-2"
+                                    class="z-50 absolute bottom-24 w-full px-5 tall:pb-1 pt-2"
                                     :class="displayMenu ? 'hidden': ''"
                                 >
                                     <CTA @cta-clicked="addCarousel"/>
@@ -604,7 +608,7 @@ onUnmounted(() => {
                     />
                 </div>
             </div>
-            <div class="z-40 fixed bottom-0 w-full h-[90px] tall:h-[100px] pt-2 tall:pt-3 pb-10 px-5 bg-gray-dark md:rounded-b-2xl">
+            <div class="z-20 relative inline-block w-full h-[90px] tall:h-[100px] pt-2 tall:pt-3 pb-10 px-5 bg-gray-dark md:rounded-b-2xl">
                 <input
                 v-model="inputValue"
                 :disabled="awaitingFullResponse"
@@ -636,7 +640,7 @@ onUnmounted(() => {
                     </button>
                 </Transition>
             </div>
-            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen h-screen md:w-[375px] md:h-[812px] bg-gray-dark md:rounded-2xl">
+            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen h-screen md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl">
                 <Menu 
                     @block-cliked="handleBlockClicked"
                     @cta-clicked="handleCtaClicked"
@@ -750,9 +754,4 @@ onUnmounted(() => {
 .markdown-content :deep(th) {
     background-color: rgba(255, 255, 255, 0.1);
 }
-
-.scrollable-zone {
-  max-height: calc(100vh - 180px); /* 90px CTA + 90px prompt */
-}
-
 </style>
