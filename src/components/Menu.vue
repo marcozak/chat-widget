@@ -38,21 +38,24 @@ const userInfo = getUserInfo()
     </p>
 </div>
 
-        <div class="flex h-full items-center mb-36">
-            <div class="grid grid-cols-2 gap-2 tall:gap-3">
-                <button 
-                v-for="(block, index) in translations.Menu.blocks"
-                :key="index"
-                class="flex flex-col justify-center px-4 rounded-3xl bg-blue-gray min-h-[72px]"
-                @click="$emit('blockCliked', Number(index))"
-                >
-                    <div class=" bg-blue rounded-full mt-1 mb-2 tall:mb-3 h-[40px] w-[40px] flex justify-center items-center">
-                      <component :is="getIcon(block.icon)"/>
-                    </div>
-                    <p class="font-PeugeotNewBold uppercase mb-1 h-6 tall:h-8 text-left text-[7px] xxs:text-[10px] sm:text-[9px]">{{ block.label }}</p>
-                </button>
-            </div>
-        </div>
+<div class="flex h-full items-center mb-36">
+  <div class="grid grid-cols-2 gap-2 tall:gap-3">
+    <button 
+      v-for="(block, index) in translations.Menu.blocks"
+      :key="index"
+      class="flex flex-row items-center justify-start gap-3 px-4 py-3 rounded-3xl bg-blue-gray min-h-[64px] max-w-[170px]"
+      @click="$emit('blockCliked', Number(index))"
+    >
+      <div class="bg-blue rounded-full h-[36px] w-[36px] flex justify-center items-center shrink-0">
+        <component :is="getIcon(block.icon)" />
+      </div>
+      <p class="font-PeugeotNewBold text-white text-left text-[9px] sm:text-[10px] leading-tight break-words max-w-[110px]">
+        {{ block.label }}
+      </p>
+    </button>
+  </div>
+</div>
+
         <div class="absolute w-full pl-0 pr-10 bottom-24 tall:mb-1">
             <CTA @cta-clicked="$emit('ctaClicked')"/>
         </div>
