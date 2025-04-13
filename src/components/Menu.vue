@@ -60,10 +60,5 @@ const userInfo = getUserInfo()
     <CTA @cta-clicked="$emit('ctaClicked')" />
 </div>
 
-        
-        <!-- Add logout in menu as well -->
-        <div class="absolute w-full pl-5 pr-10 bottom-10 tall:mb-1 flex justify-end">
-            <LogoutButton />
-        </div>
     </div>
 </template>

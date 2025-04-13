@@ -14,9 +14,10 @@ import { getIcon } from '@/utils'
     </div>
 
     <!-- Testo -->
-    <p class="font-PeugeotNewBold text-xs text-white ml-2 text-center">
-      {{ translations.CTA.label }}
-    </p>
+    <p class="font-PeugeotNewBold text-xs text-white ml-2">
+  {{ translations.CTA.label }}
+</p>
+
   </button>
 </template>
 
