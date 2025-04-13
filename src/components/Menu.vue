@@ -29,14 +29,15 @@ const userInfo = getUserInfo()
         {{ `${translations.Menu.titleBlue}` }}
     </p>
 </div>
-        <div class="text-white text-xs xxs:text-sm sm:text-xs font-PeugeotNew pr-2">
-            <p class="xxs:leading-5 sm:leading-4 mb-2">
-                {{ translations.Menu.subTitle }}
-            </p>
-            <p class="leading-3 xs:leading-4 sm:leading-3 text-gray opacity-80 italic text-[8px] xxs:text-[10px] xs:text-[12px] sm:text-[10px]">
-                {{ translations.Menu.legalNotice }} <a :href="translations.Menu.legalLinkUrl" target="_blank" rel="noopener noreferrer">{{ translations.Menu.legalLinkLabel }}</a>
-            </p>
-        </div>
+<div class="text-white text-[10px] leading-4 font-PeugeotNew pr-2">
+    <p class="mb-1">
+        {{ translations.Menu.subTitle }}
+    </p>
+    <p class="text-gray opacity-80 italic text-[8px] leading-3">
+        {{ translations.Menu.legalNotice }} <a :href="translations.Menu.legalLinkUrl" target="_blank" rel="noopener noreferrer">{{ translations.Menu.legalLinkLabel }}</a>
+    </p>
+</div>
+
         <div class="flex h-full items-center mb-36">
             <div class="grid grid-cols-2 gap-2 tall:gap-3">
                 <button 
