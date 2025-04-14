@@ -10,7 +10,7 @@ const userInfo = getUserInfo()
 </script>
 
 <template>
-  <div class="text-white h-full flex flex-col pt-4 tall:pt-12 px-[12px]">
+  <div class="text-white h-full flex flex-col pt-4 tall:pt-12 px-[12px] justify-start">
     
     <!-- Banner top -->
     <div class="flex justify-between items-center mb-1 tall:mb-2">
