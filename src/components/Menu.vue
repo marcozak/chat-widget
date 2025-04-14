@@ -45,7 +45,7 @@ const userInfo = getUserInfo()
     </div>
 
     <!-- Menu Buttons + CTA Block -->
-    <div class="flex flex-col items-center justify-center grow gap-4 mt-1.5 w-full">
+    <div class="flex flex-col items-center justify-center flex-1 gap-4 mt-1.5 w-full max-h-[calc(100%-200px)] overflow-auto">
       <!-- Grid Buttons -->
       <div class="grid grid-cols-2 gap-2 tall:gap-3">
         <button
