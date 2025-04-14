@@ -44,7 +44,7 @@ const userInfo = getUserInfo()
     </div>
 
     <!-- Blocco centrale con bottoni + CTA -->
-    <div class="flex flex-col items-center justify-center grow gap-4 mt-3">
+    <div class="flex flex-col items-center justify-center grow gap-4 mt-1.5">
       
       <!-- Griglia bottoni -->
       <div class="grid grid-cols-2 gap-2 tall:gap-3">
