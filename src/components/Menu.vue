@@ -31,17 +31,22 @@ const userInfo = getUserInfo()
       </p>
     </div>
 
-    <!-- Subtitle + Legal Notice -->
-    <div class="text-white text-[10px] leading-4 font-PeugeotNew pr-2 w-full mb-6">
-      <p class="mb-1">
+    <!-- Subtitle + Collapsible Legal Notice -->
+    <div class="text-white text-[10px] leading-4 font-PeugeotNew pr-2 w-full mb-4">
+    <p class="mb-1">
         {{ translations.Menu.subTitle }}
-      </p>
-      <p class="text-gray opacity-80 italic text-[8px] leading-3">
+    </p>
+    <details class="text-gray opacity-80 italic text-[8px] leading-3">
+        <summary class="cursor-pointer underline text-blue hover:text-white transition-all duration-200">
+        {{ translations.Menu.legalToggleLabel || '+ d’infos' }}
+        </summary>
+        <p>
         {{ translations.Menu.legalNotice }}
         <a :href="translations.Menu.legalLinkUrl" target="_blank" rel="noopener noreferrer">
-          {{ translations.Menu.legalLinkLabel }}
+            {{ translations.Menu.legalLinkLabel }}
         </a>
-      </p>
+        </p>
+    </details>
     </div>
 
 <!-- Menu Buttons + CTA Block -->
