@@ -12,7 +12,7 @@ const userInfo = getUserInfo()
 </script>
 
 <template>
-    <div class="text-white h-full flex flex-col items-center pt-4 tall:pt-12 px-[12px]">
+    <div class="text-white h-full flex flex-col pt-4 tall:pt-12 px-[12px]">
         <div class="flex justify-between items-center mb-1 tall:mb-2" >
             <GeniusIcon class="w-[50px] h-[50px]"/>
             
@@ -56,9 +56,12 @@ const userInfo = getUserInfo()
   </div>
 </div>
 
-<div class="absolute bottom-24 tall:mb-1 w-full flex justify-center">
-  <CTA @cta-clicked="$emit('ctaClicked')" />
+<div class="absolute bottom-24 tall:mb-1 w-full flex justify-center px-4">
+  <div class="max-w-[300px] w-full">
+    <CTA @cta-clicked="$emit('ctaClicked')" />
+  </div>
 </div>
+
 
 
     </div>
