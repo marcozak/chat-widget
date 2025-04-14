@@ -12,9 +12,9 @@ const userInfo = getUserInfo()
 </script>
 
 <template>
-  <div class="text-white h-full flex flex-col items-center justify-between pt-4 tall:pt-12 px-[12px]">
+  <div class="text-white h-full flex flex-col items-center justify-start pt-4 tall:pt-12 px-[12px]">
     <!-- Header -->
-    <div class="flex justify-between items-center w-full mb-1 tall:mb-2">
+    <div class="flex justify-between items-center w-full mb-4">
       <GeniusIcon class="w-[50px] h-[50px]" />
       <p v-if="userInfo" class="text-white text-xs font-PeugeotNew">
         {{ `Hello, ${userInfo.name || 'there'}` }}
@@ -22,7 +22,7 @@ const userInfo = getUserInfo()
     </div>
 
     <!-- Title -->
-    <div class="flex flex-col font-PeugeotNewBold uppercase text-[16px] leading-5 mb-1 w-full">
+    <div class="flex flex-col font-PeugeotNewBold uppercase text-[16px] leading-5 mb-3 w-full">
       <p class="text-white leading-5">
         {{ translations.Menu.titleWhite }}
       </p>
@@ -32,7 +32,7 @@ const userInfo = getUserInfo()
     </div>
 
     <!-- Subtitle + Legal Notice -->
-    <div class="text-white text-[10px] leading-4 font-PeugeotNew pr-2 w-full">
+    <div class="text-white text-[10px] leading-4 font-PeugeotNew pr-2 w-full mb-6">
       <p class="mb-1">
         {{ translations.Menu.subTitle }}
       </p>
@@ -45,7 +45,7 @@ const userInfo = getUserInfo()
     </div>
 
 <!-- Menu Buttons + CTA Block -->
-<div class="flex flex-col items-center justify-center gap-4 mt-1.5 w-full">
+<div class="flex flex-col items-center justify-center gap-4 w-full mt-auto mb-6">
   <!-- Grid Buttons -->
   <div class="grid grid-cols-2 gap-2 tall:gap-3 w-full">
     <button
