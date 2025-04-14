@@ -21,7 +21,7 @@ const userInfo = getUserInfo()
       </p>
     </div>
 
-    <div class="overflow-y-auto grow pb-4 pr-1">
+    <div class="overflow-y-auto grow pb-4 pr-1 flex flex-col w-full">
         <!-- Title -->
         <div class="flex flex-col font-PeugeotNewBold uppercase text-[16px] leading-5 mb-3 w-full">
         <p class="text-white leading-5">
@@ -52,31 +52,31 @@ const userInfo = getUserInfo()
 
         <!-- Menu Buttons + CTA Block -->
         <div class="flex flex-col justify-between grow w-full">
-        <!-- Grid Buttons -->
-        <div class="flex justify-center items-center grow">
-            <div class="grid grid-cols-2 gap-2 tall:gap-3 w-full">
-                <button
-                v-for="(block, index) in translations.Menu.blocks"
-                :key="index"
-                class="flex flex-row items-center justify-start gap-3 px-4 py-3 rounded-3xl bg-blue-gray min-h-[64px]"
-                @click="$emit('blockCliked', Number(index))"
-                >
-                <div class="bg-blue rounded-full h-[36px] w-[36px] flex justify-center items-center shrink-0">
-                    <component :is="getIcon(block.icon)" />
+            <!-- Grid Buttons -->
+            <div class="flex justify-center items-center grow">
+                <div class="grid grid-cols-2 gap-2 tall:gap-3 w-full">
+                    <button
+                    v-for="(block, index) in translations.Menu.blocks"
+                    :key="index"
+                    class="flex flex-row items-center justify-start gap-3 px-4 py-3 rounded-3xl bg-blue-gray min-h-[64px]"
+                    @click="$emit('blockCliked', Number(index))"
+                    >
+                    <div class="bg-blue rounded-full h-[36px] w-[36px] flex justify-center items-center shrink-0">
+                        <component :is="getIcon(block.icon)" />
+                    </div>
+                    <p class="font-PeugeotNewBold text-white text-left text-[9px] sm:text-[10px] leading-tight break-words max-w-[110px]">
+                        {{ block.label }}
+                    </p>
+                    </button>
                 </div>
-                <p class="font-PeugeotNewBold text-white text-left text-[9px] sm:text-[10px] leading-tight break-words max-w-[110px]">
-                    {{ block.label }}
-                </p>
-                </button>
             </div>
-        </div>
         
-        <!-- CTA -->
-        <div class="w-full px-4 mt-4">
-            <div class="max-w-[300px] mx-auto">
-            <CTA @cta-clicked="$emit('ctaClicked')" />
+            <!-- CTA -->
+            <div class="w-full px-4 mt-4">
+                <div class="max-w-[300px] mx-auto">
+                <CTA @cta-clicked="$emit('ctaClicked')" />
+                </div>
             </div>
-        </div>
         </div>
     </div>
   </div>
