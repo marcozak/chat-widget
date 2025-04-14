@@ -608,7 +608,7 @@ onUnmounted(() => {
                     />
                 </div>
             </div>
-            <div class="z-20 relative inline-block w-full h-[90px] tall:h-[100px] pt-2 tall:pt-3 pb-10 px-5 bg-gray-dark md:rounded-b-2xl">
+            <div class="z-20 relative inline-block w-full h-[90px] pt-2 tall:pt-3 pb-10 px-5 bg-gray-dark md:rounded-b-2xl">
                 <input
                 v-model="inputValue"
                 :disabled="awaitingFullResponse"
