@@ -12,7 +12,7 @@ const userInfo = getUserInfo()
 </script>
 
 <template>
-    <div class="text-white h-full flex flex-col items-center justify-start pt-4 tall:pt-12 px-[12px]">
+    <div class="text-white flex flex-col items-center justify-start pt-4 tall:pt-12 px-[12px]" :style="{ height: 'calc(100% - 90px)' }">
     <!-- Header -->
     <div class="flex justify-between items-center w-full mb-4">
       <GeniusIcon class="w-[50px] h-[50px]" />
@@ -50,7 +50,7 @@ const userInfo = getUserInfo()
     </div>
 
     <!-- Menu Buttons + CTA Block -->
-    <div class="flex flex-col justify-between grow w-full px-4">
+    <div class="flex flex-col justify-between grow w-full">
     <!-- Grid Buttons -->
     <div class="flex justify-center items-center grow">
         <div class="grid grid-cols-2 gap-2 tall:gap-3 w-full">
