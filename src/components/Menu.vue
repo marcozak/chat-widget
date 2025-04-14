@@ -45,7 +45,7 @@ const userInfo = getUserInfo()
     </div>
 
 <!-- Menu Buttons + CTA Block -->
-<div class="flex flex-col items-center justify-center gap-4 w-full mt-auto mb-6">
+<div class="flex flex-col items-center justify-center gap-4 w-full mt-4 mb-4">
   <!-- Grid Buttons -->
   <div class="grid grid-cols-2 gap-2 tall:gap-3 w-full">
     <button
