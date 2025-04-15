@@ -640,7 +640,8 @@ onUnmounted(() => {
                 v-model="inputValue"
                 :disabled="awaitingFullResponse"
                 type="text"
-                class="rounded-full w-full h-[48px] font-PeugeotNew text-xs focus:border-transparent focus:outline-none pl-3 pr-12"
+                class="rounded-full w-full h-[48px] font-PeugeotNew text-xs text-gray-900 focus:border-transparent focus:outline-none pl-3 pr-12"
+                :style="{ color: '#111827' }"
                 :placeholder="translations.inputPlaceholder"
                 @keyup.enter="sendMessage()"
                 />
@@ -676,8 +677,8 @@ onUnmounted(() => {
             <!-- Carousel Overlay -->
             <div
                 v-if="displayCarousel"
-                class="absolute z-10 top-0 w-screen h-full md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"
-                :style="{ maxHeight: 'calc(100dvh - 90px)' }"
+                class="absolute z-10 top-0 w-screen h-full md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"    
+                :style="{ height: 'calc(100% - 2px)' }"
             >
             <Carousel @go-back="goBackFromCarousel" />
             </div>

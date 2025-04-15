@@ -16,7 +16,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
     <div class="relative w-full h-full overflow-y-auto pb-6 pr-1">
 
         <button
-            class="absolute top-4 left-4 z-10 flex items-center"
+            class="absolute top-2 left-4 z-10 flex items-center"
             @click="$emit('go-back')"
             >
             <BackArrowIcon class="w-4 h-4" />
@@ -24,7 +24,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                 {{ translations.Menu.back }}
             </p>
         </button>
-        <p class="text-white font-PeugeotNew text-xs text-center pt-4 pb-2">
+        <p class="text-white font-PeugeotNew text-xs text-center pt-2">
             {{ translations.carousel.title }}
         </p>
         <swiper-container
