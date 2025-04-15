@@ -13,13 +13,6 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
 <template>
 
     <div class="relative w-full h-full">
-        <!-- Bottone di chiusura -->
-        <button
-        class="absolute top-4 right-4 z-10"
-        @click="$emit('close')"
-        >
-        <XIcon class="w-5 h-5 text-white" />
-        </button>
 
         <p class="text-white font-PeugeotNew text-xs text-center pt-4 pb-2">
             {{ translations.carousel.title }}

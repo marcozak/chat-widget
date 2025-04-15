@@ -273,7 +273,9 @@ const addCTA = () => {
 
 const addCTAWithDelay = () => {
     setTimeout(() => {
-        addCTA()
+    if (!displayCarousel.value) {
+            addCTA()
+        }    
     }, 60 * 1000)
 }
 
@@ -372,6 +374,7 @@ const sendMessage = async (content) => {
     
     if (payload.hasOwnProperty('content')) {
         displayChatWIndow()
+        displayCarousel.value = false
         suggestionsArray.value = null
         chatHistory.value.push(payload)
         inputValue.value = ''
@@ -546,7 +549,10 @@ onUnmounted(() => {
                                         class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10 text-left"
                                         :class="message.content ? 'bg-white text-gray-900 rounded-bl-2xl mr-5 ml-auto' : 'bg-blue text-white rounded-br-2xl ml-3 mr-auto'"
                                     >
-                                        <div v-if="message.url && message.responseWithoutUrl && !message.content">
+                                        <div 
+                                            v-if="message.url && message.responseWithoutUrl && !message.content"
+                                            class="text-gray-900"
+                                        >
                                             <p class="font-PeugeotNew text-xs">
                                                 {{ `${message.responseWithoutUrl[0]} : ` }}
                                                 <a class="font-PeugeotNewBold" :href="message.url" target="_blank" rel="noopener noreferrer">{{ translations.clickHere }}</a>
