@@ -49,6 +49,7 @@ const isConnected = ref(false)
 const retryInterval = 3000
 let retryTimeout = null
 let pingInterval = null
+let ctaTimeoutScheduled = false
 
 // Keep track of markdown code blocks
 const inCodeBlock = ref(false)
@@ -272,12 +273,17 @@ const addCTA = () => {
 }
 
 const addCTAWithDelay = () => {
-    setTimeout(() => {
-    if (!displayCarousel.value) {
-            addCTA()
-        }    
-    }, 60 * 1000)
+  if (ctaTimeoutScheduled || displayCTA.value || displayCarousel.value) return
+  ctaTimeoutScheduled = true
+
+  setTimeout(() => {
+    if (!displayCTA.value && !displayCarousel.value) {
+      displayCTA.value = true
+    }
+    ctaTimeoutScheduled = false
+  }, 60 * 1000)
 }
+
 
 const addCarousel = () => {
   displayCarousel.value = true
@@ -296,6 +302,7 @@ const handleSubBlockSelected = (title) => {
 }
 
 const handleCtaClicked = () => {
+    displayCTA.value = false
     displayCarousel.value = true
     displayMenu.value = false
 }
@@ -457,7 +464,7 @@ watch(chatHistory.value, async () => {
     if (open.value) scrollToBottomOfChat('smooth')
     
     // Check if we need to display CTA for first message
-    if (chatHistory.value.length === 1) {
+    if (!displayCTA.value && !displayCarousel.value) {
         addCTAWithDelay()
     }
     
@@ -561,7 +568,7 @@ onUnmounted(() => {
                                                 {{ message.responseWithoutUrl[1] }}
                                             </p>
                                         </div>
-                                        <div v-else-if="message.content" class="font-PeugeotNew text-xs">
+                                        <div v-else-if="message.content" class="font-PeugeotNew text-xs text-gray-900">
                                             {{ message.content }}
                                         </div>
                                         <div v-else class="font-PeugeotNew text-xs markdown-content" v-html="message.formattedResponse || (message.responseIa ? parseMarkdown(message.responseIa) : '')"></div>

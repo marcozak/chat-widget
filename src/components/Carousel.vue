@@ -3,6 +3,7 @@ import { register } from 'swiper/element/bundle';
 register();
 import 'swiper/css';
 import XIcon from '@/components/icons/XIcon.vue'
+import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
 defineEmits(['close'])
 import translations from '@/translations/translations.json'
 const props = defineProps(['suggestions'])
@@ -14,6 +15,15 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
 
     <div class="relative w-full h-full">
 
+        <button
+            class="absolute top-4 left-4 z-10 flex items-center"
+            @click="$emit('close')"
+            >
+            <BackArrowIcon class="w-4 h-4" />
+            <p class="text-white text-xs font-PeugeotNew ml-2">
+                {{ translations.Menu.label }}
+            </p>
+        </button>
         <p class="text-white font-PeugeotNew text-xs text-center pt-4 pb-2">
             {{ translations.carousel.title }}
         </p>
