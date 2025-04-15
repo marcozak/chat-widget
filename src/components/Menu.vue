@@ -72,8 +72,8 @@ const userInfo = getUserInfo()
             </div>
         
             <!-- CTA -->
-            <div class="w-full px-4 mt-4">
-                <div class="max-w-[300px] mx-auto">
+            <div class="w-full mt-4">
+                <div class="w-full mx-auto">
                 <CTA @cta-clicked="$emit('ctaClicked')" />
                 </div>
             </div>
