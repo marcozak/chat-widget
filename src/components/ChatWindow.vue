@@ -36,6 +36,8 @@ const blackListRegex = /(<[^>]+>|<[^>]>|<\/[^>]+>)/ig
 const refreshKey = ref(0)
 const displayCarousel = ref(false)
 
+const previousPanel = ref('chat') 
+
 // Streaming response state
 const aiStreamingResponse = ref('')
 const answerBuffer = ref(null)
@@ -273,11 +275,11 @@ const addCTA = () => {
 }
 
 const addCTAWithDelay = () => {
-  if (ctaTimeoutScheduled || displayCTA.value || displayCarousel.value) return
+  if (ctaTimeoutScheduled || displayCTA.value || displayCarousel.value || displayMenu.value) return
   ctaTimeoutScheduled = true
 
   setTimeout(() => {
-    if (!displayCTA.value && !displayCarousel.value) {
+    if (!displayCTA.value && !displayCarousel.value && !displayMenu.value) {
       displayCTA.value = true
     }
     ctaTimeoutScheduled = false
@@ -302,9 +304,17 @@ const handleSubBlockSelected = (title) => {
 }
 
 const handleCtaClicked = () => {
+    previousPanel.value = displayMenu.value ? 'menu' : 'chat'
     displayCTA.value = false
     displayCarousel.value = true
     displayMenu.value = false
+}
+
+const goBackFromCarousel = () => {
+  displayCarousel.value = false
+  if (previousPanel.value === 'menu') {
+    displayMenu.value = true
+  }
 }
 
 const handleCloseCarousel = () => {
@@ -568,7 +578,7 @@ onUnmounted(() => {
                                                 {{ message.responseWithoutUrl[1] }}
                                             </p>
                                         </div>
-                                        <div v-else-if="message.content" class="font-PeugeotNew text-xs text-gray-900">
+                                        <div v-else-if="message.content" class="font-PeugeotNew text-xs" style="color: #111827;">
                                             {{ message.content }}
                                         </div>
                                         <div v-else class="font-PeugeotNew text-xs markdown-content" v-html="message.formattedResponse || (message.responseIa ? parseMarkdown(message.responseIa) : '')"></div>
@@ -668,7 +678,7 @@ onUnmounted(() => {
             v-if="displayCarousel"
             class="absolute z-10 top-0 w-screen h-full md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"
             >
-            <Carousel @close="handleCloseCarousel" />
+            <Carousel @go-back="goBackFromCarousel" />
             </div>
         </div>
     </Transition>

@@ -17,11 +17,11 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
 
         <button
             class="absolute top-4 left-4 z-10 flex items-center"
-            @click="$emit('close')"
+            @click="$emit('go-back')"
             >
             <BackArrowIcon class="w-4 h-4" />
             <p class="text-white text-xs font-PeugeotNew ml-2">
-                {{ translations.Menu.label }}
+                {{ translations.Menu.back }}
             </p>
         </button>
         <p class="text-white font-PeugeotNew text-xs text-center pt-4 pb-2">

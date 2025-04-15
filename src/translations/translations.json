@@ -1,6 +1,7 @@
 {
   "Menu": {
     "label": "Menu",
+    "back": "Back",
     "titleWhite": "bonjour,",
     "titleBlue": "Comment puis-je vous aider ?",
     "subTitle": "Je suis Electric Genius, votre assistant digital. Vous avez des questions concernant l’achat d’un véhicule électrique ? Je suis là pour y répondre.",
