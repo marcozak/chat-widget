@@ -21,9 +21,9 @@ const userInfo = getUserInfo()
       </p>
     </div>
 
-    <div class="overflow-y-auto grow pb-4 pr-1 flex flex-col w-full items-start">
+    <div class="overflow-y-auto grow pb-2 pr-1 flex flex-col w-full items-start">
         <!-- Title -->
-        <div class="flex flex-col font-PeugeotNewBold uppercase text-[16px] leading-5 mb-3 w-full">
+        <div class="flex flex-col font-PeugeotNewBold uppercase text-[16px] leading-5 mb-3 w-full text-left">
         <p class="text-white leading-5">
             {{ translations.Menu.titleWhite }}
         </p>
@@ -33,7 +33,7 @@ const userInfo = getUserInfo()
         </div>
 
         <!-- Subtitle + Collapsible Legal Notice -->
-        <div class="text-white text-[10px] leading-4 font-PeugeotNew pr-2 w-full mb-4">
+        <div class="text-white text-[10px] leading-4 font-PeugeotNew pr-2 w-full mb-4 text-left">
         <p class="mb-1">
             {{ translations.Menu.subTitle }}
         </p>
@@ -54,11 +54,11 @@ const userInfo = getUserInfo()
         <div class="flex flex-col justify-between grow w-full">
             <!-- Grid Buttons -->
             <div class="flex justify-center items-center grow">
-                <div class="grid grid-cols-2 gap-2 tall:gap-3 w-full">
+                <div class="grid grid-cols-2 gap-2 tall:gap-3 w-full h-full">
                     <button
                     v-for="(block, index) in translations.Menu.blocks"
                     :key="index"
-                    class="flex flex-row items-center justify-start gap-3 px-4 py-3 rounded-3xl bg-blue-gray min-h-[64px]"
+                    class="flex flex-row items-center justify-start gap-2 px-2 py-3 rounded-3xl bg-blue-gray min-h-[64px]"
                     @click="$emit('blockCliked', Number(index))"
                     >
                     <div class="bg-blue rounded-full h-[36px] w-[36px] flex justify-center items-center shrink-0">
