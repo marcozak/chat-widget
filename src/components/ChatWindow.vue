@@ -540,7 +540,7 @@ onUnmounted(() => {
                                         class="mb-1 mt-auto ml-5 w-[50px] h-[50px]"
                                     />
                                     <div 
-                                        class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10"
+                                        class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10 text-left"
                                         :class="message.content ? 'bg-white rounded-bl-2xl mr-5 ml-auto' : 'bg-blue text-white rounded-br-2xl ml-3 mr-auto'"
                                     >
                                         <div v-if="message.url && message.responseWithoutUrl && !message.content">
@@ -579,7 +579,7 @@ onUnmounted(() => {
                                     class="mb-1 mt-auto ml-5 w-[50px] h-[50px]"
                                 />
                                 <div 
-                                    class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10"
+                                    class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10 text-left"
                                     :class="'bg-blue text-white rounded-br-2xl ml-3 mr-auto'"
                                 >
                                     <div v-if="aiStreamingResponse" class="font-PeugeotNew text-xs markdown-content" v-html="formattedStreamingResponse"></div>
