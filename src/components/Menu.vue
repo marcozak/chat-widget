@@ -21,7 +21,7 @@ const userInfo = getUserInfo()
       </p>
     </div>
 
-    <div class="overflow-y-auto grow pb-2 pr-1 flex flex-col w-full items-start">
+    <div class="overflow-y-auto grow min-h-0 pb-2 pr-1 flex flex-col w-full items-start">
         <!-- Title -->
         <div class="flex flex-col font-PeugeotNewBold uppercase text-[16px] leading-5 mb-3 w-full text-left">
         <p class="text-white leading-5">
