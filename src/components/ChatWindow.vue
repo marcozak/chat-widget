@@ -498,7 +498,7 @@ onUnmounted(() => {
         enter-from-class="opacity-0 translate-y-full"
         leave-to-class="opacity-0 translate-y-full"
     >
-        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-screen md:w-[375px] md:h-[640px] overflow-hidden"
+        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-dynamic md:w-[375px] md:h-[640px] overflow-hidden"
   :style="{ maxHeight: '100vh' }">
             <div class="flex justify-between w-full h-[90px] px-5 bg-black md:rounded-t-2xl">
                 <button 
