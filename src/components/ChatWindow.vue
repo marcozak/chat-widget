@@ -617,13 +617,13 @@ onUnmounted(() => {
                                 leave-active-class="transition duration-500 transform"
                                 enter-from-class="opacity-0 scale-110"
                                 leave-to-class="opacity-0 scale-110"
-                            > 
+                                > 
                                 <div
-                                    v-if="displayCTA"
+                                    v-if="displayCTA && !displayCarousel"
                                     class="z-50 absolute bottom-24 w-full px-5 tall:pb-1 pt-2"
                                     :class="displayMenu ? 'hidden': ''"
                                 >
-                                    <CTA @cta-clicked="addCarousel"/>
+                                    <CTA @cta-clicked="handleCtaClicked" />
                                 </div>
                             </Transition>
                         </div>
@@ -675,8 +675,9 @@ onUnmounted(() => {
             </div>
             <!-- Carousel Overlay -->
             <div
-            v-if="displayCarousel"
-            class="absolute z-10 top-0 w-screen h-full md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"
+                v-if="displayCarousel"
+                class="absolute z-10 top-0 w-screen h-full md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"
+                :style="{ maxHeight: 'calc(100dvh - 90px)' }"
             >
             <Carousel @go-back="goBackFromCarousel" />
             </div>

@@ -5,7 +5,7 @@ import { getIcon } from '@/utils'
 
 <template>
   <button 
-    class="flex items-center justify-center w-full px-3 rounded-full bg-gray-dark border-blue border-2 h-12"
+    class="flex justify-center items-center w-full max-w-[300px] px-4 rounded-full bg-gray-dark border-blue border-2 h-12 mx-auto"
     @click="$emit('ctaClicked')"
   >
     <!-- Icona -->
