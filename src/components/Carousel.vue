@@ -2,7 +2,8 @@
 import { register } from 'swiper/element/bundle';
 register();
 import 'swiper/css';
-
+import XIcon from '@/components/icons/XIcon.vue'
+defineEmits(['close'])
 import translations from '@/translations/translations.json'
 const props = defineProps(['suggestions'])
 const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
@@ -10,7 +11,16 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
         
 
 <template>
-   <div>
+
+    <div class="relative w-full h-full">
+        <!-- Bottone di chiusura -->
+        <button
+        class="absolute top-4 right-4 z-10"
+        @click="$emit('close')"
+        >
+        <XIcon class="w-5 h-5 text-white" />
+        </button>
+
         <p class="text-white font-PeugeotNew text-xs text-center pt-4 pb-2">
             {{ translations.carousel.title }}
         </p>

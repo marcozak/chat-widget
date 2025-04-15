@@ -34,6 +34,7 @@ const chatHistory = ref([])
 const awaitingFullResponse = ref(false)
 const blackListRegex = /(<[^>]+>|<[^>]>|<\/[^>]+>)/ig
 const refreshKey = ref(0)
+const displayCarousel = ref(false)
 
 // Streaming response state
 const aiStreamingResponse = ref('')
@@ -277,10 +278,8 @@ const addCTAWithDelay = () => {
 }
 
 const addCarousel = () => {
-    chatHistory.value.push({
-        carousel: true
-    })
-    suggestionsArray.value = null
+  displayCarousel.value = true
+  scrollToBottomOfChat('smooth')
 }
 
 const handleBlockClicked = (index) => {
@@ -295,8 +294,12 @@ const handleSubBlockSelected = (title) => {
 }
 
 const handleCtaClicked = () => {
-    addCarousel()
+    displayCarousel.value = true
     displayMenu.value = false
+}
+
+const handleCloseCarousel = () => {
+  displayCarousel.value = false
 }
 
 const setChatHistory = (history) => {
@@ -646,6 +649,13 @@ onUnmounted(() => {
                     @block-cliked="handleBlockClicked"
                     @cta-clicked="handleCtaClicked"
                 />
+            </div>
+            <!-- Carousel Overlay -->
+            <div
+            v-if="displayCarousel"
+            class="absolute z-10 top-0 w-screen h-full md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"
+            >
+            <Carousel @close="handleCloseCarousel" />
             </div>
         </div>
     </Transition>
