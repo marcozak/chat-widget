@@ -641,7 +641,7 @@ onUnmounted(() => {
                     </button>
                 </Transition>
             </div>
-            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen h-screen md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl">
+            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen md:w-[375px] bg-gray-dark md:rounded-2xl h-full">
                 <Menu 
                     @block-cliked="handleBlockClicked"
                     @cta-clicked="handleCtaClicked"
