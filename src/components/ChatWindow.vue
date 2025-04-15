@@ -484,7 +484,7 @@ onUnmounted(() => {
         enter-from-class="opacity-0"
         leave-to-class="opacity-0"
     >
-        <div v-if="!open" class="absolute bottom-3 right-4 bg-black border-gray-dark border-8 rounded-full w-20 h-20 flex justify-center items-center">
+        <div v-if="!open" class="absolute bottom-3 right-4 bg-black border-gray-dark border-8 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center">
             <button @click="openWindow()">
                 <div>
                     <GeniusIcon class="mt-2"/>
