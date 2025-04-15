@@ -12,7 +12,7 @@ const userInfo = getUserInfo()
 </script>
 
 <template>
-    <div class="text-white flex flex-col items-center justify-start pt-3 px-[12px]" :style="{ height: 'calc(100% - 90px)' }">
+    <div class="text-white flex flex-col items-center justify-start pt-3 px-[12px] min-h-0" :style="{ height: 'calc(100% - 90px)' }">
     <!-- Header -->
     <div class="flex justify-between items-center w-full mb-4">
       <GeniusIcon class="w-[50px] h-[50px]" />
