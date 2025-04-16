@@ -27,7 +27,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
         <p class="text-white font-PeugeotNew text-xs text-center pt-2">
             {{ translations.carousel.title }}
         </p>
-        <div class="flex grow justify-center items-center h-full overflow-hidden w-full">
+        
             <swiper-container
                 slides-per-view="1.25"
                 navigation="true" 
@@ -44,7 +44,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                     <div class="h-[120px] w-[125%] absolute top-6 flex items-center justify-center">
                         <img :src="`${assetBaseUrl}/images/${slide.imageUrl}`" :alt="slide.car" class="">
                     </div>
-                    <div class="flex flex-col justify-center h-full">
+                    <div class="flex grow justify-center items-center h-full overflow-hidden w-full">
                         <div class="bg-blue h-[410px] w-full rounded-3xl flex flex-col mt-10 pt-16">
                             <div>
                                 <p class="text-white text-center py-2 px-2 font-PeugeotNewBold text-[12px]">{{ slide.car }}</p>
@@ -79,7 +79,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                 </div>
                 </swiper-slide>
             </swiper-container>
-        </div>
+
     </div>
 </template>
 
