@@ -44,34 +44,36 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                     <div class="h-[120px] w-[125%] absolute top-6 flex items-center justify-center">
                         <img :src="`${assetBaseUrl}/images/${slide.imageUrl}`" :alt="slide.car" class="">
                     </div>
-                    <div class="bg-blue h-[410px] w-full rounded-3xl flex flex-col mt-10 pt-16">
-                        <div>
-                            <p class="text-white text-center py-2 px-2 font-PeugeotNewBold text-[12px]">{{ slide.car }}</p>
-                            <p class="text-white text-center py-2 px-1 font-PeugeotNewBold text-[10px]"> {{ slide.keyMessage }}</p>
-                            <p class="text-white text-center px-8 font-PeugeotNew text-[10px]">{{ slide.range }}</p>
-                            <p class="text-white text-center pb-2 px-8 font-PeugeotNew text-[10px]">{{ slide.additionalEnergy }}</p>
-                        </div>
-                        <div class="flex flex-col justify-center items-center h-[220px] pb-4 pt-2 px-6 gap-2.5">
-                            <button v-if="slide.showRoomUrl" class="bg-white rounded-full w-full py-3 font-PeugeotNewBold text-[10px] text-blue">
-                                <a :href="slide.showRoomUrl" target="_blank" rel="noopener noreferrer">
-                                    {{ translations.carousel.buttons.showRoomLabel }}
-                                </a>
-                            </button>
-                            <button v-if="slide.configureUrl" class="bg-white rounded-full w-full py-3 font-PeugeotNewBold text-[10px] text-blue">
-                                <a :href="slide.configureUrl" target="_blank" rel="noopener noreferrer">
-                                    {{ translations.carousel.buttons.configureLabel }}
-                                </a>
-                            </button>
-                            <button v-if="slide.offersFormUrl" class="bg-white rounded-full w-full py-3 font-PeugeotNewBold text-[10px] text-blue">
-                                <a :href="slide.offersFormUrl" target="_blank" rel="noopener noreferrer">
-                                    {{ translations.carousel.buttons.offersLabel }}
-                                </a>
-                            </button>
-                            <button v-if="slide.testDriveUrl" class="bg-white rounded-full w-full py-3 font-PeugeotNewBold text-[10px] text-blue">
-                                <a :href="slide.testDriveUrl" target="_blank" rel="noopener noreferrer">
-                                    {{ translations.carousel.buttons.testDriveLabel }}
-                                </a>
-                            </button>
+                    <div class="flex flex-col justify-center h-full">
+                        <div class="bg-blue h-[410px] w-full rounded-3xl flex flex-col mt-10 pt-16">
+                            <div>
+                                <p class="text-white text-center py-2 px-2 font-PeugeotNewBold text-[12px]">{{ slide.car }}</p>
+                                <p class="text-white text-center py-2 px-1 font-PeugeotNewBold text-[10px]"> {{ slide.keyMessage }}</p>
+                                <p class="text-white text-center px-8 font-PeugeotNew text-[10px]">{{ slide.range }}</p>
+                                <p class="text-white text-center pb-2 px-8 font-PeugeotNew text-[10px]">{{ slide.additionalEnergy }}</p>
+                            </div>
+                            <div class="flex flex-col justify-center items-center h-[220px] pb-4 pt-2 px-6 gap-2.5">
+                                <button v-if="slide.showRoomUrl" class="bg-white rounded-full w-full py-3 font-PeugeotNewBold text-[10px] text-blue">
+                                    <a :href="slide.showRoomUrl" target="_blank" rel="noopener noreferrer">
+                                        {{ translations.carousel.buttons.showRoomLabel }}
+                                    </a>
+                                </button>
+                                <button v-if="slide.configureUrl" class="bg-white rounded-full w-full py-3 font-PeugeotNewBold text-[10px] text-blue">
+                                    <a :href="slide.configureUrl" target="_blank" rel="noopener noreferrer">
+                                        {{ translations.carousel.buttons.configureLabel }}
+                                    </a>
+                                </button>
+                                <button v-if="slide.offersFormUrl" class="bg-white rounded-full w-full py-3 font-PeugeotNewBold text-[10px] text-blue">
+                                    <a :href="slide.offersFormUrl" target="_blank" rel="noopener noreferrer">
+                                        {{ translations.carousel.buttons.offersLabel }}
+                                    </a>
+                                </button>
+                                <button v-if="slide.testDriveUrl" class="bg-white rounded-full w-full py-3 font-PeugeotNewBold text-[10px] text-blue">
+                                    <a :href="slide.testDriveUrl" target="_blank" rel="noopener noreferrer">
+                                        {{ translations.carousel.buttons.testDriveLabel }}
+                                    </a>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
