@@ -27,7 +27,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
         <p class="text-white font-PeugeotNew text-xs text-center pt-2">
             {{ translations.carousel.title }}
         </p>
-        <div class="flex grow justify-center items-center h-full">
+        <div class="flex grow justify-center items-center h-full overflow-hidden w-full">
             <swiper-container
                 slides-per-view="1.25"
                 navigation="true" 
