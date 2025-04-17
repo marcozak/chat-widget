@@ -13,7 +13,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
 
 <template>
 
-    <div class="relative w-full h-full overflow-y-auto pb-6 pr-1 flex flex-col justify-center"
+    <div class="relative w-full h-full overflow-y-auto pr-1 flex flex-col justify-center"
         style="padding-top: 14px;
 ">
 
