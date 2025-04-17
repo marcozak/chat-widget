@@ -13,7 +13,9 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
 
 <template>
 
-    <div class="relative w-full h-full overflow-y-auto pb-6 pr-1 flex flex-col justify-center">
+    <div class="relative w-full h-full overflow-y-auto pb-6 pr-1 flex flex-col justify-center"
+        style="padding-top: 14px;
+">
 
         <button
             class="absolute top-4 left-4 z-10 flex items-center"
@@ -34,7 +36,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                 pagination-dynamic-bullets="true"
                 space-between="20"
                 centered-slides="true"
-                class="mb-4 w-full max-w-[320px] self-center"
+                class="pt-4 w-full max-w-[320px] self-center"
             >
                 <swiper-slide 
                     v-for="(slide, index) in translations.carousel.slides"
