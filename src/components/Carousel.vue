@@ -13,7 +13,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
 
 <template>
 
-    <div class="relative w-full h-full overflow-y-auto pb-6 pr-1">
+    <div class="relative w-full h-full overflow-y-auto pb-6 pr-1 flex flex-col justify-center">
 
         <button
             class="absolute top-4 left-4 z-10 flex items-center"
@@ -24,7 +24,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                 {{ translations.Menu.back }}
             </p>
         </button>
-        <p class="text-white font-PeugeotNew text-xs text-center pt-4">
+        <p class="absolute top-4 left-1/2 -translate-x-1/2 text-white font-PeugeotNew text-xs text-center whitespace-nowrap">
             {{ translations.carousel.title }}
         </p>
         
@@ -34,7 +34,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                 pagination-dynamic-bullets="true"
                 space-between="20"
                 centered-slides="true"
-                class="mb-4"
+                class="mb-4 w-full max-w-[320px] self-center"
             >
                 <swiper-slide 
                     v-for="(slide, index) in translations.carousel.slides"
@@ -44,7 +44,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                     <div class="h-[120px] w-[125%] absolute top-6 flex items-center justify-center">
                         <img :src="`${assetBaseUrl}/images/${slide.imageUrl}`" :alt="slide.car" class="">
                     </div>
-                    <div class="flex grow justify-center items-center h-full overflow-hidden w-full">
+                    <div class="flex grow justify-center items-center h-full overflow-hidden w-full pb-4">
                         <div class="bg-blue h-[410px] w-full rounded-3xl flex flex-col mt-10 pt-16">
                             <div>
                                 <p class="text-white text-center py-2 px-2 font-PeugeotNewBold text-[12px]">{{ slide.car }}</p>

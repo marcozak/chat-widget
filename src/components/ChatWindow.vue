@@ -678,7 +678,7 @@ onUnmounted(() => {
             <div
                 v-if="displayCarousel"
                 class="absolute z-10 top-0 w-screen h-full md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"    
-                :style="{ height: 'calc(100% - 2px)' }"
+                :style="{ height: 'calc(100% - 90px)' }"
             >
             <Carousel @go-back="goBackFromCarousel" />
             </div>
