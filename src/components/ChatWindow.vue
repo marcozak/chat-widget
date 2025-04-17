@@ -56,6 +56,13 @@ let ctaTimeoutScheduled = false
 // Keep track of markdown code blocks
 const inCodeBlock = ref(false)
 
+const sanitizeHtml = (input) => {
+  const temp = document.createElement('div');
+  temp.textContent = input;
+  return temp.innerHTML;
+}
+
+
 const sessionInfo = computed(() => {
     refreshKey.value
     return JSON.parse(localStorage.getItem('sessionInfo'))
@@ -581,7 +588,7 @@ onUnmounted(() => {
                                         <div v-else-if="message.content" class="font-PeugeotNew text-xs" style="color: #111827;">
                                             {{ message.content }}
                                         </div>
-                                        <div v-else class="font-PeugeotNew text-xs markdown-content" v-html="message.formattedResponse || (message.responseIa ? parseMarkdown(message.responseIa) : '')"></div>
+                                        <div v-else class="font-PeugeotNew text-xs markdown-content" v-html="sanitizeHtml(message.formattedResponse || (message.responseIa ? parseMarkdown(message.responseIa) : ''))"></div>
                                     </div>
                                 </div>
                                 <p 
