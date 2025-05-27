@@ -7,7 +7,7 @@ import BackArrowIcon from '@/components/icons/BackArrowIcon.vue'
 defineEmits(['close'])
 import translations from '@/translations/translations.json'
 const props = defineProps(['suggestions'])
-const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
+const assetBaseUrl = window.CHAT_WIDGET_CONFIG?.assetBaseUrl
 </script>
         
 
@@ -44,7 +44,7 @@ const assetBaseUrl = import.meta.env.VITE_ASSET_BASE_URL
                 >
                 <div class="h-[480px] mt-10 flex justify-center">
                     <div class="h-[120px] w-[125%] absolute top-6 flex items-center justify-center">
-                        <img :src="`${assetBaseUrl}/images/${slide.imageUrl}`" :alt="slide.car" class="">
+                        <img :src="`${assetBaseUrl}/${slide.imageUrl}`" :alt="slide.car" class="">
                     </div>
                     <div class="flex grow justify-center items-center h-full overflow-hidden w-full pb-4">
                         <div class="bg-blue h-[410px] w-full rounded-3xl flex flex-col mt-10 pt-16">
