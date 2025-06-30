@@ -79,6 +79,35 @@
   font-family: 'PeugeotNew', sans-serif !important;
 }
 
+/* === CORREZIONI PER ELEMENTI INSTABILI (basate sui log di debug) === */
+
+/* Testo "Menu" - classe: text-white text-xs font-PeugeotNew ml-2 
+   Era: 20px → 7.5px, deve essere: 12px stabile */
+.peugeot-widget .text-white.text-xs.font-PeugeotNew.ml-2 {
+  font-size: 12px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+/* Testo "Découvrez nos modèles" - classe: font-PeugeotNewBold text-xs text-white ml-2
+   Era: 20px → 7.5px, deve essere: 12px stabile */
+.peugeot-widget .font-PeugeotNewBold.text-xs.text-white.ml-2 {
+  font-size: 12px !important;
+  font-family: 'PeugeotNewBold', sans-serif !important;
+  font-weight: bold !important;
+}
+
+/* Link "politique de confidentialité" - tag <a> senza classi
+   Era: 18px → 11px, deve essere: 8px stabile (come nella pagina media) */
+.peugeot-widget a {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+/* Forza tutti gli elementi con classe .text-xs per evitare variazioni */
+.peugeot-widget .text-xs {
+  font-size: 12px !important;
+}
+
 /* Bottoni blu - dimensioni target ma SENZA forzare font-size */
 .peugeot-widget [class*="min-h-[64px]"] {
   width: 169.5px !important;
