@@ -129,6 +129,30 @@
   font-family: 'PeugeotNew', sans-serif !important;
 }
 
+/* FORZATURA BRUTALE per l'elemento <details> con classe text-gray text-[8px] */
+.peugeot-widget details.text-gray.opacity-80.italic.text-\[8px\].leading-3 {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+/* FORZATURA BRUTALE per tutti i figli di details */
+.peugeot-widget details.text-gray.opacity-80.italic.text-\[8px\].leading-3 * {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+/* FORZATURA BRUTALE per summary dentro details */
+.peugeot-widget details.text-gray summary {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+/* FORZATURA BRUTALE per paragrafi dentro details */
+.peugeot-widget details.text-gray p {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
 /* Forza tutti gli elementi con classe .text-xs per evitare variazioni */
 .peugeot-widget .text-xs {
   font-size: 12px !important;
