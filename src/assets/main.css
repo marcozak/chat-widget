@@ -103,6 +103,14 @@
   font-family: 'PeugeotNew', sans-serif !important;
 }
 
+/* Specificità aumentata per battere CSS ostili */
+.peugeot-widget details a,
+.peugeot-widget p a,
+.peugeot-widget div a {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
 /* Forza tutti gli elementi con classe .text-xs per evitare variazioni */
 .peugeot-widget .text-xs {
   font-size: 12px !important;
