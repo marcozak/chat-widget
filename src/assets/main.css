@@ -111,6 +111,24 @@
   font-family: 'PeugeotNew', sans-serif !important;
 }
 
+/* Specificità MASSIMA - selettori multipli per battere qualsiasi CSS ostile */
+.peugeot-widget details p a,
+.peugeot-widget .text-gray a,
+.peugeot-widget .text-\[8px\] a,
+.peugeot-widget [class*="leading-3"] a,
+.peugeot-widget .opacity-80 a {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+  line-height: inherit !important;
+}
+
+/* Forzatura BRUTALE per link che contengono "politique" */
+.peugeot-widget a[href*="politique"],
+.peugeot-widget a[href*="confidential"] {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
 /* Forza tutti gli elementi con classe .text-xs per evitare variazioni */
 .peugeot-widget .text-xs {
   font-size: 12px !important;
