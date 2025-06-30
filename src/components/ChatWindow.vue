@@ -507,8 +507,9 @@ onUnmounted(() => {
         enter-from-class="opacity-0"
         leave-to-class="opacity-0"
     >
-        <div v-if="!open" class="absolute bottom-3 right-4 bg-black border-gray-dark border-8 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center">
-            <button @click="openWindow()">
+        <div v-if="!open" class="fixed bottom-4 right-4 bg-black border-gray-dark border-8 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center"
+             style="position: fixed !important; bottom: 16px !important; right: 16px !important; z-index: 999999 !important; font-family: inherit !important; font-size: inherit !important;">
+            <button @click="openWindow()" style="all: unset; cursor: pointer !important;">
                 <div>
                     <GeniusIcon class="mt-2"/>
                 </div>
@@ -521,8 +522,8 @@ onUnmounted(() => {
         enter-from-class="opacity-0 translate-y-full"
         leave-to-class="opacity-0 translate-y-full"
     >
-        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-dynamic md:w-[375px] md:h-[640px] overflow-hidden"
-  :style="{ maxHeight: '100vh' }">
+        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-dynamic md:w-[375px] md:h-[640px] overflow-hidden peugeot-widget"
+             :style="{ maxHeight: '100vh', position: 'fixed !important', bottom: '0px !important', right: '0px !important', zIndex: '999998 !important', pointerEvents: 'auto !important' }">
             <div class="flex justify-between w-full h-[90px] px-5 bg-black md:rounded-t-2xl">
                 <button 
                     @click="goToMenu()" 

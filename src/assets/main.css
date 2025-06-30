@@ -13,6 +13,41 @@
   }
   /* ... Include all the font weights and styles you need */
 }
+
+/* Isolamento CSS per il widget Peugeot */
+.peugeot-widget {
+  font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: inherit !important;
+  box-sizing: border-box !important;
+}
+
+.peugeot-widget *, 
+.peugeot-widget *::before, 
+.peugeot-widget *::after {
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+}
+
+.peugeot-widget button {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+.peugeot-widget input {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+.peugeot-widget p, 
+.peugeot-widget div, 
+.peugeot-widget span {
+  font-family: inherit !important;
+}
+
   @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
