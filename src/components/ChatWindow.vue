@@ -508,8 +508,8 @@ onUnmounted(() => {
         leave-to-class="opacity-0"
     >
         <div v-if="!open" class="fixed bottom-4 right-4 bg-black border-gray-dark border-8 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center"
-             style="position: fixed !important; bottom: 16px !important; right: 16px !important; z-index: 999999 !important; font-family: inherit !important; font-size: inherit !important;">
-            <button @click="openWindow()" style="all: unset; cursor: pointer !important;">
+             style="position: fixed !important; bottom: 16px !important; right: 16px !important; z-index: 999999 !important; font-family: inherit !important; font-size: inherit !important; pointer-events: auto !important;">
+            <button @click="openWindow()" style="all: unset; cursor: pointer !important; pointer-events: auto !important;">
                 <div>
                     <GeniusIcon class="mt-2"/>
                 </div>
