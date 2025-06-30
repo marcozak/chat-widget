@@ -158,15 +158,6 @@
   font-size: 12px !important;
 }
 
-/* Bottoni blu - dimensioni target ma SENZA forzare font-size */
-.peugeot-widget [class*="min-h-[64px]"] {
-  width: 169.5px !important;
-  height: 84px !important;
-  min-height: 84px !important;
-  /* font-size: RIMOSSO - lasciato naturale per responsività */
-  padding: 12px 8px !important;
-}
-
 /* Input specifico - come target: 12px */
 .peugeot-widget [class*="h-[48px]"] {
   font-size: 12px !important;
