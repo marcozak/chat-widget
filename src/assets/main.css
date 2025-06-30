@@ -14,10 +14,10 @@
   /* ... Include all the font weights and styles you need */
 }
 
-/* Isolamento CSS per il widget Peugeot */
+/* Isolamento CSS per il widget Peugeot - VERSIONE ROBUSTA */
 .peugeot-widget {
   font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-  font-size: 14px !important;
+  font-size: 12px !important; /* text-xs equivalente */
   line-height: 1.5 !important;
   color: inherit !important;
   box-sizing: border-box !important;
@@ -27,25 +27,48 @@
 .peugeot-widget *::before, 
 .peugeot-widget *::after {
   box-sizing: border-box !important;
-  font-family: inherit !important;
+  font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
 }
 
+/* Stili specifici per elementi che devono mantenere le dimensioni originali */
 .peugeot-widget button {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  line-height: inherit !important;
+  font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
 }
 
 .peugeot-widget input {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  line-height: inherit !important;
+  font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
 }
 
 .peugeot-widget p, 
 .peugeot-widget div, 
 .peugeot-widget span {
-  font-family: inherit !important;
+  font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+}
+
+/* Override specifico per le classi Tailwind del widget */
+.peugeot-widget .text-xs {
+  font-size: 12px !important;
+}
+
+/* Classe specifica per font-size 8px */
+.peugeot-widget [class*="text-[8px]"] {
+  font-size: 8px !important;
+}
+
+.peugeot-widget .font-PeugeotNew {
+  font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+}
+
+.peugeot-widget .font-PeugeotNewBold {
+  font-family: 'PeugeotNewBold', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
 }
 
   @layer utilities {

@@ -15,7 +15,7 @@ function initChatWidget(options = {}) {
   mountPoint.style.pointerEvents = 'none'
   mountPoint.style.zIndex = '999997'
   mountPoint.style.fontFamily = "'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
-  mountPoint.style.fontSize = '14px'
+  mountPoint.style.fontSize = '12px'
   mountPoint.style.lineHeight = '1.5'
   
   document.body.appendChild(mountPoint)
