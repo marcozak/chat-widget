@@ -17,7 +17,6 @@
 /* Isolamento CSS per il widget Peugeot - VERSIONE TARGET-BASED */
 .peugeot-widget {
   font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-  font-size: 16px !important; /* Base font come target */
   line-height: 1.5 !important;
   color: inherit !important;
   box-sizing: border-box !important;
@@ -28,47 +27,48 @@
 .peugeot-widget *::after {
   box-sizing: border-box !important;
   font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-  font-size: 16px !important; /* Base font come target */
   line-height: 1.5 !important;
 }
 
-/* Titoli grassetto - come target */
+/* Font-family globale senza forzare font-size */
 .peugeot-widget .font-PeugeotNewBold {
   font-family: 'PeugeotNewBold', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  font-weight: bold !important;
+  /* NO font-size globale - lascia che ogni elemento mantenga il suo */
+}
+
+/* Forzature specifiche per elementi individuali secondo target.json */
+
+/* Titoli "Bonjour" e "Comment puis-je" - solo questi a 16px bold */
+.peugeot-widget .font-PeugeotNewBold.text-\[16px\] {
   font-size: 16px !important;
+  font-family: 'PeugeotNewBold', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
   font-weight: bold !important;
 }
 
-/* Testi specifici con dimensioni target */
-.peugeot-widget [class*="text-[16px]"] {
-  font-size: 16px !important;
-}
-
-.peugeot-widget [class*="text-[10px]"] {
+/* Sottotitolo "Je suis Electric Genius..." - 10px normale */
+.peugeot-widget .text-\[10px\] {
   font-size: 10px !important;
 }
 
-.peugeot-widget [class*="text-[8px]"] {
+/* Testi legali piccoli - 8px normale */
+.peugeot-widget .text-\[8px\] {
   font-size: 8px !important;
 }
 
-.peugeot-widget .text-xs {
-  font-size: 12px !important; /* Input e elementi piccoli */
-}
-
-/* Input specifico - come target */
-.peugeot-widget [class*="h-[48px]"] {
-  font-size: 12px !important;
-  font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-}
-
-/* Bottoni blu - dimensioni e padding target */
+/* Bottoni blu - dimensioni target ma SENZA forzare font-size */
 .peugeot-widget [class*="min-h-[64px]"] {
   width: 169.5px !important;
   height: 84px !important;
   min-height: 84px !important;
-  font-size: 16px !important;
+  /* font-size: RIMOSSO - lasciato naturale per responsività */
   padding: 12px 8px !important;
+}
+
+/* Input specifico - come target: 12px */
+.peugeot-widget [class*="h-[48px]"] {
+  font-size: 12px !important;
+  font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
 }
 
 /* Cerchi blu - dimensioni target esatte */
