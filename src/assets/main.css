@@ -359,35 +359,17 @@
   }
 }
 
-/* === FORZATURE CHAT CORRETTE === */
+/* === FORZATURE CHAT PRECISE - SOLO FONT SIZE === */
 
-/* FORZATURE GENERALI PER TUTTI I TESTI NELLA CHAT */
-/* Forza tutti i paragrafi nei fumetti di messaggio */
-.peugeot-widget [class*="bg-blue"] p,
+/* SOLO font size per i testi nei fumetti - approccio cautissimo */
+.peugeot-widget [class*="bg-blue"] p {
+  font-size: 12px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
 .peugeot-widget [class*="bg-white"][class*="text-gray-900"] p {
   font-size: 12px !important;
   font-family: 'PeugeotNew', sans-serif !important;
-  line-height: 1.4 !important;
-}
-
-/* Forza la larghezza dei fumetti bot per essere consistente */
-.peugeot-widget [class*="bg-blue"]:not([class*="h-[410px]"]) {
-  width: 256px !important;
-  max-width: 256px !important;
-  min-width: 256px !important;
-}
-
-/* Forza la larghezza dei fumetti utente per essere consistente */
-.peugeot-widget [class*="bg-white"]:not(.rounded-full) {
-  width: 256px !important;
-  max-width: 256px !important;
-  min-width: 256px !important;
-}
-
-/* Padding fisso per il container chat */
-.peugeot-widget [class*="h-[90px]"] {
-  padding-left: 20px !important;
-  padding-right: 20px !important;
 }
 
 /* === FINE FORZATURE CHAT === */
