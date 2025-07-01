@@ -153,6 +153,123 @@
   font-family: 'PeugeotNew', sans-serif !important;
 }
 
+/* === FORZATURE SPECIFICHE PER IL CAROSELLO === */
+
+/* Back button nel carosello - testo "Menu" */
+.peugeot-widget .absolute.top-4.left-4 .text-white.text-xs.font-PeugeotNew.ml-2 {
+  font-size: 12px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+/* Titolo del carosello centrato */
+.peugeot-widget .absolute.top-4.left-1\/2 {
+  font-size: 12px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+/* Nome delle auto - testo principale */
+.peugeot-widget .text-white.text-center.py-2.px-2.font-PeugeotNewBold.text-\[12px\] {
+  font-size: 12px !important;
+  font-family: 'PeugeotNewBold', sans-serif !important;
+  font-weight: bold !important;
+}
+
+/* Messaggi chiave delle auto */
+.peugeot-widget .text-white.text-center.py-2.px-1.font-PeugeotNewBold.text-\[10px\] {
+  font-size: 10px !important;
+  font-family: 'PeugeotNewBold', sans-serif !important;
+  font-weight: bold !important;
+}
+
+/* Testi di range e energia aggiuntiva */
+.peugeot-widget .text-white.text-center.px-8.font-PeugeotNew.text-\[10px\] {
+  font-size: 10px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+.peugeot-widget .text-white.text-center.pb-2.px-8.font-PeugeotNew.text-\[10px\] {
+  font-size: 10px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+}
+
+/* Bottoni del carosello - testi interni */
+.peugeot-widget .bg-white.rounded-full.w-full.py-3.font-PeugeotNewBold.text-\[10px\].text-blue {
+  font-size: 10px !important;
+  font-family: 'PeugeotNewBold', sans-serif !important;
+  font-weight: bold !important;
+}
+
+/* Link all'interno dei bottoni del carosello */
+.peugeot-widget .bg-white.rounded-full a {
+  font-size: 10px !important;
+  font-family: 'PeugeotNewBold', sans-serif !important;
+  font-weight: bold !important;
+  text-decoration: none !important;
+}
+
+/* Dimensioni fisse per il carosello e le slide */
+.peugeot-widget swiper-container {
+  width: 100% !important;
+  max-width: 320px !important;
+}
+
+.peugeot-widget swiper-slide {
+  height: auto !important;
+}
+
+/* Card del carosello - dimensioni fisse */
+.peugeot-widget .bg-blue.h-\[410px\].w-full.rounded-3xl {
+  height: 410px !important;
+  width: 100% !important;
+  border-radius: 1.5rem !important;
+}
+
+/* Container delle immagini auto */
+.peugeot-widget .h-\[120px\].w-\[125\%\].absolute.top-6 {
+  height: 120px !important;
+  width: 125% !important;
+}
+
+/* Container principale slide */
+.peugeot-widget .h-\[480px\].mt-10.flex.justify-center {
+  height: 480px !important;
+  margin-top: 2.5rem !important;
+}
+
+/* Area bottoni del carosello */
+.peugeot-widget .flex.flex-col.justify-center.items-center.h-\[220px\].pb-4.pt-2.px-6.gap-2\.5 {
+  height: 220px !important;
+  padding: 0.5rem 1.5rem 1rem 1.5rem !important;
+  gap: 0.625rem !important;
+}
+
+/* Forzature per i pulsanti di navigazione Swiper */
+.peugeot-widget swiper-container::part(button-prev),
+.peugeot-widget swiper-container::part(button-next) {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background-color: white !important;
+  color: #374151 !important;
+  margin-top: -48px !important;
+}
+
+.peugeot-widget swiper-container::part(button-prev) {
+  margin-left: 8px !important;
+}
+
+.peugeot-widget swiper-container::part(button-next) {
+  margin-right: 8px !important;
+}
+
+/* Pallini di paginazione */
+.peugeot-widget swiper-container::part(bullet) {
+  background-color: white !important;
+  opacity: 1 !important;
+}
+
+/* === FINE FORZATURE CAROSELLO === */
+
 /* Forza tutti gli elementi con classe .text-xs per evitare variazioni */
 .peugeot-widget .text-xs {
   font-size: 12px !important;
