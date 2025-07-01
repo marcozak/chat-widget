@@ -153,6 +153,24 @@ async function mountPeugeotWidgetAsync(config = {}) {
         background: transparent !important;
       }
       
+      /* FIX SPECIFICO per bottone X - NESSUN BACKGROUND */
+      [data-v-443d312e] button.z-20.relative {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+      
+      /* FIX per tutti i button */
+      [data-v-443d312e] button {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+      }
+      
       /* FIX CRITICO: SVG con background bianco semi-trasparente */
       svg {
         background: none !important;
