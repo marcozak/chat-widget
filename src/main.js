@@ -52,56 +52,13 @@ async function mountPeugeotWidgetAsync(config = {}) {
     // 3. Aggiungi CSS isolato
     console.log('🎨 Injecting CSS into Shadow DOM...');
     
-    // STRATEGIA NUOVA: Carica il CSS finale dal bundle di produzione
-    let allCss = '';
-    
-    try {
-      // In dev, usa il CSS inline
-      if (import.meta.env.DEV) {
-        console.log('📊 Dev mode: using inline CSS');
-        console.log('📊 Shadow CSS length:', shadowCss.length);
-        console.log('📊 Tailwind CSS length:', tailwindCss.length);
-        allCss = tailwindCss + '\n\n' + shadowCss;
-      } else {
-        // In produzione, carica il CSS bundle finale
-        console.log('🏭 Production mode: loading CSS bundle');
-        
-        let cssPath;
-        if (config.assetBaseUrl) {
-          // Se abbiamo un assetBaseUrl configurato, usa quello per il CSS
-          // Rimuovi '/images' dalla fine se presente e aggiungi 'style.css'
-          const baseUrl = config.assetBaseUrl.replace(/\/images\/?$/, '');
-          cssPath = `${baseUrl}/style.css`;
-          console.log('🔗 Using configured asset base URL for CSS:', cssPath);
-        } else {
-          // Prova a derivare il path dalla URL del script corrente (import.meta.url)
-          try {
-            const scriptUrl = new URL(import.meta.url);
-            cssPath = new URL('./style.css', scriptUrl).href;
-            console.log('🔗 Using script-relative URL for CSS:', cssPath);
-          } catch (e) {
-            // Fallback ultimo: path relativo (probabilmente non funzionerà)
-            cssPath = './style.css';
-            console.log('🔗 Fallback to relative path for CSS:', cssPath);
-          }
-        }
-        
-        console.log('📦 Attempting to fetch CSS from:', cssPath);
-        const cssResponse = await fetch(cssPath);
-        
-        if (!cssResponse.ok) {
-          throw new Error(`HTTP ${cssResponse.status}: ${cssResponse.statusText}`);
-        }
-        
-        const bundleCss = await cssResponse.text();
-        console.log('✅ CSS loaded successfully from:', cssPath);
-        console.log('📊 Bundle CSS length:', bundleCss.length);
-        allCss = bundleCss + '\n\n' + shadowCss;
-      }
-    } catch (error) {
-      console.warn('⚠️ Failed to load CSS bundle, using fallback:', error);
-      allCss = tailwindCss + '\n\n' + shadowCss;
-    }
+    // STRATEGIA CORRETTA: Usa sempre il CSS inline completo
+    // Il CSS inline contiene tutte le classi Tailwind necessarie (~261kB completo)
+    // Il CSS bundle di produzione è solo ~8kB e contiene solo Swiper (incompleto)
+    console.log('� Using complete inline CSS (contains all Tailwind classes)');
+    console.log('� Shadow CSS length:', shadowCss.length);
+    console.log('📊 Tailwind CSS length:', tailwindCss.length);
+    const allCss = tailwindCss + '\n\n' + shadowCss;
     
     console.log('📊 Combined CSS length:', allCss.length);
     console.log('📊 CSS contains .flex:', allCss.includes('.flex'));
@@ -323,10 +280,58 @@ async function mountPeugeotWidgetAsync(config = {}) {
           console.log('    - Display:', computedStyle.display);
           console.log('    - Background:', computedStyle.backgroundColor);
           console.log('    - Font family:', computedStyle.fontFamily);
+          console.log('    - Font size:', computedStyle.fontSize);
+          console.log('    - Font weight:', computedStyle.fontWeight);
           console.log('    - Width:', computedStyle.width);
           console.log('    - Height:', computedStyle.height);
           console.log('    - Border radius:', computedStyle.borderRadius);
+          console.log('    - Position:', computedStyle.position);
+          console.log('    - Bottom:', computedStyle.bottom);
+          console.log('    - Right:', computedStyle.right);
+          console.log('    - Z-index:', computedStyle.zIndex);
         }
+        
+        // Debug specifico per elementi con background nero
+        const blackBgElements = appContent.querySelectorAll('.bg-black, [class*="bg-black"]');
+        console.log('  - Black background elements found:', blackBgElements.length);
+        blackBgElements.forEach((el, i) => {
+          const style = getComputedStyle(el);
+          console.log(`    - Black bg element ${i}:`, {
+            classes: el.className,
+            computedBg: style.backgroundColor,
+            computedColor: style.color,
+            width: style.width,
+            height: style.height
+          });
+        });
+        
+        // Debug per tutti gli elementi con classi bg-*
+        const allBgElements = appContent.querySelectorAll('[class*="bg-"]');
+        console.log('  - All background elements found:', allBgElements.length);
+        allBgElements.forEach((el, i) => {
+          const style = getComputedStyle(el);
+          const bgClasses = el.className.split(' ').filter(c => c.startsWith('bg-'));
+          if (bgClasses.length > 0) {
+            console.log(`    - Bg element ${i}:`, {
+              bgClasses: bgClasses,
+              computedBg: style.backgroundColor,
+              element: el.tagName
+            });
+          }
+        });
+        
+        // Debug per font issues
+        const fontElements = appContent.querySelectorAll('.font-PeugeotNew, [class*="font-"]');
+        console.log('  - Font elements found:', fontElements.length);
+        fontElements.forEach((el, i) => {
+          const style = getComputedStyle(el);
+          console.log(`    - Font element ${i}:`, {
+            classes: el.className.split(' ').filter(c => c.includes('font')),
+            computedFont: style.fontFamily,
+            fontSize: style.fontSize,
+            fontWeight: style.fontWeight
+          });
+        });
         
         // Test se Vue riesce a trovare gli elementi con querySelector nel suo scope
         const chatElement = appContent.querySelector('#chat');
