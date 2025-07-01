@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, ref, watch, onMounted, computed, onUnmounted, getCurrentInstance } from 'vue'
+import { nextTick, ref, watch, onMounted, computed, onUnmounted } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { marked } from 'marked'
 import { AnswerBuffer } from '@/utils/AnswerBuffer'
@@ -263,13 +263,19 @@ const displayChatWIndow = () => {
     scrollToBottomOfChat('instant')
 }
 
+// Riferimento al DOM root del componente per Shadow DOM compatibility
+const componentRoot = ref(null)
+
 const scrollToBottomOfChat = async (behavior) => {
-    // Fix per Shadow DOM: usa getCurrentInstance() per accedere al root del componente
-    // invece di document.getElementById che cerca nel document globale
-    const { proxy } = getCurrentInstance()
-    const chat = proxy.$el.querySelector('#chat')
+    // Fix per Shadow DOM: usa il ref al root element invece di document.getElementById
+    // che cerca nel document globale e non funziona in Shadow DOM
     await nextTick()
-    if (chat) chat.lastElementChild.scrollIntoView({ behavior, block: "end" })
+    if (!componentRoot.value) return
+    
+    const chat = componentRoot.value.querySelector('#chat')
+    if (chat && chat.lastElementChild) {
+        chat.lastElementChild.scrollIntoView({ behavior, block: "end" })
+    }
 }
 
 const addCTA = () => {
@@ -503,7 +509,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-
+  <div ref="componentRoot">
     <Transition 
         enter-active-class="transition-opacity duration-1000"
         leave-active-class="transition-opacity duration-300"
@@ -687,6 +693,7 @@ onUnmounted(() => {
             </div>
         </div>
     </Transition>
+  </div>
 </template>
 
 <style scoped>

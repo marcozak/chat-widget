@@ -48,44 +48,79 @@ function mountPeugeotWidget(config = {}) {
     console.log('🎨 Injecting CSS into Shadow DOM...');
     console.log('📊 Shadow CSS length:', shadowCss.length);
     console.log('📊 Shadow CSS preview:', shadowCss.substring(0, 200));
+    console.log('📊 Shadow CSS contains PeugeotNew:', shadowCss.includes('PeugeotNew'));
+    console.log('📊 Shadow CSS contains font-face:', shadowCss.includes('@font-face'));
+    console.log('📊 Shadow CSS contains Tailwind:', shadowCss.includes('.flex{'));
     
     const style = document.createElement('style');
     style.textContent = `
-      /* RESET BASE COME UNA PAGINA NORMALE PACIFICA */
+      /* RESET FORZATO CON IMPORTANT PER SHADOW DOM */
       * {
-        box-sizing: border-box;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
       
-      /* Stili base del browser - come una pagina normale */
+      /* Stili base del browser - forzati */
       :host {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-        color: #000;
-        background: transparent;
-        display: block;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+        color: #000 !important;
+        background: transparent !important;
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        transform: none !important;
       }
       
       div {
-        display: block;
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        transform: none !important;
       }
       
       button {
-        cursor: pointer;
-        border: none;
-        background: none;
-        font: inherit;
+        cursor: pointer !important;
+        border: none !important;
+        background: none !important;
+        font: inherit !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+        font-size: inherit !important;
+        color: inherit !important;
       }
       
       input {
-        font: inherit;
-        border: 1px solid #ccc;
-        background: white;
-        color: black;
+        font: inherit !important;
+        border: 1px solid #ccc !important;
+        background: white !important;
+        color: black !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: inherit !important;
+        transform: none !important;
       }
       
       p {
-        margin: 1em 0;
+        margin: 1em 0 !important;
+        font-size: inherit !important;
+        color: inherit !important;
+        background: transparent !important;
+        border: none !important;
+        width: auto !important;
+        height: auto !important;
+        transform: none !important;
       }
       
       /* IL NOSTRO CSS COMPLETO */
