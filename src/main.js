@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-import shadowCss from './shadow-dom.css?inline'
+import ChatWindow from './components/ChatWindow.vue'
+import shadowCss from './assets/shadow-dom.css?inline'
 
 // Auto-initialization logic
 let isAutoInitialized = false;
@@ -66,7 +66,10 @@ function mountPeugeotWidget(config = {}) {
 
     // 5. Monta Vue app
     console.log('⚡ Mounting Vue app...');
-    const app = createApp(App, { config });
+    const app = createApp(ChatWindow);
+    
+    // Passa la config come global property invece che come prop
+    app.config.globalProperties.$widgetConfig = config;
     
     // Debug Vue mounting
     app.config.errorHandler = (err, vm, info) => {
