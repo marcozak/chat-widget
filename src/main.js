@@ -54,40 +54,24 @@ function mountPeugeotWidget(config = {}) {
     
     const style = document.createElement('style');
     
-    // STRATEGIA ALTERNATIVA: Forziamo TUTTO il CSS del widget con !important
-    // Modifico shadowCss per aggiungere !important a tutte le regole critiche
+    // STRATEGIA ALTERNATIVA: Forziamo SOLO le regole critiche con !important
+    // NON tutte le regole, solo quelle che servono per contrastare il CSS ostile
     let forcedCss = shadowCss
-      // Forza dimensioni e posizioni
-      .replace(/width:\s*([^;]+);/g, 'width: $1 !important;')
-      .replace(/height:\s*([^;]+);/g, 'height: $1 !important;')
+      // Forza SOLO font-size e font-family per contrastare il CSS ostile
       .replace(/font-family:\s*([^;]+);/g, 'font-family: $1 !important;')
       .replace(/font-size:\s*([^;]+);/g, 'font-size: $1 !important;')
-      .replace(/background:\s*([^;]+);/g, 'background: $1 !important;')
-      .replace(/background-color:\s*([^;]+);/g, 'background-color: $1 !important;')
-      .replace(/border-radius:\s*([^;]+);/g, 'border-radius: $1 !important;')
-      .replace(/display:\s*([^;]+);/g, 'display: $1 !important;')
-      .replace(/position:\s*([^;]+);/g, 'position: $1 !important;')
-      .replace(/transform:\s*([^;]+);/g, 'transform: $1 !important;')
       // FIX CRITICO: Sostituisci unità viewport che non funzionano in Shadow DOM
-      .replace(/100vw/g, '100%')
-      .replace(/100vh/g, '100%')
-      .replace(/(\d+)vw/g, '$1%')  // Converte tutte le unità vw in %
-      .replace(/(\d+)vh/g, '$1%')  // Converte tutte le unità vh in %
-      // Fix per w-screen (width: 100vw) che diventa width: 100%
-      .replace(/width:\s*100vw\s*!important;/g, 'width: 375px !important;')  // Dimensione fissa mobile
-      .replace(/width:\s*100%\s*!important;/g, 'width: 375px !important;')   // Per sicurezza
-      // Fix per altezze dinamiche
-      .replace(/height:\s*100vh\s*!important;/g, 'height: 640px !important;')
-      .replace(/height:\s*100%\s*!important;/g, 'max-height: 640px !important;');
+      .replace(/100vw/g, '375px')
+      .replace(/100vh/g, '640px')
+      .replace(/(\d+)vw/g, function(match, p1) { return Math.round(p1 * 3.75) + 'px'; })  // Converte vw in px
+      .replace(/(\d+)vh/g, function(match, p1) { return Math.round(p1 * 6.4) + 'px'; });   // Converte vh in px
     
     console.log('🔧 CSS Transformation Debug:');
     console.log('  - Original CSS length:', shadowCss.length);
     console.log('  - Forced CSS length:', forcedCss.length);
     console.log('  - Added !important rules:', forcedCss.length - shadowCss.length);
-    console.log('  - Contains !important width:', forcedCss.includes('width:') && forcedCss.includes('!important'));
     console.log('  - Contains !important font-family:', forcedCss.includes('font-family:') && forcedCss.includes('!important'));
-    console.log('  - Removed viewport units (vw):', !forcedCss.includes('vw'));
-    console.log('  - Removed viewport units (vh):', !forcedCss.includes('vh'));
+    console.log('  - Converted viewport units:', !forcedCss.includes('vw') && !forcedCss.includes('vh'));
     console.log('  - Original contained 100vw:', shadowCss.includes('100vw'));
     console.log('  - Original contained 100vh:', shadowCss.includes('100vh'));
     
@@ -106,19 +90,11 @@ function mountPeugeotWidget(config = {}) {
       /* RESET TOTALE PER SHADOW DOM */
       * {
         box-sizing: border-box !important;
-        font-size: inherit !important;
       }
       
-      /* Annulla TUTTO il CSS ostile della pagina host */
-      *:not(:host) {
-        margin: unset !important;
-        padding: unset !important;
-        width: unset !important;
-        height: unset !important;
-        background: unset !important;
-        border: unset !important;
-        transform: unset !important;
-        color: unset !important;
+      /* Reset selettivo - NON cancellare tutto */
+      body, html, input, button, div, p, span, a {
+        font-size: inherit !important;
       }
       
       /* Reset specifico per il root del widget */
