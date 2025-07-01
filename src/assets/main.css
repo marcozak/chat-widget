@@ -422,4 +422,11 @@
 
 /* === FINE FORZATURE PER STABILIZZARE LAYOUT CAROSELLO === */
 
-
+.peugeot-widget .markdown-content p,
+.peugeot-widget .markdown-content li,
+.peugeot-widget .markdown-content ol,
+.peugeot-widget .markdown-content ul {
+  font-size: 12px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+  line-height: 1.5 !important;
+}
