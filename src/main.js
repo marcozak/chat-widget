@@ -47,83 +47,55 @@ function mountPeugeotWidget(config = {}) {
     // 3. Aggiungi CSS isolato
     console.log('🎨 Injecting CSS into Shadow DOM...');
     const style = document.createElement('style');
-    style.textContent = shadowCss + `
-      /* FORZATURE SPECIFICHE PER SHADOW DOM */
-      
-      /* BOTTONE CHIUSO - deve rimanere piccolo */
-      [data-v-bcbeacbb].w-16 {
-        width: 64px !important;  /* w-16 = 64px */
-        height: 64px !important;
+    style.textContent = `
+      /* RESET BASE COME UNA PAGINA NORMALE PACIFICA */
+      * {
+        box-sizing: border-box;
       }
       
-      [data-v-bcbeacbb].h-16 {
-        height: 64px !important;
-        width: 64px !important;
-      }
-      
-      [data-v-bcbeacbb].w-20 {
-        width: 80px !important;  /* w-20 = 80px per md */
-        height: 80px !important;
-      }
-      
-      [data-v-bcbeacbb].h-20 {
-        height: 80px !important;
-        width: 80px !important;
-      }
-      
-      /* CHAT APERTA - dimensioni corrette solo quando la chat è aperta */
-      [data-v-bcbeacbb].w-screen {
-        width: 375px !important;
-        max-width: 375px !important;
-      }
-      
-      [data-v-bcbeacbb].h-dynamic {
-        height: 640px !important;
-        max-height: 100vh !important;
-      }
-      
-      /* Forziamo il widget della chat a rimanere nelle dimensioni corrette */
-      [data-v-bcbeacbb].fixed.flex-col {
-        position: fixed !important;
-        bottom: 0 !important;
-        right: 0 !important;
-      }
-      
-      /* Su mobile per la chat aperta */
-      @media (max-width: 768px) {
-        [data-v-bcbeacbb].w-screen {
-          width: 100vw !important;
-          max-width: 100vw !important;
-        }
-        
-        [data-v-bcbeacbb].h-dynamic {
-          height: 100vh !important;
-          max-height: 100vh !important;
-        }
-      }
-      
-      /* Reset per il contenitore root */
+      /* Stili base del browser - come una pagina normale */
       :host {
-        display: block !important;
-        width: auto !important;
-        height: auto !important;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #000;
+        background: transparent;
+        display: block;
       }
+      
+      div {
+        display: block;
+      }
+      
+      button {
+        cursor: pointer;
+        border: none;
+        background: none;
+        font: inherit;
+      }
+      
+      input {
+        font: inherit;
+        border: 1px solid #ccc;
+        background: white;
+        color: black;
+      }
+      
+      p {
+        margin: 1em 0;
+      }
+      
+      /* IL NOSTRO CSS COMPLETO */
+      ${shadowCss}
     `;
     shadow.appendChild(style);
-    console.log('🎨 CSS injected, length:', shadowCss.length);
+    console.log('🎨 CSS injected with browser defaults + our styles');
 
     // 4. Crea il nodo root per Vue
     console.log('🏗️ Creating Vue app root...');
     const appRoot = document.createElement('div');
     appRoot.id = 'peugeot-widget-app';
-    appRoot.style.cssText = `
-      position: relative;
-      display: block;
-      font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
-      color: #333;
-    `;
+    // Nessuno stile inline - lascia che il CSS funzioni normalmente
     shadow.appendChild(appRoot);
     console.log('🏗️ App root created');
 
