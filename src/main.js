@@ -56,10 +56,12 @@ function mountPeugeotWidget(config = {}) {
     const appRoot = document.createElement('div');
     appRoot.id = 'peugeot-widget-app';
     appRoot.style.cssText = `
-      all: initial;
       position: relative;
       display: block;
       font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
     `;
     shadow.appendChild(appRoot);
     console.log('🏗️ App root created');
