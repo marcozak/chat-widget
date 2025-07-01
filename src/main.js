@@ -154,10 +154,71 @@ async function mountPeugeotWidgetAsync(config = {}) {
         max-width: 320px !important;
       }
       
+      /* FIX POSITIONING - Correggi elementi fuori viewport */
+      .fixed {
+        position: fixed !important;
+        box-sizing: border-box !important;
+      }
+      
+      /* Assicurati che gli elementi fissi stiano dentro i bounds del widget */
+      .bottom-3 {
+        bottom: 0.75rem !important;
+      }
+      
+      .right-4 {
+        right: 1rem !important;
+      }
+      
+      /* FIX DIMENSIONI SPECIFICHE per bottone chat */
+      .w-16 {
+        width: 4rem !important; /* 64px */
+      }
+      
+      .h-16 {
+        height: 4rem !important; /* 64px */
+      }
+      
+      .w-20 {
+        width: 5rem !important; /* 80px */
+      }
+      
+      .h-20 {
+        height: 5rem !important; /* 80px */
+      }
+      
       /* Forza scroll corretto per evitare overflow */
       .overflow-y-scroll {
         overflow-y: auto !important;
         max-height: 500px !important;
+      }
+      
+      /* FIX COLORI E BACKGROUNDS SPECIFICI */
+      .bg-gray-900 {
+        background-color: rgb(17, 24, 39) !important;
+      }
+      
+      .text-sm {
+        font-size: 0.875rem !important; /* 14px */
+        line-height: 1.25rem !important;
+      }
+      
+      /* FIX BORDER RADIUS MANCANTI */
+      .rounded-b-2xl {
+        border-bottom-left-radius: 1rem !important;
+        border-bottom-right-radius: 1rem !important;
+      }
+      
+      /* FIX OVERFLOW e CLIP per elementi fuori viewport */
+      #peugeot-widget-app {
+        overflow: visible !important;
+        contain: layout style !important;
+      }
+      
+      /* Previeni elementi che escono dal container del widget */
+      .fixed[class*="bottom-"], .fixed[class*="right-"] {
+        transform: none !important;
+        margin: 0 !important;
+        contain: layout !important;
       }
       
       /* OVERRIDE FINALE per elementi critici */
