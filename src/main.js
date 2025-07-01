@@ -53,78 +53,80 @@ function mountPeugeotWidget(config = {}) {
     console.log('📊 Shadow CSS contains Tailwind:', shadowCss.includes('.flex{'));
     
     const style = document.createElement('style');
+    
+    // STRATEGIA ALTERNATIVA: Forziamo TUTTO il CSS del widget con !important
+    // Modifico shadowCss per aggiungere !important a tutte le regole critiche
+    let forcedCss = shadowCss
+      // Forza dimensioni e posizioni
+      .replace(/width:\s*([^;]+);/g, 'width: $1 !important;')
+      .replace(/height:\s*([^;]+);/g, 'height: $1 !important;')
+      .replace(/font-family:\s*([^;]+);/g, 'font-family: $1 !important;')
+      .replace(/font-size:\s*([^;]+);/g, 'font-size: $1 !important;')
+      .replace(/background:\s*([^;]+);/g, 'background: $1 !important;')
+      .replace(/background-color:\s*([^;]+);/g, 'background-color: $1 !important;')
+      .replace(/border-radius:\s*([^;]+);/g, 'border-radius: $1 !important;')
+      .replace(/display:\s*([^;]+);/g, 'display: $1 !important;')
+      .replace(/position:\s*([^;]+);/g, 'position: $1 !important;')
+      .replace(/transform:\s*([^;]+);/g, 'transform: $1 !important;');
+    
+    console.log('🔧 CSS Transformation Debug:');
+    console.log('  - Original CSS length:', shadowCss.length);
+    console.log('  - Forced CSS length:', forcedCss.length);
+    console.log('  - Added !important rules:', forcedCss.length - shadowCss.length);
+    console.log('  - Contains !important width:', forcedCss.includes('width:') && forcedCss.includes('!important'));
+    console.log('  - Contains !important font-family:', forcedCss.includes('font-family:') && forcedCss.includes('!important'));
+    
     style.textContent = `
-      /* RESET FORZATO CON IMPORTANT PER SHADOW DOM */
+      /* RESET TOTALE PER SHADOW DOM */
       * {
         box-sizing: border-box !important;
-        margin: 0 !important;
-        padding: 0 !important;
       }
       
-      /* Stili base del browser - forzati */
+      /* Annulla TUTTO il CSS ostile della pagina host */
+      *:not(:host) {
+        margin: unset !important;
+        padding: unset !important;
+        width: unset !important;
+        height: unset !important;
+        background: unset !important;
+        border: unset !important;
+        transform: unset !important;
+        font-size: unset !important;
+        color: unset !important;
+      }
+      
+      /* Reset specifico per il root del widget */
       :host {
+        all: initial !important;
+        display: block !important;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
         font-size: 16px !important;
         line-height: 1.5 !important;
         color: #000 !important;
         background: transparent !important;
-        display: block !important;
+      }
+      
+      /* CSS FORZATO DEL WIDGET */
+      ${forcedCss}
+      
+      /* OVERRIDE FINALE per elementi critici */
+      [data-v-443d312e] {
+        font-family: PeugeotNew, -apple-system, BlinkMacSystemFont, sans-serif !important;
+      }
+      
+      .font-PeugeotNew {
+        font-family: PeugeotNew, -apple-system, BlinkMacSystemFont, sans-serif !important;
+      }
+      
+      /* Forza le dimensioni del bottone widget */
+      [data-v-443d312e].fixed {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
         width: auto !important;
         height: auto !important;
         transform: none !important;
       }
-      
-      div {
-        display: block !important;
-        width: auto !important;
-        height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        border: none !important;
-        transform: none !important;
-      }
-      
-      button {
-        cursor: pointer !important;
-        border: none !important;
-        background: none !important;
-        font: inherit !important;
-        width: auto !important;
-        height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        transform: none !important;
-        font-size: inherit !important;
-        color: inherit !important;
-      }
-      
-      input {
-        font: inherit !important;
-        border: 1px solid #ccc !important;
-        background: white !important;
-        color: black !important;
-        width: auto !important;
-        height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        font-size: inherit !important;
-        transform: none !important;
-      }
-      
-      p {
-        margin: 1em 0 !important;
-        font-size: inherit !important;
-        color: inherit !important;
-        background: transparent !important;
-        border: none !important;
-        width: auto !important;
-        height: auto !important;
-        transform: none !important;
-      }
-      
-      /* IL NOSTRO CSS COMPLETO */
-      ${shadowCss}
     `;
     shadow.appendChild(style);
     console.log('🎨 CSS injected with browser defaults + our styles');
@@ -217,6 +219,24 @@ function mountPeugeotWidget(config = {}) {
         // Verifica che gli stili Tailwind siano applicati
         const tailwindElements = appContent.querySelectorAll('.bg-blue-500, .text-white, .rounded, .p-4, .m-2');
         console.log('  - Elements with Tailwind classes:', tailwindElements.length);
+        
+        // Debug più specifico per le classi Tailwind del widget
+        const flexElements = appContent.querySelectorAll('.flex');
+        const bgElements = appContent.querySelectorAll('[class*="bg-"]');
+        const textElements = appContent.querySelectorAll('[class*="text-"]');
+        console.log('  - Flex elements found:', flexElements.length);
+        console.log('  - Background elements found:', bgElements.length);
+        console.log('  - Text elements found:', textElements.length);
+        
+        // Test specifico per il bottonet del widget
+        const buttonElement = appContent.querySelector('.absolute.bottom-3.right-4');
+        console.log('  - Widget button element found:', !!buttonElement);
+        if (buttonElement) {
+          const buttonStyle = getComputedStyle(buttonElement);
+          console.log('    - Button computed position:', buttonStyle.position);
+          console.log('    - Button computed bottom:', buttonStyle.bottom);
+          console.log('    - Button computed right:', buttonStyle.right);
+        }
         
         // Test scroll funzionante (importante per la fix dell'accesso DOM)
         if (chatElement && chatElement.scrollHeight > 0) {
