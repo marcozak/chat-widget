@@ -47,7 +47,68 @@ function mountPeugeotWidget(config = {}) {
     // 3. Aggiungi CSS isolato
     console.log('🎨 Injecting CSS into Shadow DOM...');
     const style = document.createElement('style');
-    style.textContent = shadowCss;
+    style.textContent = shadowCss + `
+      /* FORZATURE SPECIFICHE PER SHADOW DOM */
+      
+      /* BOTTONE CHIUSO - deve rimanere piccolo */
+      [data-v-bcbeacbb].w-16 {
+        width: 64px !important;  /* w-16 = 64px */
+        height: 64px !important;
+      }
+      
+      [data-v-bcbeacbb].h-16 {
+        height: 64px !important;
+        width: 64px !important;
+      }
+      
+      [data-v-bcbeacbb].w-20 {
+        width: 80px !important;  /* w-20 = 80px per md */
+        height: 80px !important;
+      }
+      
+      [data-v-bcbeacbb].h-20 {
+        height: 80px !important;
+        width: 80px !important;
+      }
+      
+      /* CHAT APERTA - dimensioni corrette solo quando la chat è aperta */
+      [data-v-bcbeacbb].w-screen {
+        width: 375px !important;
+        max-width: 375px !important;
+      }
+      
+      [data-v-bcbeacbb].h-dynamic {
+        height: 640px !important;
+        max-height: 100vh !important;
+      }
+      
+      /* Forziamo il widget della chat a rimanere nelle dimensioni corrette */
+      [data-v-bcbeacbb].fixed.flex-col {
+        position: fixed !important;
+        bottom: 0 !important;
+        right: 0 !important;
+      }
+      
+      /* Su mobile per la chat aperta */
+      @media (max-width: 768px) {
+        [data-v-bcbeacbb].w-screen {
+          width: 100vw !important;
+          max-width: 100vw !important;
+        }
+        
+        [data-v-bcbeacbb].h-dynamic {
+          height: 100vh !important;
+          max-height: 100vh !important;
+        }
+      }
+      
+      /* Reset per il contenitore root */
+      :host {
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+      }
+    `;
     shadow.appendChild(style);
     console.log('🎨 CSS injected, length:', shadowCss.length);
 
@@ -112,17 +173,15 @@ window.ChatWidget = {
   }
 };
 
-// Auto-initialization quando il DOM è pronto
+// Auto-initialization SOLO se non chiamata manualmente
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('📄 DOM loaded, auto-initializing widget...');
-    mountPeugeotWidget(window.CHAT_WIDGET_CONFIG || {});
-    isAutoInitialized = true;
+    // Non fare auto-init, aspetta la chiamata manuale
+    console.log('📄 DOM loaded, waiting for manual init...');
   });
 } else {
-  console.log('📄 DOM already loaded, auto-initializing widget immediately...');
-  mountPeugeotWidget(window.CHAT_WIDGET_CONFIG || {});
-  isAutoInitialized = true;
+  // Non fare auto-init, aspetta la chiamata manuale
+  console.log('📄 DOM already loaded, waiting for manual init...');
 }
 
 console.log('📝 Peugeot Chat Widget script loaded');
