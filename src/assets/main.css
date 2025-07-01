@@ -359,4 +359,67 @@
   }
 }
 
+/* === CORREZIONE SPECIFICA PER FONT PICCOLI === */
+
+/* Aumenta il padding-top della card blu per dare più spazio ai testi 
+   quando i font della pagina sono piccoli */
+@media (max-width: 9999px) {
+  .peugeot-widget .bg-blue.h-\[410px\].w-full.rounded-3xl.flex.flex-col.mt-10.pt-16 {
+    padding-top: 72px !important; /* Aumentato da 64px a 72px per più respiro */
+  }
+  
+  /* Aumenta leggermente anche il top dell'immagine per bilanciare */
+  .peugeot-widget .h-\[120px\].w-\[125\%\].absolute.top-6 {
+    top: 28px !important; /* Aumentato da 24px a 28px */
+  }
+  
+  /* Aumenta il padding dell'area bottoni per più spazio */
+  .peugeot-widget .flex.flex-col.justify-center.items-center.h-\[220px\].pb-4.pt-2.px-6.gap-2\.5 {
+    padding: 12px 24px 20px 24px !important; /* Aumentato il padding verticale */
+  }
+}
+
+/* === FINE CORREZIONE FONT PICCOLI === */
+
+/* === FORZATURE PER STABILIZZARE LAYOUT CAROSELLO === */
+.peugeot-widget .bg-blue.h-\[410px\].w-full.rounded-3xl.flex.flex-col.mt-10 {
+  margin-top: 40px !important; /* Forza mt-10 = 40px fisso */
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+}
+
+.peugeot-widget .h-\[120px\].w-\[125\%\].absolute.top-6 {
+  position: absolute !important;
+  top: 24px !important; /* Forza 24px fisso invece di variabile */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+.peugeot-widget .flex.flex-col.justify-center.items-center.h-\[220px\].pb-4.pt-2.px-6.gap-2\.5 {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 220px !important;
+  padding: 8px 24px 16px 24px !important; /* Forza padding fisso */
+  gap: 10px !important; /* Forza gap fisso (0.625rem = 10px) */
+}
+
+.peugeot-widget .bg-white.rounded-full.w-full.py-3.font-PeugeotNewBold.text-\[10px\].text-blue {
+  width: 100% !important;
+  padding: 12px 0 !important; /* Forza py-3 = 12px fisso */
+  margin: 0 !important;
+  border-radius: 9999px !important;
+  background-color: white !important;
+  color: #0066cc !important;
+  font-size: 10px !important;
+  font-family: 'PeugeotNewBold', sans-serif !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+}
+
+/* === FINE FORZATURE PER STABILIZZARE LAYOUT CAROSELLO === */
+
 
