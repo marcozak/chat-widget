@@ -179,6 +179,53 @@ function mountPeugeotWidget(config = {}) {
       .md\\:h-\\[640px\\] {
         height: 640px !important;
       }
+      
+      /* OVERRIDE BRUTALE per dimensioni del widget */
+      [data-v-443d312e].w-screen {
+        width: 375px !important;
+        max-width: 375px !important;
+      }
+      
+      [data-v-443d312e].h-dynamic {
+        height: 640px !important;
+        max-height: 640px !important;
+      }
+      
+      /* Fix per l'icona gigante - limitiamo le dimensioni di SVG e immagini */
+      [data-v-443d312e] svg {
+        width: auto !important;
+        height: auto !important;
+        max-width: 50px !important;
+        max-height: 50px !important;
+      }
+      
+      [data-v-443d312e] img {
+        width: auto !important;
+        height: auto !important;
+        max-width: 50px !important;
+        max-height: 50px !important;
+      }
+      
+      /* Fix per il bottone rotondo del widget */
+      [data-v-443d312e] .w-16 {
+        width: 64px !important;
+        max-width: 64px !important;
+      }
+      
+      [data-v-443d312e] .h-16 {
+        height: 64px !important;
+        max-height: 64px !important;
+      }
+      
+      [data-v-443d312e] .w-20 {
+        width: 80px !important;
+        max-width: 80px !important;
+      }
+      
+      [data-v-443d312e] .h-20 {
+        height: 80px !important;
+        max-height: 80px !important;
+      }
     `;
     shadow.appendChild(style);
     console.log('🎨 CSS injected with browser defaults + our styles');
