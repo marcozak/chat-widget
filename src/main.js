@@ -67,7 +67,18 @@ function mountPeugeotWidget(config = {}) {
       .replace(/border-radius:\s*([^;]+);/g, 'border-radius: $1 !important;')
       .replace(/display:\s*([^;]+);/g, 'display: $1 !important;')
       .replace(/position:\s*([^;]+);/g, 'position: $1 !important;')
-      .replace(/transform:\s*([^;]+);/g, 'transform: $1 !important;');
+      .replace(/transform:\s*([^;]+);/g, 'transform: $1 !important;')
+      // FIX CRITICO: Sostituisci unità viewport che non funzionano in Shadow DOM
+      .replace(/100vw/g, '100%')
+      .replace(/100vh/g, '100%')
+      .replace(/(\d+)vw/g, '$1%')  // Converte tutte le unità vw in %
+      .replace(/(\d+)vh/g, '$1%')  // Converte tutte le unità vh in %
+      // Fix per w-screen (width: 100vw) che diventa width: 100%
+      .replace(/width:\s*100vw\s*!important;/g, 'width: 375px !important;')  // Dimensione fissa mobile
+      .replace(/width:\s*100%\s*!important;/g, 'width: 375px !important;')   // Per sicurezza
+      // Fix per altezze dinamiche
+      .replace(/height:\s*100vh\s*!important;/g, 'height: 640px !important;')
+      .replace(/height:\s*100%\s*!important;/g, 'max-height: 640px !important;');
     
     console.log('🔧 CSS Transformation Debug:');
     console.log('  - Original CSS length:', shadowCss.length);
@@ -75,6 +86,10 @@ function mountPeugeotWidget(config = {}) {
     console.log('  - Added !important rules:', forcedCss.length - shadowCss.length);
     console.log('  - Contains !important width:', forcedCss.includes('width:') && forcedCss.includes('!important'));
     console.log('  - Contains !important font-family:', forcedCss.includes('font-family:') && forcedCss.includes('!important'));
+    console.log('  - Removed viewport units (vw):', !forcedCss.includes('vw'));
+    console.log('  - Removed viewport units (vh):', !forcedCss.includes('vh'));
+    console.log('  - Original contained 100vw:', shadowCss.includes('100vw'));
+    console.log('  - Original contained 100vh:', shadowCss.includes('100vh'));
     
     style.textContent = `
       /* RESET PRIORITARIO - PRIMA DI TUTTO */
@@ -140,6 +155,29 @@ function mountPeugeotWidget(config = {}) {
         height: auto !important;
         transform: none !important;
         font-size: 16px !important;
+      }
+      
+      /* FIX SPECIFICO per classi Tailwind problematiche */
+      .w-screen {
+        width: 375px !important;  /* Dimensione mobile fissa invece di 100vw */
+      }
+      
+      .h-dynamic {
+        height: 640px !important;  /* Dimensione fissa invece di viewport */
+      }
+      
+      /* Override per max-height viewport */
+      [style*="max-height: 100vh"] {
+        max-height: 640px !important;
+      }
+      
+      /* Assicura che il container principale sia di dimensioni corrette */
+      .md\\:w-\\[375px\\] {
+        width: 375px !important;
+      }
+      
+      .md\\:h-\\[640px\\] {
+        height: 640px !important;
       }
     `;
     shadow.appendChild(style);
