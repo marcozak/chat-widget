@@ -64,9 +64,37 @@ async function mountPeugeotWidgetAsync(config = {}) {
         allCss = tailwindCss + '\n\n' + shadowCss;
       } else {
         // In produzione, carica il CSS bundle finale
-        console.log('� Production mode: loading CSS bundle');
-        const cssResponse = await fetch('./style.css');
+        console.log('🏭 Production mode: loading CSS bundle');
+        
+        let cssPath;
+        if (config.assetBaseUrl) {
+          // Se abbiamo un assetBaseUrl configurato, usa quello per il CSS
+          // Rimuovi '/images' dalla fine se presente e aggiungi 'style.css'
+          const baseUrl = config.assetBaseUrl.replace(/\/images\/?$/, '');
+          cssPath = `${baseUrl}/style.css`;
+          console.log('🔗 Using configured asset base URL for CSS:', cssPath);
+        } else {
+          // Prova a derivare il path dalla URL del script corrente (import.meta.url)
+          try {
+            const scriptUrl = new URL(import.meta.url);
+            cssPath = new URL('./style.css', scriptUrl).href;
+            console.log('🔗 Using script-relative URL for CSS:', cssPath);
+          } catch (e) {
+            // Fallback ultimo: path relativo (probabilmente non funzionerà)
+            cssPath = './style.css';
+            console.log('🔗 Fallback to relative path for CSS:', cssPath);
+          }
+        }
+        
+        console.log('📦 Attempting to fetch CSS from:', cssPath);
+        const cssResponse = await fetch(cssPath);
+        
+        if (!cssResponse.ok) {
+          throw new Error(`HTTP ${cssResponse.status}: ${cssResponse.statusText}`);
+        }
+        
         const bundleCss = await cssResponse.text();
+        console.log('✅ CSS loaded successfully from:', cssPath);
         console.log('📊 Bundle CSS length:', bundleCss.length);
         allCss = bundleCss + '\n\n' + shadowCss;
       }
