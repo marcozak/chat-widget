@@ -1,11 +1,16 @@
 import { createApp } from 'vue'
 import ChatWindow from './components/ChatWindow.vue'
 import shadowCss from './assets/shadow-dom.css?inline'
+import tailwindCss from './assets/tailwind-essential.css?inline'
 
 // Auto-initialization logic
 let isAutoInitialized = false;
 
 function mountPeugeotWidget(config = {}) {
+  return mountPeugeotWidgetAsync(config);
+}
+
+async function mountPeugeotWidgetAsync(config = {}) {
   console.log('🚀 Initializing Peugeot Chat Widget with Shadow DOM...', config);
   
   try {
@@ -46,17 +51,40 @@ function mountPeugeotWidget(config = {}) {
     
     // 3. Aggiungi CSS isolato
     console.log('🎨 Injecting CSS into Shadow DOM...');
-    console.log('📊 Shadow CSS length:', shadowCss.length);
-    console.log('📊 Shadow CSS preview:', shadowCss.substring(0, 200));
-    console.log('📊 Shadow CSS contains PeugeotNew:', shadowCss.includes('PeugeotNew'));
-    console.log('📊 Shadow CSS contains font-face:', shadowCss.includes('@font-face'));
-    console.log('📊 Shadow CSS contains Tailwind:', shadowCss.includes('.flex{'));
+    
+    // STRATEGIA NUOVA: Carica il CSS finale dal bundle di produzione
+    let allCss = '';
+    
+    try {
+      // In dev, usa il CSS inline
+      if (import.meta.env.DEV) {
+        console.log('📊 Dev mode: using inline CSS');
+        console.log('📊 Shadow CSS length:', shadowCss.length);
+        console.log('📊 Tailwind CSS length:', tailwindCss.length);
+        allCss = tailwindCss + '\n\n' + shadowCss;
+      } else {
+        // In produzione, carica il CSS bundle finale
+        console.log('� Production mode: loading CSS bundle');
+        const cssResponse = await fetch('./style.css');
+        const bundleCss = await cssResponse.text();
+        console.log('📊 Bundle CSS length:', bundleCss.length);
+        allCss = bundleCss + '\n\n' + shadowCss;
+      }
+    } catch (error) {
+      console.warn('⚠️ Failed to load CSS bundle, using fallback:', error);
+      allCss = tailwindCss + '\n\n' + shadowCss;
+    }
+    
+    console.log('📊 Combined CSS length:', allCss.length);
+    console.log('📊 CSS contains .flex:', allCss.includes('.flex'));
+    console.log('📊 CSS contains .bg-black:', allCss.includes('.bg-black'));
+    console.log('📊 CSS contains PeugeotNew:', allCss.includes('PeugeotNew'));
     
     const style = document.createElement('style');
     
     // STRATEGIA ALTERNATIVA: Forziamo SOLO le regole critiche con !important
     // NON tutte le regole, solo quelle che servono per contrastare il CSS ostile
-    let forcedCss = shadowCss
+    let forcedCss = allCss
       // Forza SOLO font-size e font-family per contrastare il CSS ostile
       .replace(/font-family:\s*([^;]+);/g, 'font-family: $1 !important;')
       .replace(/font-size:\s*([^;]+);/g, 'font-size: $1 !important;')
@@ -67,13 +95,15 @@ function mountPeugeotWidget(config = {}) {
       .replace(/(\d+)vh/g, function(match, p1) { return Math.round(p1 * 6.4) + 'px'; });   // Converte vh in px
     
     console.log('🔧 CSS Transformation Debug:');
-    console.log('  - Original CSS length:', shadowCss.length);
+    console.log('  - Original combined CSS length:', allCss.length);
     console.log('  - Forced CSS length:', forcedCss.length);
-    console.log('  - Added !important rules:', forcedCss.length - shadowCss.length);
+    console.log('  - Added !important rules:', forcedCss.length - allCss.length);
     console.log('  - Contains !important font-family:', forcedCss.includes('font-family:') && forcedCss.includes('!important'));
     console.log('  - Converted viewport units:', !forcedCss.includes('vw') && !forcedCss.includes('vh'));
-    console.log('  - Original contained 100vw:', shadowCss.includes('100vw'));
-    console.log('  - Original contained 100vh:', shadowCss.includes('100vh'));
+    console.log('  - Original contained 100vw:', allCss.includes('100vw'));
+    console.log('  - Original contained 100vh:', allCss.includes('100vh'));
+    console.log('  - Contains Tailwind base:', forcedCss.includes('.flex'));
+    console.log('  - Contains @tailwind directives:', forcedCss.includes('@tailwind'));
     
     style.textContent = `
       /* RESET PRIORITARIO - PRIMA DI TUTTO */
