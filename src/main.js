@@ -77,9 +77,21 @@ function mountPeugeotWidget(config = {}) {
     console.log('  - Contains !important font-family:', forcedCss.includes('font-family:') && forcedCss.includes('!important'));
     
     style.textContent = `
+      /* RESET PRIORITARIO - PRIMA DI TUTTO */
+      :host {
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+      }
+      
+      #peugeot-widget-app {
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+      }
+      
       /* RESET TOTALE PER SHADOW DOM */
       * {
         box-sizing: border-box !important;
+        font-size: inherit !important;
       }
       
       /* Annulla TUTTO il CSS ostile della pagina host */
@@ -91,7 +103,6 @@ function mountPeugeotWidget(config = {}) {
         background: unset !important;
         border: unset !important;
         transform: unset !important;
-        font-size: unset !important;
         color: unset !important;
       }
       
@@ -112,6 +123,7 @@ function mountPeugeotWidget(config = {}) {
       /* OVERRIDE FINALE per elementi critici */
       [data-v-443d312e] {
         font-family: PeugeotNew, -apple-system, BlinkMacSystemFont, sans-serif !important;
+        font-size: 16px !important;
       }
       
       .font-PeugeotNew {
@@ -119,13 +131,15 @@ function mountPeugeotWidget(config = {}) {
       }
       
       /* Forza le dimensioni del bottone widget */
-      [data-v-443d312e].fixed {
+      [data-v-443d312e].fixed,
+      [data-v-443d312e].absolute {
         position: fixed !important;
         bottom: 20px !important;
         right: 20px !important;
         width: auto !important;
         height: auto !important;
         transform: none !important;
+        font-size: 16px !important;
       }
     `;
     shadow.appendChild(style);
