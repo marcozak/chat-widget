@@ -142,6 +142,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
         height: auto !important;
         max-width: 50px !important;
         max-height: 50px !important;
+        background: transparent !important;
       }
       
       [data-v-443d312e] img {
@@ -149,6 +150,59 @@ async function mountPeugeotWidgetAsync(config = {}) {
         height: auto !important;
         max-width: 50px !important;
         max-height: 50px !important;
+        background: transparent !important;
+      }
+      
+      /* FIX CRITICO: SVG con background bianco semi-trasparente */
+      svg {
+        background: none !important;
+        background-color: transparent !important;
+        fill: currentColor !important;
+      }
+      
+      /* FIX per icone con box bianche */
+      .bg-white svg {
+        background: none !important;
+        fill: currentColor !important;
+      }
+      
+      /* FIX specifico per button con SVG (X, back arrow, menu) */
+      button svg {
+        background: transparent !important;
+        background-color: transparent !important;
+        fill: currentColor !important;
+        stroke: currentColor !important;
+      }
+      
+      /* FIX per elementi cursor-pointer con SVG */
+      .cursor-pointer svg {
+        background: transparent !important;
+        fill: currentColor !important;
+      }
+      
+      /* FIX per button absolute/fixed (widget button, back button, close button) */
+      .absolute svg,
+      .fixed svg {
+        background: transparent !important;
+        fill: currentColor !important;
+      }
+      
+      /* FIX per carousel fuori viewport - forza dimensioni del contenitore */
+      swiper-container,
+      swiper-slide {
+        max-width: 375px !important;
+        overflow: hidden !important;
+      }
+      
+      /* FIX specifico per elementi Swiper fuori viewport */
+      .swiper-wrapper {
+        transform: none !important;
+        max-width: 375px !important;
+      }
+      
+      .h-\\[480px\\] {
+        max-height: 480px !important;
+        overflow: hidden !important;
       }
       
       /* Fix per il bottone rotondo del widget */
@@ -170,6 +224,23 @@ async function mountPeugeotWidgetAsync(config = {}) {
       [data-v-443d312e] .h-20 {
         height: 80px !important;
         max-height: 80px !important;
+      }
+      
+      /* FIX COLORI - Forza i colori corretti */
+      .bg-gray-dark {
+        background-color: rgb(55, 65, 81) !important;
+      }
+      
+      .bg-blue {
+        background-color: rgb(59, 130, 246) !important;
+      }
+      
+      .bg-gray-900 {
+        background-color: rgb(17, 24, 39) !important;
+      }
+      
+      .text-gray-900 {
+        color: rgb(17, 24, 39) !important;
       }
     `;
     shadow.appendChild(style);

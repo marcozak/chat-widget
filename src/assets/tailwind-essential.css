@@ -103,8 +103,8 @@
 /* Colors - Background */
 .bg-black { background-color: rgb(0 0 0); }
 .bg-white { background-color: rgb(255 255 255); }
-.bg-blue { background-color: rgb(59 130 246); }
-.bg-gray-dark { background-color: rgb(55 65 81); }
+.bg-blue { background-color: rgb(0 102 204); }
+.bg-gray-dark { background-color: rgb(45 45 45); }
 .bg-gray-900 { background-color: rgb(17 24 39); }
 .bg-blue-gray { background-color: rgb(71 85 105); }
 

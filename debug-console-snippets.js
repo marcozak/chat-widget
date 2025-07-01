@@ -281,3 +281,64 @@ colorElements.slice(0, 10).forEach((el, i) => {
     computedColor: style.color
   });
 });
+
+// 8. SVG DEBUG SPECIFICO - per le "box bianche semi-trasparenti"
+console.log("\n=== SVG DEBUG (Box bianche) ===");
+const allSvgs = [...(shadowApp?.querySelectorAll('svg') || [])];
+console.log('SVG elements found:', allSvgs.length);
+allSvgs.forEach((svg, i) => {
+  const style = getComputedStyle(svg);
+  const parent = svg.parentElement;
+  const parentStyle = parent ? getComputedStyle(parent) : null;
+  console.log(`SVG-${i}:`, {
+    element: svg.tagName,
+    parent: parent?.tagName,
+    parentClasses: parent?.className,
+    svgBg: style.backgroundColor,
+    svgFill: style.fill,
+    svgStroke: style.stroke,
+    parentBg: parentStyle?.backgroundColor,
+    parentClasses: parent?.className,
+    hasWhiteBg: style.backgroundColor === 'rgb(255, 255, 255)' || parentStyle?.backgroundColor === 'rgb(255, 255, 255)',
+    rect: svg.getBoundingClientRect()
+  });
+});
+
+// Debug per button con SVG (probabile causa delle box bianche)
+const buttonsWithSvg = [...(shadowApp?.querySelectorAll('button') || [])].filter(btn => btn.querySelector('svg'));
+console.log('Buttons with SVG found:', buttonsWithSvg.length);
+buttonsWithSvg.forEach((btn, i) => {
+  const style = getComputedStyle(btn);
+  const svg = btn.querySelector('svg');
+  const svgStyle = svg ? getComputedStyle(svg) : null;
+  console.log(`Button+SVG-${i}:`, {
+    buttonClasses: btn.className,
+    buttonBg: style.backgroundColor,
+    buttonBorder: style.border,
+    buttonOpacity: style.opacity,
+    svgFill: svgStyle?.fill,
+    svgStroke: svgStyle?.stroke,
+    svgBg: svgStyle?.backgroundColor,
+    hasWhiteBg: style.backgroundColor === 'rgb(255, 255, 255)',
+    hasWhiteOverlay: style.backgroundColor.includes('255, 255, 255') && style.opacity !== '1'
+  });
+});
+
+// Debug specifico per icone (X, back arrow, menu)
+const iconElements = [...(shadowApp?.querySelectorAll('[class*="icon"], .cursor-pointer svg, button svg') || [])];
+console.log('Icon elements found:', iconElements.length);
+iconElements.slice(0, 10).forEach((icon, i) => {
+  const style = getComputedStyle(icon);
+  const parent = icon.parentElement;
+  const parentStyle = parent ? getComputedStyle(parent) : null;
+  console.log(`Icon-${i}:`, {
+    element: icon.tagName,
+    classes: icon.className || parent?.className,
+    fill: style.fill,
+    stroke: style.stroke,
+    bg: style.backgroundColor,
+    parentBg: parentStyle?.backgroundColor,
+    opacity: style.opacity,
+    parentOpacity: parentStyle?.opacity
+  });
+});
