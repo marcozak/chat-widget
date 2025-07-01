@@ -359,21 +359,6 @@
   }
 }
 
-/* === FORZATURE CHAT PRECISE - SOLO FONT SIZE === */
-
-/* SOLO font size per i testi nei fumetti - approccio cautissimo */
-.peugeot-widget [class*="bg-blue"] p {
-  font-size: 12px !important;
-  font-family: 'PeugeotNew', sans-serif !important;
-}
-
-.peugeot-widget [class*="bg-white"][class*="text-gray-900"] p {
-  font-size: 12px !important;
-  font-family: 'PeugeotNew', sans-serif !important;
-}
-
-/* === FINE FORZATURE CHAT === */
-
 /* === CORREZIONE SPECIFICA PER FONT PICCOLI === */
 
 /* Aumenta il padding-top della card blu per dare più spazio ai testi 
