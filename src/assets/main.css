@@ -359,6 +359,87 @@
   }
 }
 
+/* === FORZATURE LAYOUT CHAT === */
+
+/* Messaggi bot - padding e font fissi */
+.peugeot-widget .rounded-t-2xl.p-3.mb-1.break-normal.w-64.xs\:w-72.sm\:w-64.min-h-10.text-left.bg-blue.text-white.rounded-br-2xl.ml-3.mr-auto {
+  padding: 12px !important; /* p-3 = 12px fisso */
+  margin: 0px 20px 4px 12px !important; /* Margini fissi */
+  font-size: 12px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+  line-height: 1.4 !important;
+}
+
+/* Messaggi utente - padding e font fissi */
+.peugeot-widget .rounded-t-2xl.p-3.mb-1.break-normal.w-64.xs\:w-72.sm\:w-64.min-h-10.text-left.bg-white.text-gray-900.rounded-bl-2xl.mr-5.ml-auto {
+  padding: 12px !important; /* p-3 = 12px fisso */
+  margin: 0px 20px 4px 60px !important; /* Margini fissi */
+  font-size: 12px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+  line-height: 1.4 !important;
+}
+
+/* Bottoni proposal - dimensioni e font fissi */
+.peugeot-widget .border.rounded-full.px-2.py-2.mr-2.mt-2.italic.text-left {
+  padding: 8px !important; /* px-2 py-2 = 8px fisso */
+  margin: 8px 8px 0px 0px !important; /* mr-2 mt-2 = 8px fisso */
+  font-size: 11px !important; /* Dimensione ottimale per leggibilità */
+  font-family: 'PeugeotNew', sans-serif !important;
+  line-height: 1.3 !important;
+  border-width: 1px !important;
+  border-color: #d1d5db !important; /* border-gray-300 */
+}
+
+/* Bottone CTA - font e padding fissi */
+.peugeot-widget .flex.justify-center.items-center.w-full.px-3.rounded-full.bg-gray-dark.border-blue.border-2.h-12 {
+  font-size: 12px !important; /* Dimensione ottimale */
+  font-family: 'PeugeotNew', sans-serif !important;
+  font-weight: normal !important;
+  padding: 0px 12px !important; /* px-3 = 12px fisso */
+  height: 48px !important; /* h-12 = 48px fisso */
+  margin-bottom: 16px !important; /* Gap fisso dall'input */
+}
+
+/* Input box - padding fisso */
+.peugeot-widget .rounded-full.w-full.h-\[48px\].font-PeugeotNew.text-xs.text-gray-900.focus\:border-transparent.focus\:outline-none.pl-3.pr-12 {
+  padding: 0px 48px 0px 12px !important; /* pl-3 pr-12 = 12px 48px fisso */
+  font-size: 12px !important; /* text-xs = 12px fisso */
+  font-family: 'PeugeotNew', sans-serif !important;
+  height: 48px !important;
+}
+
+/* Timestamp messaggi - font fisso */
+.peugeot-widget .font-PeugeotNew.text-gray.text-\[8px\].mb-1.text-right.pr-5 {
+  font-size: 8px !important;
+  font-family: 'PeugeotNew', sans-serif !important;
+  padding-right: 20px !important; /* pr-5 = 20px fisso */
+  margin-bottom: 4px !important; /* mb-1 = 4px fisso */
+}
+
+/* Container messaggi - padding fisso */
+.peugeot-widget .z-20.relative.inline-block.w-full.h-\[90px\].pt-2.tall\:pt-3.pb-10.px-5.bg-gray-dark.md\:rounded-b-2xl {
+  padding: 8px 20px 40px !important; /* pt-2 pb-10 px-5 = fisso */
+}
+
+/* Previeni sovrapposizioni - forza distanza minima tra CTA e input */
+.peugeot-widget .flex.justify-center.items-center.w-full.px-3.rounded-full.bg-gray-dark.border-blue.border-2.h-12 {
+  position: relative !important;
+  margin-bottom: 20px !important; /* Distanza minima garantita */
+}
+
+/* Container principale chat - garantisce spazio sufficiente */
+.peugeot-widget .w-full.bg-gray-dark.rounded-t-3xl.h-full.flex.overflow-y-scroll.no-scrollbar {
+  padding-bottom: 100px !important; /* Spazio extra per evitare sovrapposizioni */
+}
+
+/* Bottone send - dimensioni fisse */
+.peugeot-widget .z-20.relative {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+/* === FINE FORZATURE CHAT === */
+
 /* === CORREZIONE SPECIFICA PER FONT PICCOLI === */
 
 /* Aumenta il padding-top della card blu per dare più spazio ai testi 
