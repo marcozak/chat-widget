@@ -92,191 +92,26 @@ async function mountPeugeotWidgetAsync(config = {}) {
     console.log('  - Contains @tailwind directives:', forcedCss.includes('@tailwind'));
     
     style.textContent = `
-      /* RESET PRIORITARIO - PRIMA DI TUTTO */
+      /* RESET MINIMALE PER SHADOW DOM - SOLO ESSENZIALE */
       :host {
-        line-height: 1.5 !important;
+        all: initial !important;
+        display: block !important;
+        background: transparent !important;
       }
       
-      #peugeot-widget-app {
-        line-height: 1.5 !important;
-      }
-      
-      /* RESET TOTALE PER SHADOW DOM */
       * {
         box-sizing: border-box !important;
       }
       
-      /* Reset selettivo - NON cancellare tutto e NON forzare font-size */
-      body, html, input, button, div, p, span, a {
-        /* Rimosso font-size: inherit !important; per non sovrascrivere i font piccoli */
-      }
-      
-      /* IMPORTANTE: Reset font-size per prevenire override globali */
-      div:not([class*="text-"]), 
-      p:not([class*="text-"]), 
-      span:not([class*="text-"]) {
-        font-size: inherit !important;
-      }
-      
-      /* Reset specifico per il root del widget */
-      :host {
-        all: initial !important;
-        display: block !important;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-        line-height: 1.5 !important;
-        color: #000 !important;
-        background: transparent !important;
-      }
-      
-      /* CSS FORZATO DEL WIDGET */
+      /* CSS DEL WIDGET (con conversione unità viewport) */
       ${forcedCss}
       
-      /* FIX COLORI SPECIFICI - Match versione target */
-      .bg-gray-dark {
-        background-color: rgb(49, 49, 49) !important; /* Target: rgb(49, 49, 49) invece di rgb(45, 45, 45) */
-      }
-      
-      .bg-blue {
-        background-color: rgb(1, 116, 231) !important; /* Target: rgb(1, 116, 231) invece di rgb(0, 102, 204) */
-      }
-      
-      /* FIX FONT SIZES - Non forzare tutto a 16px */
-      .text-xs {
-        font-size: 0.75rem !important; /* 12px */
-      }
-      
-      .text-\\[8px\\] {
-        font-size: 8px !important;
-      }
-      
-      /* FIX VIEWPORT ISSUES - Forza contenimento */
-      .w-64, .xs\\:w-72, .sm\\:w-80 {
-        max-width: 320px !important;
-      }
-      
-      /* FIX POSITIONING - Correggi elementi fuori viewport */
-      .fixed {
-        position: fixed !important;
-        box-sizing: border-box !important;
-      }
-      
-      /* Assicurati che gli elementi fissi stiano dentro i bounds del widget */
-      .bottom-3 {
-        bottom: 0.75rem !important;
-      }
-      
-      .right-4 {
-        right: 1rem !important;
-      }
-      
-      /* FIX DIMENSIONI SPECIFICHE per bottone chat */
-      .w-16 {
-        width: 4rem !important; /* 64px */
-      }
-      
-      .h-16 {
-        height: 4rem !important; /* 64px */
-      }
-      
-      .w-20 {
-        width: 5rem !important; /* 80px */
-      }
-      
-      .h-20 {
-        height: 5rem !important; /* 80px */
-      }
-      
-      /* Forza scroll corretto per evitare overflow */
-      .overflow-y-scroll {
-        overflow-y: auto !important;
-        max-height: 500px !important;
-      }
-      
-      /* FIX COLORI E BACKGROUNDS SPECIFICI */
-      .bg-gray-900 {
-        background-color: rgb(17, 24, 39) !important;
-      }
-      
-      .text-sm {
-        font-size: 0.875rem !important; /* 14px */
-        line-height: 1.25rem !important;
-      }
-      
-      /* FIX BORDER RADIUS MANCANTI */
-      .rounded-b-2xl {
-        border-bottom-left-radius: 1rem !important;
-        border-bottom-right-radius: 1rem !important;
-      }
-      
-      /* FIX OVERFLOW e CLIP per elementi fuori viewport */
-      #peugeot-widget-app {
-        overflow: visible !important;
-        contain: layout style !important;
-      }
-      
-      /* Previeni elementi che escono dal container del widget */
-      .fixed[class*="bottom-"], .fixed[class*="right-"] {
-        transform: none !important;
-        margin: 0 !important;
-        contain: layout !important;
-      }
-      
-      /* OVERRIDE FINALE per elementi critici */
-      [data-v-443d312e] {
-        font-family: PeugeotNew, -apple-system, BlinkMacSystemFont, sans-serif !important;
-        /* Rimosso font-size forzato */
-      }
-      
-      .font-PeugeotNew {
-        font-family: PeugeotNew, -apple-system, BlinkMacSystemFont, sans-serif !important;
-      }
-      
-      /* Forza le dimensioni del bottone widget - Match target positioning */
-      [data-v-443d312e].fixed,
-      [data-v-443d312e].absolute {
-        position: fixed !important;
-        bottom: 0.75rem !important; /* .bottom-3 = 0.75rem come nel target */
-        right: 1rem !important;     /* .right-4 = 1rem come nel target */
-        width: auto !important;
-        height: auto !important;
-        transform: none !important;
-        font-size: 16px !important;
-      }
-      
-      /* FIX ELEMENTI FUORI VIEWPORT - Forza contenimento */
-      .flex.flex-col.items-center.w-48.grow.mt-auto {
-        position: static !important;
-        transform: none !important;
-        margin-top: auto !important;
-        width: 12rem !important; /* w-48 */
-        flex-grow: 1 !important;
-      }
-      
-      /* Fix chat container per evitare overflow */
-      .w-full.bg-gray-dark.rounded-t-3xl.h-full.flex.overflow-y-scroll {
-        position: relative !important;
-        transform: none !important;
-        overflow-y: auto !important;
-        max-height: 100% !important;
-      }
-      
-      /* Fix message bubbles positioning */
-      .rounded-t-2xl.p-3.mb-1.break-normal {
-        position: static !important;
-        transform: none !important;
-        margin-bottom: 0.25rem !important; /* mb-1 */
-      }
-      
-      /* FIX SPECIFICO per classi Tailwind problematiche */
+      /* FIX VIEWPORT UNITS - Solo classi che potrebbero usare unità viewport problematiche */
       .w-screen {
         width: 375px !important;  /* Dimensione mobile fissa invece di 100vw */
       }
       
-      .h-dynamic {
-        height: 640px !important;  /* Dimensione fissa invece di viewport */
-      }
-      
-      /* Override per max-height viewport */
+      /* Override per max-height viewport solo se necessario */
       [style*="max-height: 100vh"] {
         max-height: 640px !important;
       }
