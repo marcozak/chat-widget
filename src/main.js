@@ -46,10 +46,13 @@ function mountPeugeotWidget(config = {}) {
     
     // 3. Aggiungi CSS isolato
     console.log('🎨 Injecting CSS into Shadow DOM...');
+    console.log('📊 Shadow CSS length:', shadowCss.length);
+    console.log('📊 Shadow CSS preview:', shadowCss.substring(0, 200));
+    
     const style = document.createElement('style');
     style.textContent = `
       /* RESET BASE COME UNA PAGINA NORMALE PACIFICA */
-      {
+      * {
         box-sizing: border-box;
       }
       
@@ -125,7 +128,76 @@ function mountPeugeotWidget(config = {}) {
       console.log('  - Styles in shadow:', shadowStyles.length);
       console.log('  - App content:', appContent);
       console.log('  - App children:', appContent?.children.length);
-    }, 100);
+      
+      // Debug più approfondito per problemi Shadow DOM + Vue
+      if (appContent) {
+        console.log('🐛 Vue + Shadow DOM Debug:');
+        console.log('  - appRoot innerHTML length:', appContent.innerHTML.length);
+        console.log('  - appRoot has Vue instance:', appContent.__vue__);
+        
+        // Controlla se Vue ha trovato i suoi elementi
+        const vueElements = appContent.querySelectorAll('[data-v-]');
+        console.log('  - Vue scoped elements found:', vueElements.length);
+        
+        // Controlla errori di mounting
+        const buttons = appContent.querySelectorAll('button');
+        const inputs = appContent.querySelectorAll('input');
+        console.log('  - Buttons rendered:', buttons.length);
+        console.log('  - Inputs rendered:', inputs.length);
+        
+        // Test stili applicati
+        if (buttons.length > 0) {
+          const firstButton = buttons[0];
+          const computedStyle = getComputedStyle(firstButton);
+          console.log('  - Button computed styles:');
+          console.log('    - Display:', computedStyle.display);
+          console.log('    - Background:', computedStyle.backgroundColor);
+          console.log('    - Font family:', computedStyle.fontFamily);
+          console.log('    - Width:', computedStyle.width);
+          console.log('    - Height:', computedStyle.height);
+          console.log('    - Border radius:', computedStyle.borderRadius);
+        }
+        
+        // Test se Vue riesce a trovare gli elementi con querySelector nel suo scope
+        const chatElement = appContent.querySelector('#chat');
+        console.log('  - Chat element found by Vue scope:', !!chatElement);
+        if (chatElement) {
+          console.log('    - Chat element dimensions:', {
+            width: chatElement.offsetWidth,
+            height: chatElement.offsetHeight,
+            scrollHeight: chatElement.scrollHeight
+          });
+        }
+        
+        // Test specifico per fix Shadow DOM
+        const widgetButton = appContent.querySelector('[data-cy="widget-button"]');
+        console.log('  - Widget button found:', !!widgetButton);
+        if (widgetButton) {
+          const buttonStyle = getComputedStyle(widgetButton);
+          console.log('    - Button is visible:', buttonStyle.display !== 'none');
+          console.log('    - Button position:', buttonStyle.position);
+          console.log('    - Button z-index:', buttonStyle.zIndex);
+        }
+        
+        // Verifica che gli stili Tailwind siano applicati
+        const tailwindElements = appContent.querySelectorAll('.bg-blue-500, .text-white, .rounded, .p-4, .m-2');
+        console.log('  - Elements with Tailwind classes:', tailwindElements.length);
+        
+        // Test scroll funzionante (importante per la fix dell'accesso DOM)
+        if (chatElement && chatElement.scrollHeight > 0) {
+          console.log('  - Chat scroll functionality test: PASSED');
+        } else {
+          console.log('  - Chat scroll functionality test: FAILED');
+        }
+      }
+      
+      // Test accesso DOM esterno (problema che hai menzionato)
+      console.log('🌍 DOM Access Test:');
+      console.log('  - Can access document.body:', !!document.body);
+      console.log('  - Can access window:', !!window);
+      console.log('  - Shadow root parent:', shadow.host);
+      console.log('  - getRootNode():', appContent?.getRootNode() === shadow);
+    }, 500); // Aumentato timeout per Vue
 
   } catch (error) {
     console.error('💥 Error mounting widget:', error);

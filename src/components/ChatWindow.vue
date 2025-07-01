@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, ref, watch, onMounted, computed, onUnmounted } from 'vue'
+import { nextTick, ref, watch, onMounted, computed, onUnmounted, getCurrentInstance } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { marked } from 'marked'
 import { AnswerBuffer } from '@/utils/AnswerBuffer'
@@ -264,7 +264,10 @@ const displayChatWIndow = () => {
 }
 
 const scrollToBottomOfChat = async (behavior) => {
-    const chat = document.getElementById('chat')
+    // Fix per Shadow DOM: usa getCurrentInstance() per accedere al root del componente
+    // invece di document.getElementById che cerca nel document globale
+    const { proxy } = getCurrentInstance()
+    const chat = proxy.$el.querySelector('#chat')
     await nextTick()
     if (chat) chat.lastElementChild.scrollIntoView({ behavior, block: "end" })
 }

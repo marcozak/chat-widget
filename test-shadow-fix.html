@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Shadow DOM Fix - Peugeot Chat Widget</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        
+        .test-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .fix-status {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        /* CSS ostile per testare l'isolamento */
+        * {
+            font-size: 24px !important;
+            color: red !important;
+            background: yellow !important;
+            border: 3px solid purple !important;
+            margin: 10px !important;
+            padding: 10px !important;
+        }
+        
+        button {
+            width: 300px !important;
+            height: 100px !important;
+            border-radius: 0 !important;
+            transform: rotate(15deg) !important;
+        }
+        
+        div {
+            width: 500px !important;
+            height: 200px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h1>🧪 Test Shadow DOM Fix</h1>
+        <p><strong>Test:</strong> Widget isolato in Shadow DOM con fix per document.getElementById</p>
+        
+        <div class="fix-status">
+            <strong>🔧 Fix applicata:</strong>
+            <ul>
+                <li>✅ Importato <code>getCurrentInstance</code> in ChatWindow.vue</li>
+                <li>✅ Sostituito <code>document.getElementById('chat')</code> con <code>proxy.$el.querySelector('#chat')</code></li>
+                <li>✅ Shadow DOM con CSS isolato e reset</li>
+                <li>✅ Debug avanzato per verificare mounting e stili</li>
+            </ul>
+        </div>
+        
+        <p><strong>Aspettative:</strong></p>
+        <ul>
+            <li>Il widget dovrebbe apparire normale (non rosso/giallo)</li>
+            <li>Il bottone dovrebbe avere dimensioni corrette (non 300x100px)</li>
+            <li>Il layout dovrebbe funzionare correttamente</li>
+            <li>Lo scroll della chat dovrebbe funzionare</li>
+        </ul>
+        
+        <p><strong>Problemi da verificare nei log:</strong></p>
+        <ul>
+            <li>🔍 Shadow DOM check: tutti i test dovrebbero passare</li>
+            <li>🐛 Vue + Shadow DOM Debug: elementi renderizzati correttamente</li>
+            <li>🌍 DOM Access Test: accesso corretto al shadow root</li>
+        </ul>
+    </div>
+
+    <div id="chat-root"></div>
+
+    <script type="module">
+        // Configurazione widget
+        window.CHAT_WIDGET_CONFIG = {
+            chatRoot: 'chat-root'
+        };
+        
+        // Import del widget
+        import('./dist/main.js').then(() => {
+            console.log('🎬 Starting test with Shadow DOM fix...');
+            window.ChatWidget.init();
+        }).catch(error => {
+            console.error('💥 Failed to load widget:', error);
+            document.body.innerHTML += `
+                <div style="background: #ffebee; border: 1px solid #f44336; padding: 20px; margin: 20px 0;">
+                    <strong>❌ Widget loading failed:</strong> ${error.message}<br>
+                    <em>Make sure to run "npm run build" first</em>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
