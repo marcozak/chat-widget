@@ -49,7 +49,7 @@ function mountPeugeotWidget(config = {}) {
     const style = document.createElement('style');
     style.textContent = `
       /* RESET BASE COME UNA PAGINA NORMALE PACIFICA */
-      * {
+      {
         box-sizing: border-box;
       }
       
