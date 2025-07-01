@@ -1,10 +1,57 @@
 // SNIPPET PER DEBUG CONSOLE - COPIA E INCOLLA NELLA CONSOLE DEL BROWSER
 
+// 0. DEBUG CONFLITTI WIDGET
+console.log("=== WIDGET CONFLICT DEBUG ===");
+const allChatRoots = document.querySelectorAll('#chat-root, [id*="chat"], [class*="chat"]');
+console.log('All chat-related elements:', allChatRoots.length);
+allChatRoots.forEach((el, i) => {
+  console.log(`Chat element ${i}:`, {
+    id: el.id,
+    classes: el.className,
+    hasShadow: !!el.shadowRoot,
+    children: el.children.length,
+    innerHTML: el.innerHTML.substring(0, 100) + '...'
+  });
+});
+
+// Verifica script duplicati
+const allScripts = Array.from(document.querySelectorAll('script')).filter(s => 
+  s.src && (s.src.includes('chat-widget') || s.src.includes('peugeot'))
+);
+console.log('Widget scripts found:', allScripts.length);
+allScripts.forEach((script, i) => {
+  console.log(`Script ${i}:`, script.src);
+});
+
 // 1. DEBUG SHADOW DOM VERSION
 console.log("=== SHADOW DOM DEBUG ===");
 const shadowHost = document.querySelector('#chat-root');
 const shadow = shadowHost?.shadowRoot;
-const shadowApp = shadow?.querySelector('#peugeot-widget-app');
+console.log('Shadow host found:', !!shadowHost);
+console.log('Shadow root found:', !!shadow);
+
+if (shadowHost && !shadow) {
+  console.log('Chat-root exists but has no shadow DOM - checking if it contains normal content...');
+  const chatRootContent = shadowHost.querySelector('*');
+  console.log('Chat-root has content:', !!chatRootContent);
+  if (chatRootContent) {
+    console.log('Chat-root children:', shadowHost.children.length);
+    Array.from(shadowHost.children).forEach((child, i) => {
+      console.log(`Chat-root child ${i}:`, child.tagName, child.id, child.className);
+    });
+  }
+}
+
+// Prova vari selettori per trovare l'app
+const shadowApp = shadow?.querySelector('#peugeot-widget-app') || 
+                  shadow?.querySelector('[data-v-app]') ||
+                  shadow?.querySelector('div') ||
+                  shadow?.firstElementChild;
+
+console.log('Shadow app found:', !!shadowApp);
+if (shadowApp) {
+  console.log('Shadow app element:', shadowApp.tagName, shadowApp.id, shadowApp.className);
+}
 
 if (shadowApp) {
   // Tutti gli elementi con classi Tailwind
@@ -16,7 +63,8 @@ if (shadowApp) {
   console.log('Background elements:', bgElements.length);
   bgElements.forEach((el, i) => {
     const style = getComputedStyle(el);
-    const bgClasses = el.className.split(' ').filter(c => c.startsWith('bg-'));
+    const className = el.className || '';
+    const bgClasses = className.toString().split(' ').filter(c => c.startsWith('bg-'));
     console.log(`Shadow bg-${i}:`, {
       element: el.tagName,
       classes: bgClasses,
@@ -55,20 +103,51 @@ if (shadowApp) {
     });
   });
 } else {
-  console.log('Shadow DOM app not found');
+  console.log('Shadow DOM app not found - checking shadow content...');
+  if (shadow) {
+    console.log('Shadow children:', shadow.children.length);
+    Array.from(shadow.children).forEach((child, i) => {
+      console.log(`Shadow child ${i}:`, child.tagName, child.id, child.className);
+    });
+  }
 }
 
 // 2. DEBUG NORMAL DOM VERSION (se presente)
 console.log("\n=== NORMAL DOM DEBUG ===");
-const normalApp = document.querySelector('#app, .chat-widget, [data-v-443d312e]');
+// Cerca in tutto il documento per la versione normale
+const normalApp = document.querySelector('#app') || 
+                  document.querySelector('.chat-widget') ||
+                  document.querySelector('[data-v-443d312e]') ||
+                  document.querySelector('[data-v-bcbeacbb]') ||
+                  document.querySelector('[data-v-]') ||
+                  document.querySelector('#chat-root:not([shadowroot])');
+
+console.log('Normal DOM search results:');
+console.log('  - #app:', !!document.querySelector('#app'));
+console.log('  - .chat-widget:', !!document.querySelector('.chat-widget'));
+console.log('  - [data-v-443d312e]:', !!document.querySelector('[data-v-443d312e]'));
+console.log('  - [data-v-bcbeacbb]:', !!document.querySelector('[data-v-bcbeacbb]'));
+
+// Cerca tutti gli attributi data-v-* presenti
+const allVueElements = document.querySelectorAll('[class*="data-v-"], [data-v-]');
+console.log('All Vue elements found:', allVueElements.length);
+if (allVueElements.length > 0) {
+  const vueIds = [...new Set(Array.from(allVueElements).map(el => {
+    const attrs = Array.from(el.attributes);
+    return attrs.find(attr => attr.name.startsWith('data-v-'))?.name;
+  }).filter(Boolean))];
+  console.log('Vue scope IDs found:', vueIds);
+}
+
 if (normalApp) {
-  console.log('Normal DOM found, analyzing...');
+  console.log('Normal DOM found, analyzing...', normalApp.tagName);
   // Stesso debug ma per DOM normale
-  const bgElements = document.querySelectorAll('[class*="bg-"]');
+  const bgElements = Array.from(document.querySelectorAll('[class*="bg-"]'));
   console.log('Normal background elements:', bgElements.length);
   bgElements.slice(0, 5).forEach((el, i) => {
     const style = getComputedStyle(el);
-    const bgClasses = el.className.split(' ').filter(c => c.startsWith('bg-'));
+    const className = el.className || '';
+    const bgClasses = className.toString().split(' ').filter(c => c.startsWith('bg-'));
     console.log(`Normal bg-${i}:`, {
       element: el.tagName,
       classes: bgClasses,
@@ -76,15 +155,38 @@ if (normalApp) {
     });
   });
 } else {
-  console.log('Normal DOM version not found');
+  console.log('Normal DOM version not found - trying broader search...');
+  // Cerca elementi con classi Tailwind direttamente nel DOM
+  const tailwindElements = Array.from(document.querySelectorAll('.flex, .bg-black, .absolute, .fixed'));
+  console.log('Tailwind elements in document:', tailwindElements.length);
+  if (tailwindElements.length > 0) {
+    console.log('Found normal DOM with Tailwind classes');
+    const bgElements = Array.from(document.querySelectorAll('[class*="bg-"]'));
+    console.log('Normal background elements:', bgElements.length);
+    bgElements.slice(0, 5).forEach((el, i) => {
+      const style = getComputedStyle(el);
+      const className = el.className || '';
+      const bgClasses = className.toString().split(' ').filter(c => c.startsWith('bg-'));
+      console.log(`Normal bg-${i}:`, {
+        element: el.tagName,
+        classes: bgClasses,
+        computedBg: style.backgroundColor
+      });
+    });
+  }
 }
 
 // 3. FONT CHECK SPECIFICO
 console.log("\n=== FONT DEBUG ===");
 const allFontElements = [...(shadowApp?.querySelectorAll('*') || []), ...document.querySelectorAll('*')]
   .filter(el => {
-    const style = getComputedStyle(el);
-    return style.fontFamily.includes('PeugeotNew') || el.className.includes('font-PeugeotNew');
+    try {
+      const style = getComputedStyle(el);
+      const className = el.className || '';
+      return style.fontFamily.includes('PeugeotNew') || className.toString().includes('font-PeugeotNew');
+    } catch (e) {
+      return false;
+    }
   });
 
 console.log('Elements with PeugeotNew font:', allFontElements.length);
@@ -127,11 +229,55 @@ console.log('Elements outside viewport:', problematicElements.length);
 problematicElements.forEach((el, i) => {
   const rect = el.getBoundingClientRect();
   const style = getComputedStyle(el);
+  const className = el.className || '';
   console.log(`Outside-${i}:`, {
     element: el.tagName,
-    classes: el.className,
+    classes: className.toString(),
     rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
     position: style.position,
     transform: style.transform
+  });
+});
+
+// 7. MISSING TAILWIND CLASSES DEBUG
+console.log("\n=== MISSING TAILWIND CLASSES ===");
+
+// Classi che dovrebbero essere presenti
+const expectedClasses = [
+  'bg-black', 'bg-white', 'bg-blue', 'bg-gray-900', 'bg-gradient-to-b',
+  'text-white', 'text-gray-900', 'text-xs', 'text-sm',
+  'rounded-full', 'rounded-t-2xl', 'rounded-b-2xl',
+  'w-16', 'h-16', 'w-20', 'h-20', 'w-screen', 'h-dynamic',
+  'flex', 'flex-col', 'justify-center', 'items-center',
+  'fixed', 'absolute', 'bottom-3', 'right-4'
+];
+
+const missingClasses = [];
+const presentClasses = [];
+
+expectedClasses.forEach(className => {
+  const elements = [...(shadowApp?.querySelectorAll(`.${className}`) || []), ...document.querySelectorAll(`.${className}`)];
+  if (elements.length > 0) {
+    presentClasses.push({ className, count: elements.length });
+  } else {
+    missingClasses.push(className);
+  }
+});
+
+console.log('Present classes:', presentClasses);
+console.log('Missing classes:', missingClasses);
+
+// Test specifico per colori
+const colorElements = [...(shadowApp?.querySelectorAll('[class*="bg-"], [class*="text-"]') || [])];
+console.log('Color elements found:', colorElements.length);
+colorElements.slice(0, 10).forEach((el, i) => {
+  const style = getComputedStyle(el);
+  const className = el.className || '';
+  const colorClasses = className.toString().split(' ').filter(c => c.startsWith('bg-') || c.startsWith('text-'));
+  console.log(`Color-${i}:`, {
+    element: el.tagName,
+    colorClasses,
+    computedBg: style.backgroundColor,
+    computedColor: style.color
   });
 });

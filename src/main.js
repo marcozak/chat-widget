@@ -70,9 +70,10 @@ async function mountPeugeotWidgetAsync(config = {}) {
     // STRATEGIA ALTERNATIVA: Forziamo SOLO le regole critiche con !important
     // NON tutte le regole, solo quelle che servono per contrastare il CSS ostile
     let forcedCss = allCss
-      // Forza SOLO font-size e font-family per contrastare il CSS ostile
+      // Forza SOLO font-family per contrastare il CSS ostile, MA NON font-size
       .replace(/font-family:\s*([^;]+);/g, 'font-family: $1 !important;')
-      .replace(/font-size:\s*([^;]+);/g, 'font-size: $1 !important;')
+      // NON forzare font-size globalmente - mantieni i font piccoli
+      // .replace(/font-size:\s*([^;]+);/g, 'font-size: $1 !important;')
       // FIX CRITICO: Sostituisci unità viewport che non funzionano in Shadow DOM
       .replace(/100vw/g, '375px')
       .replace(/100vh/g, '640px')
@@ -93,12 +94,10 @@ async function mountPeugeotWidgetAsync(config = {}) {
     style.textContent = `
       /* RESET PRIORITARIO - PRIMA DI TUTTO */
       :host {
-        font-size: 16px !important;
         line-height: 1.5 !important;
       }
       
       #peugeot-widget-app {
-        font-size: 16px !important;
         line-height: 1.5 !important;
       }
       
@@ -107,8 +106,15 @@ async function mountPeugeotWidgetAsync(config = {}) {
         box-sizing: border-box !important;
       }
       
-      /* Reset selettivo - NON cancellare tutto */
+      /* Reset selettivo - NON cancellare tutto e NON forzare font-size */
       body, html, input, button, div, p, span, a {
+        /* Rimosso font-size: inherit !important; per non sovrascrivere i font piccoli */
+      }
+      
+      /* IMPORTANTE: Reset font-size per prevenire override globali */
+      div:not([class*="text-"]), 
+      p:not([class*="text-"]), 
+      span:not([class*="text-"]) {
         font-size: inherit !important;
       }
       
@@ -117,7 +123,6 @@ async function mountPeugeotWidgetAsync(config = {}) {
         all: initial !important;
         display: block !important;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
-        font-size: 16px !important;
         line-height: 1.5 !important;
         color: #000 !important;
         background: transparent !important;
@@ -126,26 +131,79 @@ async function mountPeugeotWidgetAsync(config = {}) {
       /* CSS FORZATO DEL WIDGET */
       ${forcedCss}
       
+      /* FIX COLORI SPECIFICI - Match versione target */
+      .bg-gray-dark {
+        background-color: rgb(49, 49, 49) !important; /* Target: rgb(49, 49, 49) invece di rgb(45, 45, 45) */
+      }
+      
+      .bg-blue {
+        background-color: rgb(1, 116, 231) !important; /* Target: rgb(1, 116, 231) invece di rgb(0, 102, 204) */
+      }
+      
+      /* FIX FONT SIZES - Non forzare tutto a 16px */
+      .text-xs {
+        font-size: 0.75rem !important; /* 12px */
+      }
+      
+      .text-\\[8px\\] {
+        font-size: 8px !important;
+      }
+      
+      /* FIX VIEWPORT ISSUES - Forza contenimento */
+      .w-64, .xs\\:w-72, .sm\\:w-80 {
+        max-width: 320px !important;
+      }
+      
+      /* Forza scroll corretto per evitare overflow */
+      .overflow-y-scroll {
+        overflow-y: auto !important;
+        max-height: 500px !important;
+      }
+      
       /* OVERRIDE FINALE per elementi critici */
       [data-v-443d312e] {
         font-family: PeugeotNew, -apple-system, BlinkMacSystemFont, sans-serif !important;
-        font-size: 16px !important;
+        /* Rimosso font-size forzato */
       }
       
       .font-PeugeotNew {
         font-family: PeugeotNew, -apple-system, BlinkMacSystemFont, sans-serif !important;
       }
       
-      /* Forza le dimensioni del bottone widget */
+      /* Forza le dimensioni del bottone widget - Match target positioning */
       [data-v-443d312e].fixed,
       [data-v-443d312e].absolute {
         position: fixed !important;
-        bottom: 20px !important;
-        right: 20px !important;
+        bottom: 0.75rem !important; /* .bottom-3 = 0.75rem come nel target */
+        right: 1rem !important;     /* .right-4 = 1rem come nel target */
         width: auto !important;
         height: auto !important;
         transform: none !important;
         font-size: 16px !important;
+      }
+      
+      /* FIX ELEMENTI FUORI VIEWPORT - Forza contenimento */
+      .flex.flex-col.items-center.w-48.grow.mt-auto {
+        position: static !important;
+        transform: none !important;
+        margin-top: auto !important;
+        width: 12rem !important; /* w-48 */
+        flex-grow: 1 !important;
+      }
+      
+      /* Fix chat container per evitare overflow */
+      .w-full.bg-gray-dark.rounded-t-3xl.h-full.flex.overflow-y-scroll {
+        position: relative !important;
+        transform: none !important;
+        overflow-y: auto !important;
+        max-height: 100% !important;
+      }
+      
+      /* Fix message bubbles positioning */
+      .rounded-t-2xl.p-3.mb-1.break-normal {
+        position: static !important;
+        transform: none !important;
+        margin-bottom: 0.25rem !important; /* mb-1 */
       }
       
       /* FIX SPECIFICO per classi Tailwind problematiche */
