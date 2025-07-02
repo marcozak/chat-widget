@@ -248,7 +248,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
         max-height: 80px !important;
       }*/
       
-      /* FIX COLORI - Forza i colori corretti */
+      /* FIX COLORI - Forza i colori corretti 
       .bg-gray-dark {
         background-color: rgb(55, 65, 81) !important;
       }
@@ -259,7 +259,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
       
       .bg-blue-gray {
         background-color: rgb(68, 92, 130) !important;
-      }
+      }*/
       
       .bg-gray-900 {
         background-color: rgb(17, 24, 39) !important;

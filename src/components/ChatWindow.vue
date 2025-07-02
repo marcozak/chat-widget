@@ -542,7 +542,7 @@ onUnmounted(() => {
                     <BackArrowIcon />
                     <p class="text-white text-xs font-PeugeotNew ml-2">{{ translations.Menu.label }}</p>
                 </button>
-                <button @click="closeWindow()" class="z-20 relative">
+                <button @click="closeWindow()" class="bg-transparent z-20 relative">
                     <XIcon/>
                 </button>
             </div>
