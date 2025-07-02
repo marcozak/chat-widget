@@ -153,7 +153,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
         background: transparent !important;
       }
       
-      /* FIX SPECIFICO per bottone X - NESSUN BACKGROUND */
+      /* FIX SPECIFICO per bottone X - NESSUN BACKGROUND 
       [data-v-443d312e] button.z-20.relative {
         background: transparent !important;
         background-color: transparent !important;
@@ -162,7 +162,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
         margin: 0 !important;
         box-shadow: none !important;
         outline: none !important;
-      }
+      }*/
       
       /* FIX SPECIFICO per button SVG (NON tutti i button) 
       [data-v-443d312e] button.z-20.relative,
@@ -170,10 +170,10 @@ async function mountPeugeotWidgetAsync(config = {}) {
         background: transparent !important;
         background-color: transparent !important;
         border: none !important;
-      }*/
+      }
      [data-v-443d312e] button.flex.items-center {
         border: none !important;
-      }
+      }*/
       
       /* FIX CRITICO: SVG con background bianco semi-trasparente */
       svg {

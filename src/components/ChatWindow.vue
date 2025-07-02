@@ -516,10 +516,10 @@ onUnmounted(() => {
         enter-from-class="opacity-0"
         leave-to-class="opacity-0"
     >
-        <div v-if="!open" class="fixed bottom-3 right-4 bg-black border-gray-800 border-8 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center">
-            <button class="bg-transparent" @click="openWindow()">
+        <div v-if="!open" class="fixed bottom-3 right-4 bg-black border-gray-800 border-2 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center">
+            <button class="bg-transparent w-16 h-16 md:w-20 md:h-20 rounded-full p-1" @click="openWindow()">
                 <div>
-                    <GeniusIcon class="mt-2"/>
+                    <GeniusIcon class="w-16 h-16"/>
                 </div>
             </button>
         </div>
