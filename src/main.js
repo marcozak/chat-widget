@@ -236,7 +236,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
       [data-v-443d312e] .h-16 {
         height: 64px !important;
         max-height: 64px !important;
-      }*/
+      }
       
       [data-v-443d312e] .w-20 {
         width: 80px !important;
@@ -246,7 +246,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
       [data-v-443d312e] .h-20 {
         height: 80px !important;
         max-height: 80px !important;
-      }
+      }*/
       
       /* FIX COLORI - Forza i colori corretti */
       .bg-gray-dark {
