@@ -282,6 +282,27 @@ colorElements.slice(0, 10).forEach((el, i) => {
   });
 });
 
+// DEBUG SPECIFICO PER IL BOTTONE BLU PROBLEMATICO
+console.log("\n=== BOTTONE BLU DEBUG ===");
+const blueGrayButtons = [...(shadowApp?.querySelectorAll('.bg-blue-gray') || [])];
+console.log('Bottoni bg-blue-gray trovati:', blueGrayButtons.length);
+blueGrayButtons.forEach((btn, i) => {
+  const style = getComputedStyle(btn);
+  const innerCircle = btn.querySelector('.bg-blue');
+  const innerCircleStyle = innerCircle ? getComputedStyle(innerCircle) : null;
+  
+  console.log(`Bottone bg-blue-gray ${i}:`, {
+    classes: btn.className,
+    computedBg: style.backgroundColor,
+    opacity: style.opacity,
+    visibility: style.visibility,
+    display: style.display,
+    innerCircle: !!innerCircle,
+    innerCircleBg: innerCircleStyle?.backgroundColor,
+    innerCircleOpacity: innerCircleStyle?.opacity
+  });
+});
+
 // 8. SVG DEBUG SPECIFICO - per le "box bianche semi-trasparenti"
 console.log("\n=== SVG DEBUG (Box bianche) ===");
 const allSvgs = [...(shadowApp?.querySelectorAll('svg') || [])];

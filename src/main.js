@@ -250,7 +250,11 @@ async function mountPeugeotWidgetAsync(config = {}) {
       }
       
       .bg-blue {
-        background-color: rgb(59, 130, 246) !important;
+        background-color: rgb(0, 102, 204) !important;
+      }
+      
+      .bg-blue-gray {
+        background-color: rgb(71, 85, 105) !important;
       }
       
       .bg-gray-900 {
