@@ -227,7 +227,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
         overflow: hidden !important;
       }
       
-      /* Fix per il bottone rotondo del widget */
+      /* Fix per il bottone rotondo del widget 
       [data-v-443d312e] .w-16 {
         width: 64px !important;
         max-width: 64px !important;
@@ -236,7 +236,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
       [data-v-443d312e] .h-16 {
         height: 64px !important;
         max-height: 64px !important;
-      }
+      }*/
       
       [data-v-443d312e] .w-20 {
         width: 80px !important;
