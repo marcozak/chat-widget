@@ -101,12 +101,14 @@
 .pr-12 { padding-right: 3rem; }
 
 /* Colors - Background */
-.bg-black { background-color: rgb(0 0 0); }
-.bg-white { background-color: rgb(255 255 255); }
-.bg-blue { background-color: rgb(0 102 204); }
-.bg-gray-dark { background-color: rgb(45 45 45); }
-.bg-gray-900 { background-color: rgb(17 24 39); }
-.bg-blue-gray { background-color: rgb(71 85 105); }
+.bg-black { background-color: rgb(0 0 0); }                  /* Tailwind default */
+.bg-white { background-color: rgb(255 255 255); }            /* Tailwind default */
+.bg-blue { background-color: rgb(59 130 246); }              /* Tailwind blue-500 */
+.bg-gray-dark { background-color: rgb(45 45 45); }           /* Custom */
+.bg-gray-900 { background-color: rgb(17 24 39); }            /* Tailwind default */
+.bg-blue-gray { background-color: rgb(71 85 105); }          /* Custom */
+.bg-transparent { background-color: transparent; }           /* Tailwind default */
+
 
 /* Colors - Text */
 .text-white { color: rgb(255 255 255); }
@@ -119,6 +121,7 @@
 .border { border-width: 1px; }
 .border-2 { border-width: 2px; }
 .border-blue { border-color: rgb(59 130 246); }
+.border-gray-800 { border-color: rgb(31 41 55); } /* Tailwind gray-800 */
 
 /* Border Radius */
 .rounded { border-radius: 0.25rem; }
