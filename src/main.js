@@ -171,6 +171,9 @@ async function mountPeugeotWidgetAsync(config = {}) {
         background-color: transparent !important;
         border: none !important;
       }*/
+     [data-v-443d312e] button.flex.items-center {
+        border: none !important;
+      }
       
       /* FIX CRITICO: SVG con background bianco semi-trasparente */
       svg {
