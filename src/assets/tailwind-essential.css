@@ -6,6 +6,9 @@
 * {
   border: 0 !important;
 }
+:host {
+  font-size: 16px !important;
+}
 
 /* Layout - Display */  
 .flex { display: flex; }
