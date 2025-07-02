@@ -164,13 +164,13 @@ async function mountPeugeotWidgetAsync(config = {}) {
         outline: none !important;
       }
       
-      /* FIX SPECIFICO per button SVG (NON tutti i button) */
+      /* FIX SPECIFICO per button SVG (NON tutti i button) 
       [data-v-443d312e] button.z-20.relative,
       [data-v-443d312e] button.flex.items-center {
         background: transparent !important;
         background-color: transparent !important;
         border: none !important;
-      }
+      }*/
       
       /* FIX CRITICO: SVG con background bianco semi-trasparente */
       svg {
