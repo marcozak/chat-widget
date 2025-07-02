@@ -202,12 +202,12 @@ async function mountPeugeotWidgetAsync(config = {}) {
         fill: currentColor !important;
       }
       
-      /* FIX per button absolute/fixed (widget button, back button, close button) */
+      /* FIX per button absolute/fixed (widget button, back button, close button)
       .absolute svg,
       .fixed svg {
         background: transparent !important;
         fill: currentColor !important;
-      }
+      } */
       
       /* FIX per carousel fuori viewport - forza dimensioni del contenitore */
       swiper-container,
