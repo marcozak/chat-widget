@@ -164,8 +164,9 @@ async function mountPeugeotWidgetAsync(config = {}) {
         outline: none !important;
       }
       
-      /* FIX per tutti i button */
-      [data-v-443d312e] button {
+      /* FIX SPECIFICO per button SVG (NON tutti i button) */
+      [data-v-443d312e] button.z-20.relative,
+      [data-v-443d312e] button.flex.items-center {
         background: transparent !important;
         background-color: transparent !important;
         border: none !important;
@@ -254,7 +255,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
       }
       
       .bg-blue-gray {
-        background-color: rgb(71, 85, 105) !important;
+        background-color: rgb(68, 92, 130) !important;
       }
       
       .bg-gray-900 {
