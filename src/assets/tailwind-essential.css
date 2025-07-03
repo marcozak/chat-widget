@@ -1,3 +1,52 @@
+@font-face {
+  font-family: 'PeugeotNew';
+  src: url('/fonts/PeugeotNew-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PeugeotNew';
+  src: url('/fonts/PeugeotNew-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PeugeotNew';
+  src: url('/fonts/PeugeotNew-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PeugeotNew';
+  src: url('/fonts/PeugeotNew-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'PeugeotNew';
+  src: url('/fonts/PeugeotNew-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PeugeotNew';
+  src: url('/fonts/PeugeotNew-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'PeugeotNew';
+  src: url('/fonts/PeugeotNew-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PeugeotNew';
+  src: url('/fonts/PeugeotNew-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
 /* Tailwind Essential Classes for Chat Widget */
 
 /* Reset base */
@@ -126,7 +175,7 @@
 
 
 /* Colors - Text */
-.text-white { color: rgb(255 255 255); }
+.text-white { color: rgb(255 255 255 / var(--tw-text-opacity, 1)); }
 .text-black { color: rgb(0 0 0); }
 .text-blue { color: rgb(59 130 246); }
 .text-gray { color: rgb(156 163 175); }
@@ -157,8 +206,9 @@
 .text-\[9px\] { font-size: 9px; }
 .text-\[10px\] { font-size: 10px; }
 .text-\[16px\] { font-size: 16px; }
-.font-PeugeotNew { font-family: 'PeugeotNew', sans-serif; }
-.font-PeugeotNewBold { font-family: 'PeugeotNew', sans-serif; font-weight: bold; }
+.text-\[20px\] { font-size: 20px; }
+.font-PeugeotNew { font-family: 'PeugeotNew', sans-serif; font-weight: 400;}
+.font-PeugeotNewBold { font-family: 'PeugeotNew', sans-serif; font-weight: 700; }
 .uppercase { text-transform: uppercase; }
 .italic { font-style: italic; }
 .underline { text-decoration: underline; }
@@ -168,7 +218,7 @@
 .leading-3 { line-height: 12px; }
 .leading-4 { line-height: 16px; }
 .leading-5 { line-height: 20px; }
-.leading-tight { line-height: 1.25; }
+.leading-tight { line-height: 20px; }
 .break-words { overflow-wrap: break-word; }
 .break-normal { overflow-wrap: normal; }
 
