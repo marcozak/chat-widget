@@ -311,6 +311,63 @@ async function mountPeugeotWidgetAsync(config = {}) {
     shadow.appendChild(style);
     console.log('🎨 CSS injected with browser defaults + our styles');
     
+    // 🚀 CARICAMENTO ESPLICITO DEI FONT NEL SHADOW DOM
+    console.log('🔤 Loading fonts explicitly into Shadow DOM...');
+    
+    const fontPromises = [];
+    const fontConfigs = [
+      { family: 'PeugeotNew', weight: '200', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-ExtraLight.ttf' },
+      { family: 'PeugeotNew', weight: '300', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Light.ttf' },
+      { family: 'PeugeotNew', weight: '400', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Regular.ttf' },
+      { family: 'PeugeotNew', weight: '400', style: 'italic', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Italic.ttf' },
+      { family: 'PeugeotNew', weight: '700', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Bold.ttf' },
+      { family: 'PeugeotNew', weight: '700', style: 'italic', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-BoldItalic.ttf' },
+      { family: 'PeugeotNew', weight: '900', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Black.ttf' },
+      { family: 'PeugeotNew', weight: '900', style: 'italic', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-BlackItalic.ttf' }
+    ];
+    
+    fontConfigs.forEach((config, index) => {
+      try {
+        const fontFace = new FontFace(
+          config.family,
+          `url(${config.url})`,
+          {
+            weight: config.weight,
+            style: config.style,
+            display: 'swap'
+          }
+        );
+        
+        const fontPromise = fontFace.load().then(() => {
+          document.fonts.add(fontFace);
+          console.log(`  ✅ Font loaded: ${config.family} ${config.weight} ${config.style}`);
+          return fontFace;
+        }).catch(error => {
+          console.log(`  ❌ Font failed to load: ${config.family} ${config.weight} ${config.style} - ${error.message}`);
+        });
+        
+        fontPromises.push(fontPromise);
+      } catch (error) {
+        console.log(`  ❌ Font creation failed: ${config.family} ${config.weight} ${config.style} - ${error.message}`);
+      }
+    });
+    
+    // Aspetta che tutti i font siano caricati
+    Promise.allSettled(fontPromises).then(results => {
+      const successful = results.filter(r => r.status === 'fulfilled').length;
+      const failed = results.filter(r => r.status === 'rejected').length;
+      console.log(`🔤 Font loading complete: ${successful} successful, ${failed} failed`);
+      
+      // Forza un re-render degli elementi per applicare i font
+      const allElements = shadow.querySelectorAll('*');
+      allElements.forEach(el => {
+        if (el.classList.contains('font-PeugeotNew') || el.classList.contains('font-PeugeotNewBold')) {
+          // Forza re-render
+          el.style.fontFamily = el.style.fontFamily;
+        }
+      });
+    });
+    
     // 🔍 DEBUG POST-INJECTION DEI FONT
     console.log('🔍 FONT POST-INJECTION DEBUG:');
     console.log('  - Style element added to shadow DOM');
@@ -354,7 +411,7 @@ async function mountPeugeotWidgetAsync(config = {}) {
           
           // Test usando Font Loading API per caricare il font
           try {
-            const fontFace = new FontFace('PeugeotNew', 'url(/fonts/PeugeotNew-Regular.ttf)');
+            const fontFace = new FontFace('PeugeotNew', 'url(https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Regular.ttf)');
             console.log('  - FontFace constructor works');
             
             fontFace.load().then(() => {
