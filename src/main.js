@@ -82,6 +82,25 @@ async function mountPeugeotWidgetAsync(config = {}) {
     if (fontUrlMatches) {
       fontUrlMatches.forEach((url, index) => {
         console.log(`    Font ${index + 1}: ${url}`);
+        
+        // Test se il font è accessibile (solo per il primo per non spammare)
+        if (index === 0) {
+          const fontPath = url.replace(/url\(([^)]+)\)/, '$1');
+          console.log(`    Testing font accessibility: ${fontPath}`);
+          
+          // Prova a caricare il font per testare se è accessibile
+          fetch(fontPath)
+            .then(response => {
+              if (response.ok) {
+                console.log(`    ✅ Font accessible: ${fontPath} (${response.status})`);
+              } else {
+                console.log(`    ❌ Font not accessible: ${fontPath} (${response.status})`);
+              }
+            })
+            .catch(error => {
+              console.log(`    ❌ Font fetch error: ${fontPath} - ${error.message}`);
+            });
+        }
       });
     }
     
@@ -301,35 +320,54 @@ async function mountPeugeotWidgetAsync(config = {}) {
     
     // Test immediato caricamento font
     setTimeout(() => {
-      console.log('🔍 FONT LOADING TEST (100ms delay):');
-      
-      // Test se i font sono stati caricati usando Font Loading API
-      if (document.fonts) {
-        console.log('  - Font Loading API available');
-        
-        // Verifica font specifici
-        const testFonts = [
-          'PeugeotNew',
-          '16px PeugeotNew',
-          '400 16px PeugeotNew',
-          '700 16px PeugeotNew'
-        ];
-        
-        testFonts.forEach(fontSpec => {
-          const fontAvailable = document.fonts.check(fontSpec);
-          console.log(`  - Font "${fontSpec}" available:`, fontAvailable);
-        });
-        
-        // Lista tutti i font caricati
-        console.log('  - All loaded fonts:');
-        document.fonts.forEach(font => {
-          if (font.family.includes('Peugeot')) {
-            console.log(`    ${font.family} ${font.weight} ${font.style} - ${font.status}`);
+      console.log('🔍 FONT LOADING TEST (100ms delay):');        // Test se i font sono stati caricati usando Font Loading API
+        if (document.fonts) {
+          console.log('  - Font Loading API available');
+          
+          // Verifica font specifici con formato corretto
+          const testFonts = [
+            '16px PeugeotNew, sans-serif',
+            '400 16px PeugeotNew, sans-serif',
+            '700 16px PeugeotNew, sans-serif',
+            '12px sans-serif' // Font di fallback per confronto
+          ];
+          
+          testFonts.forEach(fontSpec => {
+            try {
+              const fontAvailable = document.fonts.check(fontSpec);
+              console.log(`  - Font "${fontSpec}" available:`, fontAvailable);
+            } catch (error) {
+              console.log(`  - Error checking font "${fontSpec}":`, error.message);
+            }
+          });
+          
+          // Lista tutti i font caricati
+          console.log('  - All loaded fonts count:', document.fonts.size);
+          let peugeotFontCount = 0;
+          document.fonts.forEach(font => {
+            if (font.family.includes('Peugeot')) {
+              console.log(`    ${font.family} ${font.weight} ${font.style} - ${font.status}`);
+              peugeotFontCount++;
+            }
+          });
+          console.log(`  - Peugeot fonts found: ${peugeotFontCount}`);
+          
+          // Test usando Font Loading API per caricare il font
+          try {
+            const fontFace = new FontFace('PeugeotNew', 'url(/fonts/PeugeotNew-Regular.ttf)');
+            console.log('  - FontFace constructor works');
+            
+            fontFace.load().then(() => {
+              console.log('  - PeugeotNew font loaded successfully via FontFace API');
+            }).catch(err => {
+              console.log('  - Failed to load PeugeotNew font via FontFace API:', err.message);
+            });
+          } catch (err) {
+            console.log('  - FontFace constructor failed:', err.message);
           }
-        });
-      } else {
-        console.log('  - Font Loading API not available');
-      }
+        } else {
+          console.log('  - Font Loading API not available');
+        }
       
       // Test creando un elemento di test nel shadow DOM
       const testElement = document.createElement('div');
