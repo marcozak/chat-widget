@@ -307,6 +307,24 @@ async function mountPeugeotWidgetAsync(config = {}) {
       .text-gray-900 {
         color: rgb(17, 24, 39) !important;
       }
+      
+      /* 🔄 FORZA IL RENDERING DEI FONT - Trucchi CSS per forzare il browser */
+      .font-PeugeotNew, .font-PeugeotNewBold {
+        font-display: swap !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+      }
+      
+      /* Forza il re-render con animation */
+      @keyframes fontForceRender {
+        0% { opacity: 0.99; }
+        100% { opacity: 1; }
+      }
+      
+      .font-PeugeotNew, .font-PeugeotNewBold {
+        animation: fontForceRender 0.01s ease-in-out !important;
+      }
     `;
     shadow.appendChild(style);
     console.log('🎨 CSS injected with browser defaults + our styles');
@@ -314,133 +332,157 @@ async function mountPeugeotWidgetAsync(config = {}) {
     // 🚀 CARICAMENTO ESPLICITO DEI FONT NEL SHADOW DOM
     console.log('🔤 Loading fonts explicitly into Shadow DOM...');
     
-    const fontPromises = [];
-    const fontConfigs = [
-      { family: 'PeugeotNew', weight: '200', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-ExtraLight.ttf' },
-      { family: 'PeugeotNew', weight: '300', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Light.ttf' },
-      { family: 'PeugeotNew', weight: '400', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Regular.ttf' },
-      { family: 'PeugeotNew', weight: '400', style: 'italic', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Italic.ttf' },
-      { family: 'PeugeotNew', weight: '700', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Bold.ttf' },
-      { family: 'PeugeotNew', weight: '700', style: 'italic', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-BoldItalic.ttf' },
-      { family: 'PeugeotNew', weight: '900', style: 'normal', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Black.ttf' },
-      { family: 'PeugeotNew', weight: '900', style: 'italic', url: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-BlackItalic.ttf' }
+    // Estrae i font URLs dal CSS
+    const fontUrls = [
+      '/fonts/PeugeotNew-ExtraLight.ttf',
+      '/fonts/PeugeotNew-Light.ttf', 
+      '/fonts/PeugeotNew-Regular.ttf',
+      '/fonts/PeugeotNew-Italic.ttf',
+      '/fonts/PeugeotNew-Bold.ttf',
+      '/fonts/PeugeotNew-BoldItalic.ttf',
+      '/fonts/PeugeotNew-Black.ttf',
+      '/fonts/PeugeotNew-BlackItalic.ttf'
     ];
     
-    fontConfigs.forEach((config, index) => {
-      try {
-        const fontFace = new FontFace(
-          config.family,
-          `url(${config.url})`,
-          {
-            weight: config.weight,
-            style: config.style,
-            display: 'swap'
-          }
-        );
-        
-        const fontPromise = fontFace.load().then(() => {
-          document.fonts.add(fontFace);
-          console.log(`  ✅ Font loaded: ${config.family} ${config.weight} ${config.style}`);
-          return fontFace;
-        }).catch(error => {
-          console.log(`  ❌ Font failed to load: ${config.family} ${config.weight} ${config.style} - ${error.message}`);
-        });
-        
-        fontPromises.push(fontPromise);
-      } catch (error) {
-        console.log(`  ❌ Font creation failed: ${config.family} ${config.weight} ${config.style} - ${error.message}`);
-      }
-    });
+    const fontWeights = [200, 300, 400, 400, 700, 700, 900, 900];
+    const fontStyles = ['normal', 'normal', 'normal', 'italic', 'normal', 'italic', 'normal', 'italic'];
     
-    // Aspetta che tutti i font siano caricati
-    Promise.allSettled(fontPromises).then(results => {
-      const successful = results.filter(r => r.status === 'fulfilled').length;
-      const failed = results.filter(r => r.status === 'rejected').length;
-      console.log(`🔤 Font loading complete: ${successful} successful, ${failed} failed`);
-      
-      // Forza un re-render degli elementi per applicare i font
-      const allElements = shadow.querySelectorAll('*');
-      allElements.forEach(el => {
-        if (el.classList.contains('font-PeugeotNew') || el.classList.contains('font-PeugeotNewBold')) {
-          // Forza re-render
-          el.style.fontFamily = el.style.fontFamily;
+    // Carica tutti i font esplicitamente e aggiungili al documento
+    const fontPromises = fontUrls.map((url, index) => {
+      const fontFace = new FontFace(
+        'PeugeotNew', 
+        `url(${url})`,
+        {
+          weight: fontWeights[index],
+          style: fontStyles[index]
         }
+      );
+      
+      return fontFace.load().then((loadedFont) => {
+        document.fonts.add(loadedFont);
+        console.log(`  ✅ Font loaded: PeugeotNew ${fontWeights[index]} ${fontStyles[index]}`);
+        return loadedFont;
+      }).catch((error) => {
+        console.log(`  ❌ Font failed: PeugeotNew ${fontWeights[index]} ${fontStyles[index]} - ${error.message}`);
+        return null;
       });
     });
     
-    // 🔍 DEBUG POST-INJECTION DEI FONT
-    console.log('🔍 FONT POST-INJECTION DEBUG:');
-    console.log('  - Style element added to shadow DOM');
-    console.log('  - Style textContent length:', style.textContent.length);
-    console.log('  - Style contains @font-face:', style.textContent.includes('@font-face'));
-    console.log('  - Style contains PeugeotNew:', style.textContent.includes('PeugeotNew'));
-    
-    // Test immediato caricamento font
-    setTimeout(() => {
-      console.log('🔍 FONT LOADING TEST (100ms delay):');        // Test se i font sono stati caricati usando Font Loading API
-        if (document.fonts) {
-          console.log('  - Font Loading API available');
+    // Aspetta che tutti i font siano caricati
+    Promise.all(fontPromises).then((results) => {
+      const successful = results.filter(f => f !== null).length;
+      const failed = results.filter(f => f === null).length;
+      console.log(`🔤 Font loading complete: ${successful} successful, ${failed} failed`);
+      
+      // 🔄 FORZA IL RE-RENDER degli elementi dopo il caricamento dei font
+      setTimeout(() => {
+        console.log('🔄 Forcing re-render after font loading...');
+        
+        // Trova tutti gli elementi con font Peugeot e forza un re-render
+        const elementsWithPeugeotFont = shadow.querySelectorAll('.font-PeugeotNew, .font-PeugeotNewBold, [style*="PeugeotNew"]');
+        elementsWithPeugeotFont.forEach((element, index) => {
+          // Trucco per forzare il re-render: modifica temporaneamente lo stile
+          const originalDisplay = element.style.display;
+          element.style.display = 'none';
           
-          // Verifica font specifici con formato corretto
-          const testFonts = [
-            '16px PeugeotNew, sans-serif',
-            '400 16px PeugeotNew, sans-serif',
-            '700 16px PeugeotNew, sans-serif',
-            '12px sans-serif' // Font di fallback per confronto
-          ];
+          // Forza il repaint
+          element.offsetHeight;
           
-          testFonts.forEach(fontSpec => {
-            try {
-              const fontAvailable = document.fonts.check(fontSpec);
-              console.log(`  - Font "${fontSpec}" available:`, fontAvailable);
-            } catch (error) {
-              console.log(`  - Error checking font "${fontSpec}":`, error.message);
-            }
-          });
+          // Ripristina il display
+          element.style.display = originalDisplay;
           
-          // Lista tutti i font caricati
-          console.log('  - All loaded fonts count:', document.fonts.size);
-          let peugeotFontCount = 0;
-          document.fonts.forEach(font => {
-            if (font.family.includes('Peugeot')) {
-              console.log(`    ${font.family} ${font.weight} ${font.style} - ${font.status}`);
-              peugeotFontCount++;
-            }
-          });
-          console.log(`  - Peugeot fonts found: ${peugeotFontCount}`);
-          
-          // Test usando Font Loading API per caricare il font
-          try {
-            const fontFace = new FontFace('PeugeotNew', 'url(https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/fonts/PeugeotNew-Regular.ttf)');
-            console.log('  - FontFace constructor works');
-            
-            fontFace.load().then(() => {
-              console.log('  - PeugeotNew font loaded successfully via FontFace API');
-            }).catch(err => {
-              console.log('  - Failed to load PeugeotNew font via FontFace API:', err.message);
-            });
-          } catch (err) {
-            console.log('  - FontFace constructor failed:', err.message);
-          }
-        } else {
-          console.log('  - Font Loading API not available');
+          console.log(`  🔄 Forced re-render for element ${index + 1}`);
+        });
+        
+        // Forza anche un repaint globale del container
+        const container = shadow.querySelector('#peugeot-widget-app');
+        if (container) {
+          container.style.transform = 'translateZ(0)';
+          setTimeout(() => {
+            container.style.transform = '';
+          }, 10);
         }
+        
+      }, 500);
+    });
+    
+    // 🔤 CARICAMENTO ESPLICITO DEI FONT USANDO FONT LOADING API
+    console.log('🔤 Loading fonts explicitly into Shadow DOM...');
+    
+    // Estrae i font URLs dal CSS
+    const fontUrls2 = [
+      '/fonts/PeugeotNew-ExtraLight.ttf',
+      '/fonts/PeugeotNew-Light.ttf', 
+      '/fonts/PeugeotNew-Regular.ttf',
+      '/fonts/PeugeotNew-Italic.ttf',
+      '/fonts/PeugeotNew-Bold.ttf',
+      '/fonts/PeugeotNew-BoldItalic.ttf',
+      '/fonts/PeugeotNew-Black.ttf',
+      '/fonts/PeugeotNew-BlackItalic.ttf'
+    ];
+    
+    const fontWeights2 = [200, 300, 400, 400, 700, 700, 900, 900];
+    const fontStyles2 = ['normal', 'normal', 'normal', 'italic', 'normal', 'italic', 'normal', 'italic'];
+    
+    // Carica tutti i font esplicitamente e aggiungili al documento
+    const fontPromises2 = fontUrls2.map((url, index) => {
+      const fontFace = new FontFace(
+        'PeugeotNew', 
+        `url(${url})`,
+        {
+          weight: fontWeights2[index],
+          style: fontStyles2[index]
+        }
+      );
       
-      // Test creando un elemento di test nel shadow DOM
-      const testElement = document.createElement('div');
-      testElement.className = 'font-PeugeotNew';
-      testElement.textContent = 'Test Font';
-      testElement.style.cssText = 'position: absolute; visibility: hidden; font-size: 16px;';
-      shadow.appendChild(testElement);
+      return fontFace.load().then((loadedFont) => {
+        document.fonts.add(loadedFont);
+        console.log(`  ✅ Font loaded: PeugeotNew ${fontWeights2[index]} ${fontStyles2[index]}`);
+        return loadedFont;
+      }).catch((error) => {
+        console.log(`  ❌ Font failed: PeugeotNew ${fontWeights2[index]} ${fontStyles2[index]} - ${error.message}`);
+        return null;
+      });
+    });
+    
+    // Aspetta che tutti i font siano caricati
+    Promise.all(fontPromises2).then((results) => {
+      const successful = results.filter(f => f !== null).length;
+      const failed = results.filter(f => f === null).length;
+      console.log(`🔤 Font loading complete: ${successful} successful, ${failed} failed`);
       
-      const computedStyle = getComputedStyle(testElement);
-      console.log('  - Test element font-family:', computedStyle.fontFamily);
-      console.log('  - Test element font-weight:', computedStyle.fontWeight);
-      console.log('  - Test element font-size:', computedStyle.fontSize);
-      
-      shadow.removeChild(testElement);
-    }, 100);
-
+      // 🔄 FORZA IL RE-RENDER degli elementi dopo il caricamento dei font
+      setTimeout(() => {
+        console.log('🔄 Forcing re-render after font loading...');
+        
+        // Trova tutti gli elementi con font Peugeot e forza un re-render
+        const elementsWithPeugeotFont = shadow.querySelectorAll('.font-PeugeotNew, .font-PeugeotNewBold, [style*="PeugeotNew"]');
+        elementsWithPeugeotFont.forEach((element, index) => {
+          // Trucco per forzare il re-render: modifica temporaneamente lo stile
+          const originalDisplay = element.style.display;
+          element.style.display = 'none';
+          
+          // Forza il repaint
+          element.offsetHeight;
+          
+          // Ripristina il display
+          element.style.display = originalDisplay;
+          
+          console.log(`  🔄 Forced re-render for element ${index + 1}`);
+        });
+        
+        // Forza anche un repaint globale del container
+        const container = shadow.querySelector('#peugeot-widget-app');
+        if (container) {
+          container.style.transform = 'translateZ(0)';
+          setTimeout(() => {
+            container.style.transform = '';
+          }, 10);
+        }
+        
+      }, 500);
+    });
+    
     // 4. Crea il nodo root per Vue
     console.log('🏗️ Creating Vue app root...');
     const appRoot = document.createElement('div');
