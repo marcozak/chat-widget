@@ -549,16 +549,55 @@ async function mountPeugeotWidgetAsync(config = {}) {
         const elementsWithPeugeotFont = appContent.querySelectorAll('.font-PeugeotNew, .font-PeugeotNewBold');
         console.log('  - Elements with Peugeot font classes:', elementsWithPeugeotFont.length);
         
+        // Test specifico per font Bold
+        const boldElements = appContent.querySelectorAll('.font-PeugeotNewBold');
+        console.log('  - Elements with font-PeugeotNewBold:', boldElements.length);
+        
+        // Debug approfondito per ogni elemento con font
         elementsWithPeugeotFont.forEach((element, index) => {
           const style = getComputedStyle(element);
+          const isBold = element.classList.contains('font-PeugeotNewBold');
           console.log(`  - Element ${index + 1}:`, {
+            tagName: element.tagName,
             className: element.className,
             fontFamily: style.fontFamily,
             fontWeight: style.fontWeight,
             fontSize: style.fontSize,
-            text: element.textContent?.substring(0, 20) + '...'
+            isBold: isBold,
+            expectedWeight: isBold ? '700' : '400',
+            text: element.textContent?.substring(0, 30) + '...'
           });
+          
+          // Test specifico per elementi bold che non funzionano
+          if (isBold && style.fontWeight !== '700') {
+            console.warn(`    ⚠️ BOLD FONT ISSUE: Element has font-PeugeotNewBold but weight is ${style.fontWeight}`);
+            console.log(`    📝 Element HTML:`, element.outerHTML);
+            console.log(`    🎨 All computed font properties:`, {
+              fontFamily: style.fontFamily,
+              fontWeight: style.fontWeight,
+              fontStyle: style.fontStyle,
+              fontStretch: style.fontStretch,
+              fontVariant: style.fontVariant,
+              fontSizeAdjust: style.fontSizeAdjust
+            });
+          }
         });
+        
+        // Test font loading più specifico per bold
+        if (document.fonts) {
+          console.log('🔍 DETAILED FONT TEST:');
+          const regularFont = document.fonts.check('400 16px PeugeotNew');
+          const boldFont = document.fonts.check('700 16px PeugeotNew');
+          console.log('  - PeugeotNew 400 available:', regularFont);
+          console.log('  - PeugeotNew 700 available:', boldFont);
+          
+          // Test se il font bold è davvero nel set
+          Array.from(document.fonts).forEach(font => {
+            if (font.family.includes('PeugeotNew')) {
+              console.log(`  - Font: ${font.family} weight:${font.weight} style:${font.style} status:${font.status}`);
+            }
+          });
+        }
         
         // Test font loading final
         if (document.fonts) {
