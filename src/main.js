@@ -136,14 +136,14 @@ async function mountPeugeotWidgetAsync(config = {}) {
         max-height: 640px !important;
       }
       
-      /* Fix per l'icona gigante - limitiamo le dimensioni di SVG e immagini */
+      /* Fix per l'icona gigante - limitiamo le dimensioni di SVG e immagini 
       [data-v-443d312e] svg {
         width: auto !important;
         height: auto !important;
         max-width: 50px !important;
         max-height: 50px !important;
         background: transparent !important;
-      }
+      }*/
       
       [data-v-443d312e] img {
         width: auto !important;
@@ -175,18 +175,18 @@ async function mountPeugeotWidgetAsync(config = {}) {
         border: none !important;
       }*/
       
-      /* FIX CRITICO: SVG con background bianco semi-trasparente */
+      /* FIX CRITICO: SVG con background bianco semi-trasparente 
       svg {
         background: none !important;
         background-color: transparent !important;
         fill: currentColor !important;
-      }
+      }*/
       
-      /* FIX per icone con box bianche */
+      /* FIX per icone con box bianche 
       .bg-white svg {
         background: none !important;
         fill: currentColor !important;
-      }
+      }*/
       
       /* FIX specifico per button con SVG (X, back arrow, menu) 
       button svg {
@@ -196,11 +196,11 @@ async function mountPeugeotWidgetAsync(config = {}) {
         stroke: currentColor !important;
       }*/
       
-      /* FIX per elementi cursor-pointer con SVG */
+      /* FIX per elementi cursor-pointer con SVG 
       .cursor-pointer svg {
         background: transparent !important;
         fill: currentColor !important;
-      }
+      }*/
       
       /* FIX per button absolute/fixed (widget button, back button, close button)
       .absolute svg,
