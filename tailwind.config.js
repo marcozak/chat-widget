@@ -27,7 +27,7 @@ export default {
     // Border radius
     'rounded-full', 'rounded-t-2xl', 'rounded-b-2xl', 'rounded-2xl', 'rounded-3xl', 'rounded-t-3xl', 'rounded-bl-2xl', 'rounded-br-2xl',
     // Typography
-    'text-xs', 'text-[8px]', 'text-[9px]', 'text-[10px]', 'text-[16px]', 'font-PeugeotNew', 'font-PeugeotNewBold',
+    'text-xs', 'text-[8px]', 'text-[9px]', 'text-[10px]', 'text-[16px]', 'font-PeugeotNew', 'font-bold',
     'uppercase', 'italic', 'underline', 'text-left', 'text-right', 'leading-3', 'leading-4', 'leading-5', 'leading-tight',
     'break-words', 'break-normal',
     // Positioning
@@ -54,8 +54,7 @@ export default {
     },
 
     fontFamily: {
-      PeugeotNew: ['PeugeotNew', 'sans-serif'],
-      PeugeotNewBold: ['PeugeotNewBold', 'sans-serif']
+      PeugeotNew: ['PeugeotNew', 'sans-serif']
     },
     extend: {
       colors: {
