@@ -121,7 +121,7 @@
 .bg-blue { background-color: rgb(59 130 246); }              /* Tailwind blue-500 */
 .bg-gray-dark { background-color: rgb(49 49 49 / var(--tw-bg-opacity, 1)); }           /* Custom */
 .bg-gray-900 { background-color: rgb(17 24 39); }            /* Tailwind default */
-.bg-blue-gray { background-color: rgb(71 85 105); }          /* Custom */
+.bg-blue-gray { background-color: rgb(68 92 130 / var(--tw-bg-opacity, 1)); }          /* Custom */
 .bg-transparent { background-color: transparent; }           /* Tailwind default */
 
 
@@ -162,6 +162,7 @@
 .uppercase { text-transform: uppercase; }
 .italic { font-style: italic; }
 .underline { text-decoration: underline; }
+.text-start {text-align: start;}
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 .leading-3 { line-height: 12px; }
@@ -224,6 +225,7 @@ img, video {
 
 /* Gap */
 .gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
 
 /* Max width */
 .max-w-\[110px\] { max-width: 110px; }

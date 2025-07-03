@@ -536,7 +536,7 @@ onUnmounted(() => {
                 <button 
                     @click="goToMenu()" 
                     :disabled="awaitingFullResponse"
-                    class="flex items-center"
+                    class="bg-transparent flex items-center"
                     :class="awaitingFullResponse ? 'opacity-40 cursor-not-allowed' : ''"
                 >
                     <BackArrowIcon />
