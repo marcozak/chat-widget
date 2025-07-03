@@ -544,14 +544,59 @@ async function mountPeugeotWidgetAsync(config = {}) {
           console.log('    - font-size:', computedStyle.fontSize);
         }
         
-        // 🔍 TEST FINALE DEI FONT
+        // 🔍 TEST FINALE DEI FONT (INCLUDE ELEMENTI NASCOSTI)
         console.log('🔍 FINAL FONT TEST:');
-        const elementsWithPeugeotFont = appContent.querySelectorAll('.font-PeugeotNew, .font-PeugeotNewBold');
+        
+        // Cerca elementi in tutto il shadow DOM, non solo appContent
+        const elementsWithPeugeotFont = shadow.querySelectorAll('.font-PeugeotNew, .font-PeugeotNewBold');
         console.log('  - Elements with Peugeot font classes:', elementsWithPeugeotFont.length);
         
-        // Test specifico per font Bold
-        const boldElements = appContent.querySelectorAll('.font-PeugeotNewBold');
+        // Test specifico per font Bold in tutto il shadow DOM
+        const boldElements = shadow.querySelectorAll('.font-PeugeotNewBold');
         console.log('  - Elements with font-PeugeotNewBold:', boldElements.length);
+        
+        // Cerca TUTTI gli elementi che potrebbero avere font Peugeot (anche nascosti)
+        const allElements = shadow.querySelectorAll('*');
+        const allFontElements = Array.from(allElements).filter(el => 
+          el.className && typeof el.className === 'string' && 
+          (el.className.includes('font-PeugeotNew') || el.className.includes('font-PeugeotNewBold'))
+        );
+        console.log('  - ALL elements with font classes (including hidden):', allFontElements.length);
+        
+        // Debug ogni elemento trovato
+        allFontElements.forEach((el, i) => {
+          const computed = window.getComputedStyle(el);
+          const isVisible = computed.display !== 'none' && computed.visibility !== 'hidden' && computed.opacity !== '0';
+          const rect = el.getBoundingClientRect();
+          const isInViewport = rect.width > 0 && rect.height > 0;
+          
+          console.log(`  - All Element ${i + 1}:`, {
+            tagName: el.tagName,
+            className: el.className,
+            fontFamily: computed.fontFamily,
+            fontWeight: computed.fontWeight,
+            fontSize: computed.fontSize,
+            isVisible: isVisible,
+            isInViewport: isInViewport,
+            display: computed.display,
+            visibility: computed.visibility,
+            opacity: computed.opacity,
+            textContent: el.textContent?.substring(0, 50) || 'No text'
+          });
+        });
+        
+        // Check del widget container
+        const widgetContainer = shadow.querySelector('.w-screen, .md\\:w-\\[375px\\]');
+        if (widgetContainer) {
+          const computed = window.getComputedStyle(widgetContainer);
+          console.log('🎯 Widget container state:', {
+            display: computed.display,
+            visibility: computed.visibility,
+            opacity: computed.opacity,
+            width: computed.width,
+            height: computed.height
+          });
+        }
         
         // Debug approfondito per ogni elemento con font
         elementsWithPeugeotFont.forEach((element, index) => {
@@ -582,6 +627,59 @@ async function mountPeugeotWidgetAsync(config = {}) {
             });
           }
         });
+        
+        // Controlla se il widget è aperto o minimizzato
+        console.log('🔍 WIDGET STATE CHECK:');
+        const widgetButton = shadow.querySelector('.fixed.bottom-3, .fixed.bottom-0');
+        const chatPanel = shadow.querySelector('.w-screen.h-dynamic, .md\\:w-\\[375px\\].md\\:h-\\[640px\\]');
+        
+        if (widgetButton) {
+          const buttonComputed = window.getComputedStyle(widgetButton);
+          console.log('  - Widget button found:', {
+            display: buttonComputed.display,
+            visibility: buttonComputed.visibility,
+            classes: widgetButton.className
+          });
+        }
+        
+        if (chatPanel) {
+          const panelComputed = window.getComputedStyle(chatPanel);
+          console.log('  - Chat panel found:', {
+            display: panelComputed.display,
+            visibility: panelComputed.visibility,
+            width: panelComputed.width,
+            height: panelComputed.height,
+            classes: chatPanel.className
+          });
+        }
+        
+        // Controlla se il Menu component è presente (anche se nascosto)
+        const menuElements = shadow.querySelectorAll('*');
+        const menuTexts = ['Electric Genius', 'Gamme électrifiée', 'Hello'];
+        let menuFound = false;
+        
+        menuElements.forEach(el => {
+          if (el.textContent) {
+            menuTexts.forEach(text => {
+              if (el.textContent.includes(text)) {
+                const computed = window.getComputedStyle(el);
+                console.log(`  - Menu text "${text}" found:`, {
+                  tagName: el.tagName,
+                  className: el.className,
+                  display: computed.display,
+                  visibility: computed.visibility,
+                  fontFamily: computed.fontFamily,
+                  fontWeight: computed.fontWeight
+                });
+                menuFound = true;
+              }
+            });
+          }
+        });
+        
+        if (!menuFound) {
+          console.log('  - ⚠️ No menu text found - widget might be minimized');
+        }
         
         // Test font loading più specifico per bold
         if (document.fonts) {
@@ -662,10 +760,10 @@ async function mountPeugeotWidgetAsync(config = {}) {
         }
         
         // Test specifico per fix Shadow DOM
-        const widgetButton = appContent.querySelector('[data-cy="widget-button"]');
-        console.log('  - Widget button found:', !!widgetButton);
-        if (widgetButton) {
-          const buttonStyle = getComputedStyle(widgetButton);
+        const widgetButtonElement = appContent.querySelector('[data-cy="widget-button"]');
+        console.log('  - Widget button found:', !!widgetButtonElement);
+        if (widgetButtonElement) {
+          const buttonStyle = getComputedStyle(widgetButtonElement);
           console.log('    - Button is visible:', buttonStyle.display !== 'none');
           console.log('    - Button position:', buttonStyle.position);
           console.log('    - Button z-index:', buttonStyle.zIndex);
@@ -683,11 +781,11 @@ async function mountPeugeotWidgetAsync(config = {}) {
         console.log('  - Background elements found:', bgElements.length);
         console.log('  - Text elements found:', textElements.length);
         
-        // Test specifico per il bottonet del widget
-        const buttonElement = appContent.querySelector('.absolute.bottom-3.right-4');
-        console.log('  - Widget button element found:', !!buttonElement);
-        if (buttonElement) {
-          const buttonStyle = getComputedStyle(buttonElement);
+        // Test specifico per il bottone del widget
+        const bottomRightButton = appContent.querySelector('.absolute.bottom-3.right-4');
+        console.log('  - Widget button element found:', !!bottomRightButton);
+        if (bottomRightButton) {
+          const buttonStyle = getComputedStyle(bottomRightButton);
           console.log('    - Button computed position:', buttonStyle.position);
           console.log('    - Button computed bottom:', buttonStyle.bottom);
           console.log('    - Button computed right:', buttonStyle.right);
