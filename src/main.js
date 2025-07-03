@@ -188,13 +188,13 @@ async function mountPeugeotWidgetAsync(config = {}) {
         fill: currentColor !important;
       }
       
-      /* FIX specifico per button con SVG (X, back arrow, menu) */
+      /* FIX specifico per button con SVG (X, back arrow, menu) 
       button svg {
         background: transparent !important;
         background-color: transparent !important;
         fill: currentColor !important;
         stroke: currentColor !important;
-      }
+      }*/
       
       /* FIX per elementi cursor-pointer con SVG */
       .cursor-pointer svg {
