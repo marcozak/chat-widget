@@ -65,13 +65,33 @@ async function mountPeugeotWidgetAsync(config = {}) {
     console.log('📊 CSS contains .bg-black:', allCss.includes('.bg-black'));
     console.log('📊 CSS contains PeugeotNew:', allCss.includes('PeugeotNew'));
     
+    // 🔍 DEBUG SPECIFICO PER I FONT
+    console.log('🔍 FONT DEBUG:');
+    console.log('  - CSS contains @font-face:', allCss.includes('@font-face'));
+    console.log('  - CSS contains font-family PeugeotNew:', allCss.includes('font-family: PeugeotNew'));
+    console.log('  - CSS contains .font-PeugeotNew class:', allCss.includes('.font-PeugeotNew'));
+    console.log('  - CSS contains .font-PeugeotNewBold class:', allCss.includes('.font-PeugeotNewBold'));
+    
+    // Conta quante @font-face rules ci sono
+    const fontFaceMatches = allCss.match(/@font-face/g);
+    console.log('  - Number of @font-face rules:', fontFaceMatches ? fontFaceMatches.length : 0);
+    
+    // Verifica i path dei font
+    const fontUrlMatches = allCss.match(/url\(([^)]+\.ttf)\)/g);
+    console.log('  - Font URLs found:', fontUrlMatches ? fontUrlMatches.length : 0);
+    if (fontUrlMatches) {
+      fontUrlMatches.forEach((url, index) => {
+        console.log(`    Font ${index + 1}: ${url}`);
+      });
+    }
+    
     const style = document.createElement('style');
     
     // STRATEGIA ALTERNATIVA: Forziamo SOLO le regole critiche con !important
     // NON tutte le regole, solo quelle che servono per contrastare il CSS ostile
     let forcedCss = allCss
       // Forza SOLO font-family per contrastare il CSS ostile, MA NON font-size
-      .replace(/font-family:\s*([^;]+);/g, 'font-family: $1 !important;')
+      //.replace(/font-family:\s*([^;]+);/g, 'font-family: $1 !important;')
       // NON forzare font-size globalmente - mantieni i font piccoli
       // .replace(/font-size:\s*([^;]+);/g, 'font-size: $1 !important;')
       // FIX CRITICO: Sostituisci unità viewport che non funzionano in Shadow DOM
@@ -271,6 +291,60 @@ async function mountPeugeotWidgetAsync(config = {}) {
     `;
     shadow.appendChild(style);
     console.log('🎨 CSS injected with browser defaults + our styles');
+    
+    // 🔍 DEBUG POST-INJECTION DEI FONT
+    console.log('🔍 FONT POST-INJECTION DEBUG:');
+    console.log('  - Style element added to shadow DOM');
+    console.log('  - Style textContent length:', style.textContent.length);
+    console.log('  - Style contains @font-face:', style.textContent.includes('@font-face'));
+    console.log('  - Style contains PeugeotNew:', style.textContent.includes('PeugeotNew'));
+    
+    // Test immediato caricamento font
+    setTimeout(() => {
+      console.log('🔍 FONT LOADING TEST (100ms delay):');
+      
+      // Test se i font sono stati caricati usando Font Loading API
+      if (document.fonts) {
+        console.log('  - Font Loading API available');
+        
+        // Verifica font specifici
+        const testFonts = [
+          'PeugeotNew',
+          '16px PeugeotNew',
+          '400 16px PeugeotNew',
+          '700 16px PeugeotNew'
+        ];
+        
+        testFonts.forEach(fontSpec => {
+          const fontAvailable = document.fonts.check(fontSpec);
+          console.log(`  - Font "${fontSpec}" available:`, fontAvailable);
+        });
+        
+        // Lista tutti i font caricati
+        console.log('  - All loaded fonts:');
+        document.fonts.forEach(font => {
+          if (font.family.includes('Peugeot')) {
+            console.log(`    ${font.family} ${font.weight} ${font.style} - ${font.status}`);
+          }
+        });
+      } else {
+        console.log('  - Font Loading API not available');
+      }
+      
+      // Test creando un elemento di test nel shadow DOM
+      const testElement = document.createElement('div');
+      testElement.className = 'font-PeugeotNew';
+      testElement.textContent = 'Test Font';
+      testElement.style.cssText = 'position: absolute; visibility: hidden; font-size: 16px;';
+      shadow.appendChild(testElement);
+      
+      const computedStyle = getComputedStyle(testElement);
+      console.log('  - Test element font-family:', computedStyle.fontFamily);
+      console.log('  - Test element font-weight:', computedStyle.fontWeight);
+      console.log('  - Test element font-size:', computedStyle.fontSize);
+      
+      shadow.removeChild(testElement);
+    }, 100);
 
     // 4. Crea il nodo root per Vue
     console.log('🏗️ Creating Vue app root...');
@@ -328,18 +402,34 @@ async function mountPeugeotWidgetAsync(config = {}) {
           const firstButton = buttons[0];
           const computedStyle = getComputedStyle(firstButton);
           console.log('  - Button computed styles:');
-          console.log('    - Display:', computedStyle.display);
-          console.log('    - Background:', computedStyle.backgroundColor);
-          console.log('    - Font family:', computedStyle.fontFamily);
-          console.log('    - Font size:', computedStyle.fontSize);
-          console.log('    - Font weight:', computedStyle.fontWeight);
-          console.log('    - Width:', computedStyle.width);
-          console.log('    - Height:', computedStyle.height);
-          console.log('    - Border radius:', computedStyle.borderRadius);
-          console.log('    - Position:', computedStyle.position);
-          console.log('    - Bottom:', computedStyle.bottom);
-          console.log('    - Right:', computedStyle.right);
-          console.log('    - Z-index:', computedStyle.zIndex);
+          console.log('    - font-family:', computedStyle.fontFamily);
+          console.log('    - font-weight:', computedStyle.fontWeight);
+          console.log('    - font-size:', computedStyle.fontSize);
+        }
+        
+        // 🔍 TEST FINALE DEI FONT
+        console.log('🔍 FINAL FONT TEST:');
+        const elementsWithPeugeotFont = appContent.querySelectorAll('.font-PeugeotNew, .font-PeugeotNewBold');
+        console.log('  - Elements with Peugeot font classes:', elementsWithPeugeotFont.length);
+        
+        elementsWithPeugeotFont.forEach((element, index) => {
+          const style = getComputedStyle(element);
+          console.log(`  - Element ${index + 1}:`, {
+            className: element.className,
+            fontFamily: style.fontFamily,
+            fontWeight: style.fontWeight,
+            fontSize: style.fontSize,
+            text: element.textContent?.substring(0, 20) + '...'
+          });
+        });
+        
+        // Test font loading final
+        if (document.fonts) {
+          const peugeotFonts = Array.from(document.fonts).filter(f => f.family.includes('Peugeot'));
+          console.log('  - Peugeot fonts in document:', peugeotFonts.length);
+          peugeotFonts.forEach(font => {
+            console.log(`    ${font.family} ${font.weight} - Status: ${font.status}`);
+          });
         }
         
         // Debug specifico per elementi con background nero
