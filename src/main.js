@@ -307,24 +307,6 @@ async function mountPeugeotWidgetAsync(config = {}) {
       .text-gray-900 {
         color: rgb(17, 24, 39) !important;
       }
-      
-      /* 🔄 FORZA IL RENDERING DEI FONT - Trucchi CSS per forzare il browser */
-      .font-PeugeotNew, .font-PeugeotNewBold {
-        font-display: swap !important;
-        -webkit-font-smoothing: antialiased !important;
-        -moz-osx-font-smoothing: grayscale !important;
-        text-rendering: optimizeLegibility !important;
-      }
-      
-      /* Forza il re-render con animation */
-      @keyframes fontForceRender {
-        0% { opacity: 0.99; }
-        100% { opacity: 1; }
-      }
-      
-      .font-PeugeotNew, .font-PeugeotNewBold {
-        animation: fontForceRender 0.01s ease-in-out !important;
-      }
     `;
     shadow.appendChild(style);
     console.log('🎨 CSS injected with browser defaults + our styles');
