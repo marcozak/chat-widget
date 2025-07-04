@@ -302,8 +302,7 @@ img, video {
   .xs\:w-72 { width: 288px; }
 }
 
-@media (min-width: 640px) {
-  .sm\:w-64 { width: 256px; }
+@media (min-width: 480px) {
   .sm\:text-\[10px\] { font-size: 10px; }
 }
 
