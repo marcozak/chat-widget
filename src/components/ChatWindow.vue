@@ -163,6 +163,12 @@ const connectWebSocket = () => {
                 aiStreamingResponse.value = ''
                 inCodeBlock.value = false
                 
+                // Clear any pending timeout
+                if (responseTimeout) {
+                    clearTimeout(responseTimeout)
+                    responseTimeout = null
+                }
+                
                 // Reset buffer for next response
                 answerBuffer.value = new AnswerBuffer()
             }
@@ -178,6 +184,13 @@ const connectWebSocket = () => {
         isConnected.value = false
         if (awaitingFullResponse.value) {
             awaitingFullResponse.value = false
+            
+            // Clear any pending timeout
+            if (responseTimeout) {
+                clearTimeout(responseTimeout)
+                responseTimeout = null
+            }
+            
             chatHistory.value.push({
                 sessionId: sessionInfo.value.sessionId,
                 responseIa: translations.aiResponseError,
@@ -201,6 +214,12 @@ const connectWebSocket = () => {
         // Reset state if closed during a response
         if (awaitingFullResponse.value) {
             awaitingFullResponse.value = false
+            
+            // Clear any pending timeout
+            if (responseTimeout) {
+                clearTimeout(responseTimeout)
+                responseTimeout = null
+            }
             
             // Add a message indicating the connection was lost
             chatHistory.value.push({
@@ -409,10 +428,28 @@ const sendMessage = async (content) => {
         // Initialize a new answer buffer and reset state
         answerBuffer.value = new AnswerBuffer()
         inCodeBlock.value = false
+        
+        // Set a timeout to prevent infinite waiting
+        responseTimeout = setTimeout(() => {
+            if (awaitingFullResponse.value) {
+                console.warn('Response timeout - no response received within 30 seconds')
+                awaitingFullResponse.value = false
+                aiStreamingResponse.value = ''
+                chatHistory.value.push({
+                    sessionId: sessionInfo.value.sessionId,
+                    responseIa: translations.timeoutError || "The response took too long. Please try again.",
+                    dateCreated: new Date(),
+                    type: 'response',
+                    isComplete: true
+                })
+                scrollToBottomOfChat('smooth')
+            }
+        }, 30000) // 30 seconds timeout
 
         try {
             // First, send the message via WebSocket for streaming
             if (ws.value && ws.value.readyState === WebSocket.OPEN) {
+                console.log('Sending message via WebSocket...')
                 const wsPayload = {
                     content: payload.content,
                     session_id: sessionInfo.value.sessionId,
@@ -420,12 +457,19 @@ const sendMessage = async (content) => {
                     type: 'question',
                     workspace_id: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
                 }
+                console.log('WebSocket payload:', wsPayload)
                 ws.value.send(JSON.stringify(wsPayload))
             } else {
-                console.error('WebSocket not connected')
+                console.error('WebSocket not connected - readyState:', ws.value?.readyState)
                 
                 // Try to reconnect
                 connectWebSocket()
+                
+                // Clear any pending timeout
+                if (responseTimeout) {
+                    clearTimeout(responseTimeout)
+                    responseTimeout = null
+                }
                 
                 // Add a message indicating connection issues
                 chatHistory.value.push({
@@ -442,10 +486,13 @@ const sendMessage = async (content) => {
 
             // In parallel, make the POST request to /ask endpoint to get proposals
             try {
+                console.log('Sending POST request to /ask endpoint for proposals...')
                 const askResponse = await sendQuestion(payload.content, sessionInfo.value.sessionId)
+                console.log('POST /ask response received:', askResponse)
                 
                 // Handle the response from /ask - set proposals when they're ready
                 if (askResponse && askResponse.proposals && askResponse.proposals.length > 0) {
+                    console.log('Proposals received:', askResponse.proposals)
                     // Save the proposals for suggestion buttons - we'll display them when the response is complete
                     if (!awaitingFullResponse.value) {
                         // If response is already complete, show proposals
@@ -455,15 +502,53 @@ const sendMessage = async (content) => {
                         // We'll set this in the WebSocket's completion handler
                         pendingProposals = askResponse.proposals
                     }
+                } else {
+                    console.log('No proposals received or proposals array is empty')
                 }
             } catch (proposalError) {
-                console.error('Error fetching proposals:', proposalError)
+                console.error('Error fetching proposals from /ask endpoint:', proposalError)
+                
+                // Log detailed error information for debugging
+                if (proposalError.status) {
+                    console.error('HTTP Status:', proposalError.status)
+                }
+                if (proposalError.response) {
+                    console.error('Response object:', proposalError.response)
+                }
+                if (proposalError.data) {
+                    console.error('Error data:', proposalError.data)
+                }
+                
                 // Continue without proposals - this shouldn't stop the main conversation
+                // Only show error to user if BOTH WebSocket and POST fail
+                // Check if we're currently waiting for WebSocket response
+                if (awaitingFullResponse.value) {
+                    console.log('WebSocket is still processing, continuing without proposals')
+                    // WebSocket is working, just continue without proposals
+                } else {
+                    console.log('WebSocket is not responding, showing error to user')
+                    // WebSocket is not responding either, show error to user
+                    chatHistory.value.push({
+                        sessionId: sessionInfo.value.sessionId,
+                        responseIa: translations.connectionError || "I'm having trouble connecting to the service. Please try again in a moment.",
+                        dateCreated: new Date(),
+                        type: 'response',
+                        isComplete: true
+                    })
+                    scrollToBottomOfChat('smooth')
+                }
             }
         } catch (error) {
             console.error('Error handling message:', error)
             awaitingFullResponse.value = false
             aiStreamingResponse.value = ''
+            
+            // Clear any pending timeout
+            if (responseTimeout) {
+                clearTimeout(responseTimeout)
+                responseTimeout = null
+            }
+            
             chatHistory.value.push({
                 sessionId: sessionInfo.value.sessionId,
                 responseIa: translations.aiResponseError,
@@ -477,6 +562,7 @@ const sendMessage = async (content) => {
 
 // Keep track of pending proposals to show when response completes
 let pendingProposals = null
+let responseTimeout = null
 
 watch(chatHistory.value, async () => {
     setChatHistory(chatHistory.value)

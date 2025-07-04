@@ -20,6 +20,8 @@ export const getWebSocketUrl = (sessionId) => {
 export const fetchApi = async (endpoint, options = {}) => {
   const url = `${getApiBaseUrl}${endpoint}`
   
+  console.log(`Making ${options.method || 'GET'} request to:`, url)
+  
   // Prepare headers with authentication if user is logged in
   const headers = {
     'Content-Type': 'application/json',
@@ -30,6 +32,14 @@ export const fetchApi = async (endpoint, options = {}) => {
   const token = getToken()
   if (token) {
     headers['Authorization'] = `Bearer ${token}`
+    console.log('Authorization header added')
+  } else {
+    console.log('No authorization token available')
+  }
+  
+  console.log('Request headers:', headers)
+  if (options.body) {
+    console.log('Request body:', options.body)
   }
   
   // Make the request
@@ -38,8 +48,11 @@ export const fetchApi = async (endpoint, options = {}) => {
     headers,
   })
   
+  console.log(`Response status: ${response.status} ${response.statusText}`)
+  
   // Handle unauthorized responses
   if (response.status === 401) {
+    console.warn('Unauthorized response (401)')
     // Handle token expiration - redirect to login
     if (isAuthenticated()) {
       // Clear session and redirect
@@ -51,6 +64,7 @@ export const fetchApi = async (endpoint, options = {}) => {
   }
   
   if (!response.ok) {
+    console.error(`API error: ${response.status} ${response.statusText}`)
     const error = new Error(`API error: ${response.status} ${response.statusText}`)
     error.status = response.status
     error.response = response
@@ -58,8 +72,10 @@ export const fetchApi = async (endpoint, options = {}) => {
     try {
       // Try to parse error details from response
       const data = await response.json()
+      console.error('Error response data:', data)
       error.data = data
     } catch (e) {
+      console.error('Could not parse error response as JSON')
       // Response couldn't be parsed as JSON
     }
     
@@ -68,24 +84,31 @@ export const fetchApi = async (endpoint, options = {}) => {
   
   // For 204 No Content responses
   if (response.status === 204) {
+    console.log('Received 204 No Content response')
     return null
   }
   
   // Return parsed response if successful
-  return response.json()
+  const responseData = await response.json()
+  console.log('Response data:', responseData)
+  return responseData
 }
 
 // Send question to API with authentication
 export const sendQuestion = async (question, sessionId) => {
+  const payload = {
+    question,
+    model_name: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+    session_id: sessionId,
+    workspace_id: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f',
+    generate_proposals: true
+  }
+  
+  console.log('POST /ask payload:', payload)
+  
   return fetchApi('/ask', {
     method: 'POST',
-    body: JSON.stringify({
-      question,
-      model_name: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
-      session_id: sessionId,
-      workspace_id: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f',
-      generate_proposals: true
-    })
+    body: JSON.stringify(payload)
   })
 }
 
