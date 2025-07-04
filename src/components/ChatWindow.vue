@@ -520,14 +520,23 @@ const sendMessage = async (content) => {
                 }
                 
                 // Continue without proposals - this shouldn't stop the main conversation
-                // Only show error to user if BOTH WebSocket and POST fail
-                // Check if we're currently waiting for WebSocket response
-                if (awaitingFullResponse.value) {
-                    console.log('WebSocket is still processing, continuing without proposals')
-                    // WebSocket is working, just continue without proposals
+                // Only show error to user if WebSocket is also not working
+                // Check the actual WebSocket connection state, not the response state
+                if (isConnected.value && ws.value?.readyState === WebSocket.OPEN) {
+                    console.log('WebSocket is connected and working, continuing without proposals')
+                    // WebSocket is working, just continue without proposals - no error message to user
                 } else {
-                    console.log('WebSocket is not responding, showing error to user')
-                    // WebSocket is not responding either, show error to user
+                    console.log('WebSocket is also not connected, showing error to user')
+                    // WebSocket is not working either, show error to user
+                    awaitingFullResponse.value = false
+                    aiStreamingResponse.value = ''
+                    
+                    // Clear any pending timeout
+                    if (responseTimeout) {
+                        clearTimeout(responseTimeout)
+                        responseTimeout = null
+                    }
+                    
                     chatHistory.value.push({
                         sessionId: sessionInfo.value.sessionId,
                         responseIa: translations.connectionError || "I'm having trouble connecting to the service. Please try again in a moment.",
