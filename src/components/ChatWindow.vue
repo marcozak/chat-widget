@@ -611,10 +611,10 @@ onUnmounted(() => {
         enter-from-class="opacity-0"
         leave-to-class="opacity-0"
     >
-        <div v-if="!open" class="fixed bottom-3 right-4 bg-black border-gray-800 border-2 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center">
-            <button class="bg-transparent w-16 h-16 md:w-20 md:h-20 rounded-full p-0 font-PeugeotNew font-PeugeotNewBold" @click="openWindow()">
+        <div v-if="!open" class="fixed bottom-3 right-4 bg-black border-gray-800 border-4 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center">
+            <button class="bg-transparent border-transparent flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full p-0 font-PeugeotNew font-PeugeotNewBold" @click="openWindow()">
                 <div>
-                    <GeniusIcon class="w-16 h-16 mt-1"/>
+                    <GeniusIcon class="w-14 h-14 ml-1 mt-1"/>
                 </div>
             </button>
         </div>
@@ -631,13 +631,13 @@ onUnmounted(() => {
                 <button 
                     @click="goToMenu()" 
                     :disabled="awaitingFullResponse"
-                    class="bg-transparent flex items-center"
+                    class="bg-transparent border-transparent flex items-center"
                     :class="awaitingFullResponse ? 'opacity-40 cursor-not-allowed' : ''"
                 >
                     <BackArrowIcon />
                     <p class="text-white text-xs font-PeugeotNew ml-2">{{ translations.Menu.label }}</p>
                 </button>
-                <button @click="closeWindow()" class="bg-transparent z-20 relative">
+                <button @click="closeWindow()" class="bg-transparent border-transparent z-20 relative">
                     <XIcon/>
                 </button>
             </div>
@@ -744,12 +744,12 @@ onUnmounted(() => {
                 v-model="inputValue"
                 :disabled="awaitingFullResponse"
                 type="text"
-                class="rounded-full w-full h-[48px] font-PeugeotNew text-xs text-gray-900 focus:border-transparent focus:outline-none pl-3 pr-12"
+                class="rounded-full w-full h-[48px] font-PeugeotNew text-xs text-gray-900 border-transparent focus:outline-none pl-3 pr-12"
                 :style="{ color: '#111827' }"
                 :placeholder="translations.inputPlaceholder"
                 @keyup.enter="sendMessage()"
                 />
-                <button v-if="inputValue !=''" @click="sendMessage()" class="absolute top-3 tall:top-4 right-6 border-0 bg-transparent cursor-pointer"> 
+                <button v-if="inputValue !=''" @click="sendMessage()" class="absolute top-3dot5 tall:top-4 right-6 border-transparent bg-transparent cursor-pointer"> 
                     <SendIcon />
                 </button> 
                 <Transition 
@@ -762,7 +762,7 @@ onUnmounted(() => {
                         v-if="!displayMenu && !displayBlockDetails && chatHistory.length"
                         :disabled="awaitingFullResponse"
                         @click="initSession()"
-                        class="flex w-full pt-2 justify-center items-center"
+                        class="flex w-full pt-2 border-transparent bg-transparent justify-center items-center"
                         :class="awaitingFullResponse ? 'opacity-20 cursor-not-allowed' : ''"
                     >
                         <p class="text-white text-xs underline font-PeugeotNew mr-2">

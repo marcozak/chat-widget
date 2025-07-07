@@ -64,7 +64,7 @@ const userInfo = getUserInfo()
                     <div class="bg-blue rounded-full h-[36px] w-[36px] flex justify-center items-center shrink-0">
                         <component :is="getIcon(block.icon)" />
                     </div>
-                    <p class="font-PeugeotNewBold text-white text-left text-[10px] leading-tight break-words max-w-[110px]">
+                    <p class="font-PeugeotNewBold text-white text-left text-[10px] leading-3 break-words max-w-[110px]">
                         {{ block.label }}
                     </p>
                     </button>
