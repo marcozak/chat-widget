@@ -52,9 +52,7 @@
 /* Reset base */
 * { box-sizing: border-box; }
 
-* {
-  border: 0 !important;
-}
+
 :host {
   font-size: 16px !important;
 }
@@ -182,7 +180,7 @@
 .text-gray-900 { color: rgb(17 24 39); }
 
 /* Colors - Border */
-
+.border-transparent { border-color: transparent; }
 .border { border-width: 1px; }
 .border-2 { border-width: 2px; }
 .border-gray-800 { border-color: rgb(31 41 55) !important; border-style: solid; }

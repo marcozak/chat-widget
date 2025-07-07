@@ -378,5 +378,8 @@
   },
   "clickHere": "cliquez ici.",
   "pendingAiAnswer": "en train d'écrire ...",
-  "aiResponseError": "Désolé je n'ai pas pu répondre à votre question, car une erreur est survenue. Posez-moi une nouvelle question."
+  "aiResponseError": "Désolé je n'ai pas pu répondre à votre question, car une erreur est survenue. Posez-moi une nouvelle question.",
+  "connectionError": "Je n'arrive pas à me connecter au service. Veuillez réessayer dans un moment.",
+  "connectionLostError": "La connexion a été perdue. Veuillez réessayer.",
+  "timeoutError": "La réponse a pris trop de temps. Veuillez réessayer."
 }
