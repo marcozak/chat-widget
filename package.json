@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "postbuild": "copy test-small.html dist\\test-small.html && copy test-large.html dist\\test-large.html && copy test-medium.html dist\\test-medium.html",
     "preview": "vite preview"
   },
   "dependencies": {
