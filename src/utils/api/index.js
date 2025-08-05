@@ -1,12 +1,17 @@
 // utils/api/index.js - Updated for JWT authentication
 import { getToken, isAuthenticated } from '@/utils/auth'
 
-export const getApiBaseUrl = import.meta.env.VITE_API_BASE_URL
+export const getApiBaseUrl = () => {
+  // Prova prima dalla configurazione del widget, poi fallback alla variabile d'ambiente
+  return window.CHAT_WIDGET_CONFIG?.apiBaseUrl || 
+         import.meta.env.VITE_API_BASE_URL || 
+         'https://chat.bsn0027990-td4dm2xq.stla-aws.net'
+}
 
 // WebSocket URL constructor with auth token
 export const getWebSocketUrl = (sessionId) => {
   const token = getToken()
-  const baseUrl = getApiBaseUrl.replace('http', 'ws')
+  const baseUrl = getApiBaseUrl().replace('http', 'ws')
   
   // If authenticated, include token in WebSocket connection
   if (token) {
@@ -18,7 +23,7 @@ export const getWebSocketUrl = (sessionId) => {
 
 // HTTP request helper with authentication
 export const fetchApi = async (endpoint, options = {}) => {
-  const url = `${getApiBaseUrl}${endpoint}`
+  const url = `${getApiBaseUrl()}${endpoint}`
   
   console.log(`Making ${options.method || 'GET'} request to:`, url)
   
