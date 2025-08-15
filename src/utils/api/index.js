@@ -105,7 +105,7 @@ export const sendQuestion = async (question, sessionId) => {
     question,
     model_name: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
     session_id: sessionId,
-    workspace_id: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f',
+  workspace_id: window.CHAT_WIDGET_CONFIG?.workspaceId || import.meta.env.VITE_WORKSPACE_ID || 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f',
     generate_proposals: true
   }
   

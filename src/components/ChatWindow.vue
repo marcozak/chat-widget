@@ -104,7 +104,7 @@ const connectWebSocket = () => {
                     session_id: sessionInfo.value.sessionId,
                     model_name: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
                     type: 'ping',
-                    workspace_id: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
+                        workspace_id: window.CHAT_WIDGET_CONFIG?.workspaceId || import.meta.env.VITE_WORKSPACE_ID || 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
                 }))
             }
         }, 30000) // Send ping every 30 seconds
@@ -455,7 +455,7 @@ const sendMessage = async (content) => {
                     session_id: sessionInfo.value.sessionId,
                     model_name: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
                     type: 'question',
-                    workspace_id: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
+                    workspace_id: window.CHAT_WIDGET_CONFIG?.workspaceId || import.meta.env.VITE_WORKSPACE_ID || 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
                 }
                 console.log('WebSocket payload:', wsPayload)
                 ws.value.send(JSON.stringify(wsPayload))
