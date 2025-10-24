@@ -103,7 +103,7 @@ export const fetchApi = async (endpoint, options = {}) => {
 export const sendQuestion = async (question, sessionId) => {
   const payload = {
     question,
-    model_name: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+    model_name: 'anthropic.claude-sonnet-4-20250514-v1:0',
     session_id: sessionId,
   workspace_id: window.CHAT_WIDGET_CONFIG?.workspaceId || import.meta.env.VITE_WORKSPACE_ID || 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f',
     generate_proposals: true
