@@ -285,8 +285,13 @@ input:focus {
 }
 
 .markdown-content a {
-  color: #3b82f6;
+  color: #66b3ff;
   text-decoration: underline;
   word-break: break-word;
   overflow-wrap: break-word;
+}
+
+.markdown-content a:hover {
+  color: #99ccff;
+  text-decoration: none;
 }

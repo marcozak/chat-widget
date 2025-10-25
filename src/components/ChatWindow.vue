@@ -846,10 +846,15 @@ onUnmounted(() => {
 }
 
 .markdown-content :deep(a) {
-    color: #3b82f6;
+    color: #66b3ff;
     text-decoration: underline;
     word-break: break-word;
     overflow-wrap: break-word;
+}
+
+.markdown-content :deep(a:hover) {
+    color: #99ccff;
+    text-decoration: none;
 }
 
 .markdown-content :deep(strong) {
