@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import path from 'path'
 import copy from 'rollup-plugin-copy'
-
 
 export default defineConfig({
   base: './',
@@ -12,12 +10,12 @@ export default defineConfig({
   },  
   plugins: [
     vue(),
-    cssInjectedByJsPlugin(),
+    // Rimuovo cssInjectedByJsPlugin perché ora gestiamo il CSS nel Shadow DOM
     copy({
       targets: [
-        { src: 'public/images/*', dest: 'dist/images' }
+        { src: 'public/images/*', dest: 'dist/images' },
+        { src: 'src/assets/fonts/*', dest: 'dist/fonts' } // Aggiungo i font
       ],
-      // Il plugin esegue la copia al termine del bundle
       hook: 'writeBundle'
     })
   ],

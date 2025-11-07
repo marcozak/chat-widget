@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peugeot EV Chatbot Test - Extreme</title>
+    <style>
+      /* CSS estremo per testare isolamento widget */
+      html, body {
+        background: linear-gradient(135deg, #ff00cc 0%, #333399 100%) !important;
+        color: #ff0 !important;
+        font-family: 'Comic Sans MS', cursive, sans-serif !important;
+        font-size: 32px !important;
+        letter-spacing: 4px !important;
+        line-height: 2 !important;
+        text-transform: uppercase !important;
+        filter: invert(1) hue-rotate(180deg) !important;
+      }
+      * {
+        box-shadow: 0 0 20px 10px #0ff !important;
+        border: 5px dashed #f0f !important;
+        border-radius: 50% !important;
+        background: repeating-linear-gradient(45deg, #fff, #fff 10px, #000 10px, #000 20px) !important;
+        color: #ff0 !important;
+        font-size: 32px !important;
+        font-family: 'Comic Sans MS', cursive, sans-serif !important;
+        letter-spacing: 4px !important;
+        line-height: 2 !important;
+        text-transform: uppercase !important;
+        filter: invert(1) hue-rotate(180deg) !important;
+        /* animation: crazy 1s infinite alternate;  RIMOSSA animazione per non influenzare il widget */
+      }
+      /* @keyframes crazy {
+        0% { transform: rotate(-2deg) scale(1); }
+        100% { transform: rotate(2deg) scale(1.05); }
+      } */
+      a {
+        color: #0ff !important;
+        text-decoration: underline wavy #f0f !important;
+      }
+      button {
+        background: #f00 !important;
+        color: #fff !important;
+        border: 5px solid #0f0 !important;
+        font-size: 40px !important;
+        border-radius: 0 !important;
+        box-shadow: 0 0 30px 10px #f00 !important;
+      }
+      input, textarea, select {
+        background: #000 !important;
+        color: #0f0 !important;
+        border: 3px solid #ff0 !important;
+        font-size: 28px !important;
+      }
+      /* Scrollbar enorme e colorata */
+      ::-webkit-scrollbar {
+        width: 32px;
+        background: #f0f;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #0ff;
+        border-radius: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Test Estremo Peugeot EV Chatbot</h1>
+    </header>
+    <div id="instructions">
+      Questa pagina applica stili CSS estremi e aggressivi a TUTTO il DOM.<br />
+      Serve per verificare la robustezza dello shadow DOM del widget.<br />
+      <strong>⚡️ Se la chat resta "normale", lo shadow root funziona!</strong>
+    </div>
+    <footer>
+      Versione di test estremo – se leggi bene qui, la chat dovrebbe essere "immune".<br />
+      <a href="#">Link di test</a>
+    </footer>
+    <script>
+      window.CHAT_WIDGET_CONFIG = {
+        assetBaseUrl: './images',
+        apiBaseUrl: 'https://chat.bsn0027990-td4dm2xq.stla-aws.net',
+        themeColor: '#00aaff',
+        position: 'bottom-right',
+        chatRoot: 'chat-root'
+      };
+    </script>
+    <script src="./chat-widget.js"></script>
+    <script>
+      window.ChatWidget.init();
+    </script>
+    <div style="max-width: 600px; padding: 16px;">
+      <h2>Contenuto di test</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non massa ut sapien posuere pulvinar. Duis consequat, nibh a tincidunt convallis, nisi erat iaculis nisi, nec iaculis erat elit eu nulla.</p>
+      <p>Nam nec suscipit ex. Suspendisse nec tortor volutpat, accumsan justo in, gravida lorem. Integer porta efficitur ipsum, non pulvinar est facilisis et.</p>
+      <p>Morbi eget turpis in justo tincidunt porttitor. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi.</p>
+      <p>Scroll down per testare posizionamento fisso del bottone…</p>
+      <p style="margin-top: 800px;">Fine della pagina di test estremo.</p>
+    </div>
+  </body>
+</html>

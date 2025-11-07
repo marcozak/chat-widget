@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peugeot EV Chatbot Test</title>
+    <style>
+      /* Stili originali della pagina */
+      body {
+        font-family: "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* ...existing styles... */
+      
+      /* Test per vedere se influenza il widget */
+      * {
+        font-size: 18px !important;
+      }
+      
+      p, div, span {
+        font-size: 20px !important;
+      }
+      
+      button {
+        font-size: 16px !important;
+      }
+      
+      /* Test font family diverso */
+      body, * {
+        font-family: "Georgia", serif !important;
+      }
+      
+      header {
+        width: 100%;
+        padding: 24px 0;
+        background-color: #111;
+        color: #00aaff;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: 0.5px;
+      }
+
+      #logo-container {
+        margin: 40px 0 24px;
+      }
+
+      #logo-container img {
+        width: 120px;
+        height: auto;
+        filter: brightness(1.2);
+      }
+
+      #instructions {
+        max-width: 480px;
+        text-align: center;
+        font-size: 14px;
+        color: #bbb;
+        margin-bottom: 40px;
+        padding: 0 16px;
+      }
+
+      #chat-root {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      footer {
+        margin-top: auto;
+        padding: 16px;
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+      }
+
+      a {
+        color: #00aaff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Peugeot EV Chatbot Test Page</h1>
+    </header>
+
+    <div id="instructions">
+      Cette page vous permet de tester le widget du chatbot Peugeot pour les véhicules électriques.<br />
+      Cliquez sur le bouton en bas à droite pour commencer.<br />
+      <strong>⚠️ Test: Font più grandi per verificare isolamento widget</strong>
+    </div>
+
+    <div id="chat-root"></div>
+
+    <footer>
+      Version de démonstration – usage interne uniquement
+    </footer>
+
+    <script>
+      window.CHAT_WIDGET_CONFIG = {
+        assetBaseUrl: './images',
+        apiBaseUrl: 'https://chat.bsn0027990-td4dm2xq.stla-aws.net',
+        themeColor: '#00aaff',
+        position: 'bottom-right',
+        chatRoot: 'chat-root'
+      };
+    </script>
+    <script src="./chat-widget.js"></script>
+    <script>
+      window.ChatWidget.init();
+    </script>
+    
+    <div style="max-width: 600px; padding: 16px;">
+      <h2>Contenu de test</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non massa ut sapien posuere pulvinar. Duis consequat, nibh a tincidunt convallis, nisi erat iaculis nisi, nec iaculis erat elit eu nulla.</p>
+      <p>Nam nec suscipit ex. Suspendisse nec tortor volutpat, accumsan justo in, gravida lorem. Integer porta efficitur ipsum, non pulvinar est facilisis et.</p>
+      <p>Morbi eget turpis in justo tincidunt porttitor. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi.</p>
+      <p>Scroll down…</p>
+      <p style="margin-top: 800px;">Fin de la page de test.</p>
+    </div>
+  </body>
+</html>

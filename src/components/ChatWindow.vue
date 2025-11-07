@@ -102,9 +102,9 @@ const connectWebSocket = () => {
             if (ws.value && ws.value.readyState === WebSocket.OPEN) {
                 ws.value.send(JSON.stringify({
                     session_id: sessionInfo.value.sessionId,
-                    model_name: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+                    model_name: 'anthropic.claude-sonnet-4-20250514-v1:0',
                     type: 'ping',
-                    workspace_id: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
+                        workspace_id: window.CHAT_WIDGET_CONFIG?.workspaceId || import.meta.env.VITE_WORKSPACE_ID || 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
                 }))
             }
         }, 30000) // Send ping every 30 seconds
@@ -163,6 +163,12 @@ const connectWebSocket = () => {
                 aiStreamingResponse.value = ''
                 inCodeBlock.value = false
                 
+                // Clear any pending timeout
+                if (responseTimeout) {
+                    clearTimeout(responseTimeout)
+                    responseTimeout = null
+                }
+                
                 // Reset buffer for next response
                 answerBuffer.value = new AnswerBuffer()
             }
@@ -178,6 +184,13 @@ const connectWebSocket = () => {
         isConnected.value = false
         if (awaitingFullResponse.value) {
             awaitingFullResponse.value = false
+            
+            // Clear any pending timeout
+            if (responseTimeout) {
+                clearTimeout(responseTimeout)
+                responseTimeout = null
+            }
+            
             chatHistory.value.push({
                 sessionId: sessionInfo.value.sessionId,
                 responseIa: translations.aiResponseError,
@@ -201,6 +214,12 @@ const connectWebSocket = () => {
         // Reset state if closed during a response
         if (awaitingFullResponse.value) {
             awaitingFullResponse.value = false
+            
+            // Clear any pending timeout
+            if (responseTimeout) {
+                clearTimeout(responseTimeout)
+                responseTimeout = null
+            }
             
             // Add a message indicating the connection was lost
             chatHistory.value.push({
@@ -263,10 +282,19 @@ const displayChatWIndow = () => {
     scrollToBottomOfChat('instant')
 }
 
+// Riferimento al DOM root del componente per Shadow DOM compatibility
+const componentRoot = ref(null)
+
 const scrollToBottomOfChat = async (behavior) => {
-    const chat = document.getElementById('chat')
+    // Fix per Shadow DOM: usa il ref al root element invece di document.getElementById
+    // che cerca nel document globale e non funziona in Shadow DOM
     await nextTick()
-    if (chat) chat.lastElementChild.scrollIntoView({ behavior, block: "end" })
+    if (!componentRoot.value) return
+    
+    const chat = componentRoot.value.querySelector('#chat')
+    if (chat && chat.lastElementChild) {
+        chat.lastElementChild.scrollIntoView({ behavior, block: "end" })
+    }
 }
 
 const addCTA = () => {
@@ -400,23 +428,48 @@ const sendMessage = async (content) => {
         // Initialize a new answer buffer and reset state
         answerBuffer.value = new AnswerBuffer()
         inCodeBlock.value = false
+        
+        // Set a timeout to prevent infinite waiting
+        responseTimeout = setTimeout(() => {
+            if (awaitingFullResponse.value) {
+                console.warn('Response timeout - no response received within 30 seconds')
+                awaitingFullResponse.value = false
+                aiStreamingResponse.value = ''
+                chatHistory.value.push({
+                    sessionId: sessionInfo.value.sessionId,
+                    responseIa: translations.timeoutError || "The response took too long. Please try again.",
+                    dateCreated: new Date(),
+                    type: 'response',
+                    isComplete: true
+                })
+                scrollToBottomOfChat('smooth')
+            }
+        }, 30000) // 30 seconds timeout
 
         try {
             // First, send the message via WebSocket for streaming
             if (ws.value && ws.value.readyState === WebSocket.OPEN) {
+                console.log('Sending message via WebSocket...')
                 const wsPayload = {
                     content: payload.content,
                     session_id: sessionInfo.value.sessionId,
-                    model_name: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+                    model_name: 'anthropic.claude-sonnet-4-20250514-v1:0',
                     type: 'question',
-                    workspace_id: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
+                    workspace_id: window.CHAT_WIDGET_CONFIG?.workspaceId || import.meta.env.VITE_WORKSPACE_ID || 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f'
                 }
+                console.log('WebSocket payload:', wsPayload)
                 ws.value.send(JSON.stringify(wsPayload))
             } else {
-                console.error('WebSocket not connected')
+                console.error('WebSocket not connected - readyState:', ws.value?.readyState)
                 
                 // Try to reconnect
                 connectWebSocket()
+                
+                // Clear any pending timeout
+                if (responseTimeout) {
+                    clearTimeout(responseTimeout)
+                    responseTimeout = null
+                }
                 
                 // Add a message indicating connection issues
                 chatHistory.value.push({
@@ -433,10 +486,13 @@ const sendMessage = async (content) => {
 
             // In parallel, make the POST request to /ask endpoint to get proposals
             try {
+                console.log('Sending POST request to /ask endpoint for proposals...')
                 const askResponse = await sendQuestion(payload.content, sessionInfo.value.sessionId)
+                console.log('POST /ask response received:', askResponse)
                 
                 // Handle the response from /ask - set proposals when they're ready
                 if (askResponse && askResponse.proposals && askResponse.proposals.length > 0) {
+                    console.log('Proposals received:', askResponse.proposals)
                     // Save the proposals for suggestion buttons - we'll display them when the response is complete
                     if (!awaitingFullResponse.value) {
                         // If response is already complete, show proposals
@@ -446,15 +502,62 @@ const sendMessage = async (content) => {
                         // We'll set this in the WebSocket's completion handler
                         pendingProposals = askResponse.proposals
                     }
+                } else {
+                    console.log('No proposals received or proposals array is empty')
                 }
             } catch (proposalError) {
-                console.error('Error fetching proposals:', proposalError)
+                console.error('Error fetching proposals from /ask endpoint:', proposalError)
+                
+                // Log detailed error information for debugging
+                if (proposalError.status) {
+                    console.error('HTTP Status:', proposalError.status)
+                }
+                if (proposalError.response) {
+                    console.error('Response object:', proposalError.response)
+                }
+                if (proposalError.data) {
+                    console.error('Error data:', proposalError.data)
+                }
+                
                 // Continue without proposals - this shouldn't stop the main conversation
+                // Only show error to user if WebSocket is also not working
+                // Check the actual WebSocket connection state, not the response state
+                if (isConnected.value && ws.value?.readyState === WebSocket.OPEN) {
+                    console.log('WebSocket is connected and working, continuing without proposals')
+                    // WebSocket is working, just continue without proposals - no error message to user
+                } else {
+                    console.log('WebSocket is also not connected, showing error to user')
+                    // WebSocket is not working either, show error to user
+                    awaitingFullResponse.value = false
+                    aiStreamingResponse.value = ''
+                    
+                    // Clear any pending timeout
+                    if (responseTimeout) {
+                        clearTimeout(responseTimeout)
+                        responseTimeout = null
+                    }
+                    
+                    chatHistory.value.push({
+                        sessionId: sessionInfo.value.sessionId,
+                        responseIa: translations.connectionError || "I'm having trouble connecting to the service. Please try again in a moment.",
+                        dateCreated: new Date(),
+                        type: 'response',
+                        isComplete: true
+                    })
+                    scrollToBottomOfChat('smooth')
+                }
             }
         } catch (error) {
             console.error('Error handling message:', error)
             awaitingFullResponse.value = false
             aiStreamingResponse.value = ''
+            
+            // Clear any pending timeout
+            if (responseTimeout) {
+                clearTimeout(responseTimeout)
+                responseTimeout = null
+            }
+            
             chatHistory.value.push({
                 sessionId: sessionInfo.value.sessionId,
                 responseIa: translations.aiResponseError,
@@ -468,6 +571,7 @@ const sendMessage = async (content) => {
 
 // Keep track of pending proposals to show when response completes
 let pendingProposals = null
+let responseTimeout = null
 
 watch(chatHistory.value, async () => {
     setChatHistory(chatHistory.value)
@@ -500,18 +604,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-
+  <div ref="componentRoot">
     <Transition 
         enter-active-class="transition-opacity duration-1000"
         leave-active-class="transition-opacity duration-300"
         enter-from-class="opacity-0"
         leave-to-class="opacity-0"
     >
-        <div v-if="!open" class="fixed bottom-4 right-4 bg-black border-gray-dark border-8 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center"
-             style="position: fixed !important; bottom: 16px !important; right: 16px !important; z-index: 999999 !important; font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important; font-size: 12px !important; pointer-events: auto !important;">
-            <button @click="openWindow()" style="all: unset; cursor: pointer !important; pointer-events: auto !important; font-family: inherit !important; font-size: inherit !important;">
+        <div v-if="!open" class="fixed bottom-3 right-4 bg-black border-gray-800 border-4 rounded-full w-16 h-16 md:w-20 md:h-20 flex justify-center items-center">
+            <button class="bg-transparent border-transparent flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full p-0 font-PeugeotNew font-PeugeotNewBold" @click="openWindow()">
                 <div>
-                    <GeniusIcon class="mt-2"/>
+                    <GeniusIcon class="w-14 h-14 ml-1 mt-1"/>
                 </div>
             </button>
         </div>
@@ -522,19 +625,19 @@ onUnmounted(() => {
         enter-from-class="opacity-0 translate-y-full"
         leave-to-class="opacity-0 translate-y-full"
     >
-        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-dynamic md:w-[375px] md:h-[640px] overflow-hidden peugeot-widget"
-             :style="{ maxHeight: '100vh', position: 'fixed !important', bottom: '0px !important', right: '0px !important', zIndex: '999998 !important', pointerEvents: 'auto !important' }">
+        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-dynamic md:w-[375px] md:h-[640px] overflow-hidden"
+  :style="{ maxHeight: '100vh' }">
             <div class="flex justify-between w-full h-[90px] px-5 bg-black md:rounded-t-2xl">
                 <button 
                     @click="goToMenu()" 
                     :disabled="awaitingFullResponse"
-                    class="flex items-center"
+                    class="bg-transparent border-transparent flex items-center"
                     :class="awaitingFullResponse ? 'opacity-40 cursor-not-allowed' : ''"
                 >
                     <BackArrowIcon />
                     <p class="text-white text-xs font-PeugeotNew ml-2">{{ translations.Menu.label }}</p>
                 </button>
-                <button @click="closeWindow()" class="z-20 relative">
+                <button @click="closeWindow()" class="bg-transparent border-transparent z-20 relative">
                     <XIcon/>
                 </button>
             </div>
@@ -641,12 +744,12 @@ onUnmounted(() => {
                 v-model="inputValue"
                 :disabled="awaitingFullResponse"
                 type="text"
-                class="rounded-full w-full h-[48px] font-PeugeotNew text-xs text-gray-900 focus:border-transparent focus:outline-none pl-3 pr-12"
+                class="rounded-full w-full h-[48px] font-PeugeotNew text-xs text-gray-900 border-transparent focus:outline-none pl-3 pr-12"
                 :style="{ color: '#111827' }"
                 :placeholder="translations.inputPlaceholder"
                 @keyup.enter="sendMessage()"
                 />
-                <button v-if="inputValue !=''" @click="sendMessage()" class="absolute top-3 tall:top-4 right-6 border-0 bg-transparent cursor-pointer"> 
+                <button v-if="inputValue !=''" @click="sendMessage()" class="absolute top-3dot5 tall:top-4 right-6 border-transparent bg-transparent cursor-pointer"> 
                     <SendIcon />
                 </button> 
                 <Transition 
@@ -659,7 +762,7 @@ onUnmounted(() => {
                         v-if="!displayMenu && !displayBlockDetails && chatHistory.length"
                         :disabled="awaitingFullResponse"
                         @click="initSession()"
-                        class="flex w-full pt-2 justify-center items-center"
+                        class="flex w-full pt-2 border-transparent bg-transparent justify-center items-center"
                         :class="awaitingFullResponse ? 'opacity-20 cursor-not-allowed' : ''"
                     >
                         <p class="text-white text-xs underline font-PeugeotNew mr-2">
@@ -685,6 +788,7 @@ onUnmounted(() => {
             </div>
         </div>
     </Transition>
+  </div>
 </template>
 
 <style scoped>
@@ -742,8 +846,15 @@ onUnmounted(() => {
 }
 
 .markdown-content :deep(a) {
-    color: #3b82f6;
+    color: #66b3ff;
     text-decoration: underline;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.markdown-content :deep(a:hover) {
+    color: #99ccff;
+    text-decoration: none;
 }
 
 .markdown-content :deep(strong) {

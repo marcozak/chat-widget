@@ -58,13 +58,13 @@ const userInfo = getUserInfo()
                     <button
                     v-for="(block, index) in translations.Menu.blocks"
                     :key="index"
-                    class="flex flex-row items-center justify-start gap-2 px-2 py-3 rounded-3xl bg-blue-gray min-h-[64px]"
+                    class="flex flex-row items-center justify-start gap-2 px-2 py-3 rounded-3xl border-transparent bg-blue-gray min-h-[64px]"
                     @click="$emit('blockCliked', Number(index))"
                     >
                     <div class="bg-blue rounded-full h-[36px] w-[36px] flex justify-center items-center shrink-0">
                         <component :is="getIcon(block.icon)" />
                     </div>
-                    <p class="font-PeugeotNewBold text-white text-left text-[9px] sm:text-[10px] leading-tight break-words max-w-[110px]">
+                    <p class="font-PeugeotNewBold text-white text-left text-[10px] leading-3 break-words max-w-[110px]">
                         {{ block.label }}
                     </p>
                     </button>
