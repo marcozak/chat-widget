@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peugeot EV Chatbot - Dev</title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      header {
+        width: 100%;
+        padding: 24px 0;
+        background-color: #111;
+        color: #00aaff;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: 0.5px;
+      }
+
+      #instructions {
+        max-width: 480px;
+        text-align: center;
+        font-size: 14px;
+        color: #bbb;
+        margin: 40px 16px;
+      }
+
+      footer {
+        margin-top: auto;
+        padding: 16px;
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Peugeot EV Chatbot - Development Mode</h1>
+    </header>
+
+    <div id="instructions">
+      Page de développement du widget chatbot Peugeot.<br />
+      Le widget devrait apparaître en bas à droite.<br />
+      <strong>🔧 Mode développement - Hot reload activé</strong>
+    </div>
+
+    <footer>
+      Version de développement – usage interne uniquement
+    </footer>
+
+    <script>
+      window.CHAT_WIDGET_CONFIG = {
+        assetBaseUrl: 'https://ev-chat-widget-hosting-1da93b33.s3.eu-west-1.amazonaws.com/images',
+        apiBaseUrl: 'https://chat.bsn0027990-dev-afvgcp1e.np.stla-aws.net',
+        workspaceId: 'f5e7f2c7-3f86-4972-9793-52ba603c9e3f',
+        themeColor: '#00aaff',
+        position: 'bottom-right',
+        chatRoot: 'chat-root'
+      };
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

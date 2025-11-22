@@ -36,7 +36,7 @@ const blackListRegex = /(<[^>]+>|<[^>]>|<\/[^>]+>)/ig
 const refreshKey = ref(0)
 const displayCarousel = ref(false)
 
-const previousPanel = ref('chat') 
+const previousPanel = ref('chat')
 
 // Streaming response state
 const aiStreamingResponse = ref('')
@@ -625,8 +625,9 @@ onUnmounted(() => {
         enter-from-class="opacity-0 translate-y-full"
         leave-to-class="opacity-0 translate-y-full"
     >
-        <div v-if="open" class="flex flex-col justify-between items-center fixed bottom-0 right-0 md:bottom-1 md:right-4 w-screen h-dynamic md:w-[375px] md:h-[640px] overflow-hidden"
-  :style="{ maxHeight: '100vh' }">
+        <div v-if="open" 
+             id="chat-widget-container"
+             class="flex flex-col justify-between items-center overflow-hidden">
             <div class="flex justify-between w-full h-[90px] px-5 bg-black md:rounded-t-2xl">
                 <button 
                     @click="goToMenu()" 
@@ -667,7 +668,7 @@ onUnmounted(() => {
                                         class="mb-1 mt-auto ml-5 w-[50px] h-[50px]"
                                     />
                                     <div 
-                                        class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10 text-left"
+                                        class="rounded-t-2xl p-3 mb-1 break-normal max-w-64 xs:max-w-72 sm:max-w-64 min-h-10 text-left"
                                         :class="message.content ? 'bg-white text-gray-900 rounded-bl-2xl mr-5 ml-auto' : 'bg-blue text-white rounded-br-2xl ml-3 mr-auto'"
                                     >
                                         <div 
@@ -709,7 +710,7 @@ onUnmounted(() => {
                                     class="mb-1 mt-auto ml-5 w-[50px] h-[50px]"
                                 />
                                 <div 
-                                    class="rounded-t-2xl p-3 mb-1 break-normal w-64 xs:w-72 sm:w-64 min-h-10 text-left"
+                                    class="rounded-t-2xl p-3 mb-1 break-normal max-w-64 xs:max-w-72 sm:max-w-64 min-h-10 text-left"
                                     :class="'bg-blue text-white rounded-br-2xl ml-3 mr-auto'"
                                 >
                                     <div v-if="aiStreamingResponse" class="font-PeugeotNew text-xs markdown-content" v-html="formattedStreamingResponse"></div>
@@ -772,7 +773,7 @@ onUnmounted(() => {
                     </button>
                 </Transition>
             </div>
-            <div v-if="displayMenu" class="absolute z-10 top-0 w-screen md:w-[375px] bg-gray-dark md:rounded-2xl h-full">
+            <div v-if="displayMenu" class="absolute z-10 top-0 w-full bg-gray-dark md:rounded-2xl h-full">
                 <Menu 
                     @block-cliked="handleBlockClicked"
                     @cta-clicked="handleCtaClicked"
@@ -781,7 +782,7 @@ onUnmounted(() => {
             <!-- Carousel Overlay -->
             <div
                 v-if="displayCarousel"
-                class="absolute z-10 top-0 w-screen h-full md:w-[375px] md:h-[640px] bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"    
+                class="absolute z-10 top-0 w-full h-full bg-gray-dark md:rounded-2xl overflow-y-auto no-scrollbar"    
                 :style="{ height: 'calc(100% - 90px)' }"
             >
             <Carousel @go-back="goBackFromCarousel" />

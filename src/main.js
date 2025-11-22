@@ -48,12 +48,8 @@ async function mountPeugeotWidgetAsync(config = {}) {
     // 3. Prepara e aggiungi CSS al Shadow DOM
     const allCss = tailwindCss + '\n\n' + shadowCss;
     
-    // Converti unità viewport in px per compatibilità Shadow DOM
-    let processedCss = allCss
-      .replace(/100vw/g, '375px')
-      .replace(/100vh/g, '640px')
-      .replace(/(\d+)vw/g, (match, p1) => Math.round(p1 * 3.75) + 'px')
-      .replace(/(\d+)vh/g, (match, p1) => Math.round(p1 * 6.4) + 'px');
+    // CSS senza conversioni - manteniamo vw/vh per responsiveness
+    const processedCss = allCss;
     
     const style = document.createElement('style');
     style.textContent = `
